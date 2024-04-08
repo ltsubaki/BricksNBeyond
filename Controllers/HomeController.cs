@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using IntexQueensSlay.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntexQueensSlay.Controllers
