@@ -41,11 +41,18 @@
         </nav>
     </header>
 
-    <div>
-        <main role="main" class="pb-3" style="padding-top: 100px;">
-            @RenderBody()
-        </main>
+    <div class="row m-1 p-1">
+     @*    <div class="col-3">
+            <vc:category-menu />
+        </div> *@
+
+        <div class="container">
+            <main role="main" class="pb-3" style="padding-top: 100px;">
+                @RenderBody()
+            </main>
+        </div>
     </div>
+    
 
     <footer class="border-top footer text-muted" style="background-color: #DD1A21; color: white">
         <div class="container">
