@@ -8,7 +8,7 @@
 
         public int? Year { get; set; }
 
-        public string? NumParts { get; set; }
+        public int? NumParts { get; set; }
 
         public double? Price { get; set; }
 
