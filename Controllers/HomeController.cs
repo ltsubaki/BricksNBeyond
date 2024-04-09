@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using IntexQueensSlay.Models;
+using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,21 +23,62 @@ namespace IntexQueensSlay.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index(int pageNum, string? projectType)
+        public IActionResult Index(int pageNum, string? Category1)
         {
-            var Customers1 = _repo.Customers.ToList();
-            return View(Customers1);
+            int pageSize = 7;
+
+            //Bundling up multiple models to pass!
+            var blah = new ProductListViewModel
+            {
+
+                Products = _repo.Products
+                    .Where(x => x.Category1 == Category1 || Category1 == null)
+                    .OrderBy(x => x.Name)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = Category1 == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == Category1).Count()
+                },
+
+                CurrentProductCat = Category1
+            };
+
+            return View(blah);
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
-        public IActionResult Products()
+        public IActionResult Products(int pageNum, string? Category1)
         {
-            var productData = _repo.Products;
+            int pageSize = 15;
 
-            return View(productData);
+            //Bundling up multiple models to pass!
+            var blah = new ProductListViewModel
+            {
+
+                Products = _repo.Products
+                    .Where(x => x.Category1 == Category1 || Category1 == null)
+                    .OrderBy(x => x.Name)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = Category1 == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == Category1).Count()
+                },
+
+                CurrentProductCat = Category1
+            };
+
+            return View(blah);
         }
 
         public IActionResult AboutUs()

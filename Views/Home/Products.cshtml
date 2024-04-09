@@ -1,4 +1,9 @@
-﻿@model IQueryable<Product>
+﻿@using IntexQueensSlay.Models.ViewModels
+
+@* @model IQueryable<Product> *@
+
+@model ProductListViewModel
+
 @* @model List<Product> *@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -8,60 +13,21 @@
         </div>
     </div>
 </header>
-<!-- Section-->
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card h-100">
-                    
-                    @foreach (Product p in Model)
-                    {
-                       @*  <div class="text-center">
-                            <ul>
-                                <li>Name: @p.Name</li>
-                                <li>Year: @p.Year</li>
-                                <li>Number of Parts: @p.NumParts</li>
-                                <li>Price: @p.Price</li>
-                                <li>Image: @p.ImgLink</li>
-                                <li>Primary Color: @p.PrimaryColor</li>
-                                <li>Other Color: @p.SecondaryColor</li>
-                                <li>Description: @p.Description</li>
-                                <li>Category: @p.Category1</li>
-                                <li>Cat 2 Country: @p.Category2</li>
-                                <li>Cat 3: @p.Category3</li>
-                           
 
-                            </ul>
-                        </div> *@
-              
-                    <!-- Product image-->
-                        <img class="card-img-top" src="@p.ImgLink" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                             <li class="fw-bolder">Name: @p.Name</li>
-                            <!-- Product price-->
-                             <li>Price: $ @p.Price</li>
-                        </div>
-                            <li>Year: @p.Year</li>
-                            <li>Number of Parts: @p.NumParts</li>
-                            <li>Primary Color: @p.PrimaryColor</li>
-                            <li>Other Color: @p.SecondaryColor</li>
-                            <li>Description: @p.Description</li>
-                            <li>Category: @p.Category1</li>
-                            <li>Cat 2 : @p.Category2</li>
-                            <li>Cat 3: @p.Category3</li>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                    </div>
-                    }
-                </div>
-            </div>
-           
+<div class="row row-cols-1 row-cols-md-3 g-4 pt-4">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col mb-4">
+            <!-- Add margin bottom to create space between columns -->
+            <partial name="productsummary" model="product" />
+        </div>
+    }
+</div>
+
+<div page-model="@Model.PaginationInfo" page-action="Products" page-class-enabled="true" page-class="btn"
+     page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
+     page-url-productCat="@Model.CurrentProductCat" class="btn-group pull-right m-1"></div>
+
            @*  <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Sale badge-->

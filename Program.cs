@@ -1,5 +1,6 @@
 using IntexQueensSlay.Data;
 using IntexQueensSlay.Models;
+using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,6 +54,10 @@ namespace IntexQueensSlay
                 googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
             });
 
+            builder.Services.AddRazorPages();
+
+            builder.Services.AddSession();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -70,14 +75,18 @@ namespace IntexQueensSlay
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute("pagenumandcat", "{productCat}/{pageNum}", new { Controller = "Home", action = "Products" });
+            app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Products", pageNum = 1 });
+            app.MapControllerRoute("productCat", "{productCat}", new { Controller = "Home", action = "Products", pageNum = 1 });
+            app.MapDefaultControllerRoute();
+
             app.MapRazorPages();
 
             app.Run();

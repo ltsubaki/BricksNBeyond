@@ -1,0 +1,56 @@
+﻿@using IntexQueensSlay.Infrastructure
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Product
+
+<div class="card h-100 mb-3"> <!-- Add margin bottom to create space between cards -->
+    <!-- Product image-->
+    <img class="card-img-top" src="@Model.ImgLink" alt="..." style="height: auto; max-height: 200px; width: 100%; object-fit: contain;" />
+    <!-- Product details-->
+    <div class="card-body p-4" style="height: calc(100% - 200px);">
+        <div class="text-center">
+            <!-- Product name-->
+            <li class="fw-bolder">Name: @Model.Name</li>
+            <!-- Product price-->
+            <li>Price: $ @Model.Price</li>
+        </div>
+        <li>Year: @Model.Year</li>
+        <li>Number of Parts: @Model.NumParts</li>
+        <li>Primary Color: @Model.PrimaryColor</li>
+        <li>Other Color: @Model.SecondaryColor</li>
+        <li>Category: @Model.Category1</li>
+        <li>Cat 2 : @Model.Category2</li>
+        <li>Cat 3: @Model.Category3</li>
+    </div>
+    <form id="@Model.ProductId" method="post" asp-page="/ProductDetails">
+        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <button type="submit" class="text-center btn btn-outline-dark mt-auto">See Product Details</button>
+    </form>
+</div>
+
+
+
+@* 
+<div class="card m-1 p-1">
+	<h4>
+		@Model.Name
+	</h4>
+	<ul>
+		<li>Project Type: @Model.ProjectType</li>
+		<li>Regional Program: @Model.ProgramName</li>
+		<li>Impact: @Model.ProjectImpact served</li>
+		<li>Installation: @Model.ProjectInstallation</li>
+		<li>Project Phase: @Model.ProjectPhase</li>
+	</ul>
+	<form id=@Model.ProjectId method="post" asp-page="/Cart">
+		<input type="hidden" asp-for="ProjectId" />
+		<input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+		<button type="submit" class="btn-outline-success btn-sm float-end">Donate</button>
+	</form>
+
+</div> *@
