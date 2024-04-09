@@ -23,31 +23,11 @@ namespace IntexQueensSlay.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index(int pageNum, string? Category1)
+        public IActionResult Index()
         {
-            int pageSize = 7;
 
-            //Bundling up multiple models to pass!
-            var blah = new ProductListViewModel
-            {
 
-                Products = _repo.Products
-                    .Where(x => x.Category1 == Category1 || Category1 == null)
-                    .OrderBy(x => x.Name)
-                    .Skip((pageNum - 1) * pageSize)
-                    .Take(pageSize),
-
-                PaginationInfo = new PaginationInfo
-                {
-                    CurrentPage = pageNum,
-                    ItemsPerPage = pageSize,
-                    TotalItems = Category1 == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == Category1).Count()
-                },
-
-                CurrentProductCat = Category1
-            };
-
-            return View(blah);
+            return View();
         }
 
         public IActionResult Privacy()

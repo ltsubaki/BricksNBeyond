@@ -82,6 +82,9 @@ namespace IntexQueensSlay
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapControllerRoute("AboutUs", "AboutUs", new { Controller = "Home", action = "AboutUs" });
+            app.MapControllerRoute("Index", "Index", new { Controller = "Home", action = "Index" });
+            //app.MapControllerRoute("Secret", "Secret", new { Controller = "Home", action = "Secret" });
             app.MapControllerRoute("pagenumandcat", "{productCat}/{pageNum}", new { Controller = "Home", action = "Products" });
             app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Products", pageNum = 1 });
             app.MapControllerRoute("productCat", "{productCat}", new { Controller = "Home", action = "Products", pageNum = 1 });
