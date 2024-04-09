@@ -1,4 +1,5 @@
 using IntexQueensSlay.Data;
+using IntexQueensSlay.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,16 @@ namespace IntexQueensSlay
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+            builder.Services.AddDbContext<LegoContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration["ConnectionStrings:LegoConnection"]);
+            });
+
+            builder.Services.AddScoped<ISlayRepository, EFSlayRepository>();
+            //builder.Services.AddRazorPages();
+            //builder.Services.AddDistributedMemoryCache();
+            //builder.Services.AddSession();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
