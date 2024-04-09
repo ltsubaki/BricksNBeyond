@@ -9,7 +9,7 @@ namespace IntexQueensSlay.Models
         [Column(Order = 1)] // This sets the order of composite keys (optional)
         public int transactionId { get; set; }
 
-        [Key]
+        // [Key] >> had to comment this out for it to run, can only have one key??? 
         [Column(Order = 2)] // This sets the order of composite keys (optional)
         public int productId { get; set; }
         public int quantity { get; set; }
