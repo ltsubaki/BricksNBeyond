@@ -68,7 +68,7 @@ namespace IntexQueensSlay.Controllers
                     .OrderBy(x => x.Name)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
-
+                
                 PaginationInfo = new PaginationInfo
                 {
                     CurrentPage = pageNum,
