@@ -2,6 +2,7 @@ using System.Diagnostics;
 using IntexQueensSlay.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Versioning;
 
 namespace IntexQueensSlay.Controllers
 {
@@ -39,6 +40,13 @@ namespace IntexQueensSlay.Controllers
             return View(productData);
         }
 
+        public IActionResult CRUDProducts()
+        {
+            var productData = _repo.Products;
+
+            return View(productData);
+        }
+
         public IActionResult AboutUs()
         {
             return View();
@@ -50,9 +58,37 @@ namespace IntexQueensSlay.Controllers
             return View();
         }
 
-        public IActionResult ProductDetails()
+        public IActionResult EditProduct(int id)
         {
-            return View();
+            var product = _repo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        public IActionResult RemoveProduct(int id)
+        {
+            var product = _repo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        public IActionResult ProductDetails(int id)
+        {
+            var product = _repo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
 
         public IActionResult OrderConfirmation()

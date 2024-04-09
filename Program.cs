@@ -23,9 +23,13 @@ namespace IntexQueensSlay
             });
 
             builder.Services.AddScoped<ISlayRepository, EFSlayRepository>();
-            //builder.Services.AddRazorPages();
-            //builder.Services.AddDistributedMemoryCache();
-            //builder.Services.AddSession();
+            builder.Services.AddRazorPages();
+
+            builder.Services.AddScoped<Cart>();
+
+
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -69,8 +73,10 @@ namespace IntexQueensSlay
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            
+            app.UseSession();
 
-            app.UseRouting();
+            app.UseRouting();            
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -1,4 +1,6 @@
-﻿namespace IntexQueensSlay.Models
+﻿using static IntexQueensSlay.Models.EFSlayRepository;
+
+namespace IntexQueensSlay.Models
 {
     public class EFSlayRepository : ISlayRepository
     {
@@ -13,6 +15,11 @@
         public IQueryable<Product> Products => _context.Products;
         public IQueryable<LineItem> LineItems => _context.LineItems;
         public IQueryable<Order> Orders => _context.Orders;
+
+        public Product GetProductById(int id)
+        {
+            return _context.Products.Find(id);
+        }
 
     }
 }
