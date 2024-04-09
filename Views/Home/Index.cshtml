@@ -3,6 +3,19 @@
 }
 @model IEnumerable<Customer>
 
+<div class="text-center">
+    <h1 class="display-4">Welcome to Build & Beyond!</h1>
+    <p>Start your lego journey with us</p>
+</div>
+
+<h3>Recommended Products</h3>
+
+<br />
+<br />
+
+<div style="width: auto; display: inline-block;">
+    <a class="nav-link text-dark btn btn-primary btn-sm" asp-area="" asp-controller="Home" asp-action="Products">View All Products</a>
+</div>
 @foreach (var c in Model)
 {
     <div class="text-center">
