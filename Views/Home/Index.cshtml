@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model List<Customer>
+@* @model List<Customer> *@
 
 <div class="container">
     <div class="text-center">
@@ -18,15 +18,18 @@
         <a class="nav-link text-dark btn btn-primary btn-sm" asp-area="" asp-controller="Home" asp-action="Products">View All Products</a>
     </div>
 </div>
-@foreach (Customer c in Model)
+@* @foreach (Customer c in Model)
 {
     <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <ul>
         <li>First: @c.FirstName</li>
         <li>Last: @c.LastName</li>
+        <li>Birthday: @c.BirthDate</li>
+        <li>Residential Country: @c.ResCountry</li>
+        <li>Gender: @c.Gender</li>
+        <li>Age: @c.Age</li>
+
     </ul>
     </div>
 }
-
+ *@
