@@ -72,9 +72,15 @@ namespace IntexQueensSlay.Controllers
             return View();
         }
 
-        public IActionResult ProductDetails()
+        public IActionResult ProductDetails(int id)
         {
-            return View();
+            var product = _repo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
 
         public IActionResult OrderConfirmation()

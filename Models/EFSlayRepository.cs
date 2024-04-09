@@ -14,5 +14,10 @@
         public IQueryable<LineItem> LineItems => _context.LineItems;
         public IQueryable<Order> Orders => _context.Orders;
 
+        public Product GetProductById(int id)
+        {
+            return _context.Products.Find(id);
+        }
+
     }
 }
