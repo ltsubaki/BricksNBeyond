@@ -7,6 +7,6 @@
         public IQueryable<LineItem> LineItems { get; }
         public IQueryable<Order> Orders { get; }
 
-
+        Product GetProductById(int id);
     }
 }
