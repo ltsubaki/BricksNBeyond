@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="~/IntexQueensSlay.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+
+    <header style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
@@ -39,13 +40,14 @@
             </div>
         </nav>
     </header>
+
     <div>
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="padding-top: 100px;">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="background-color: #DD1A21; color: white">
         <div class="container">
             &copy; 2024 - IntexQueensSlay - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
