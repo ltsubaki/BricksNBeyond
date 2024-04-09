@@ -1,18 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace IntexQueensSlay.Models
+﻿namespace IntexQueensSlay.Models
 {
-    public class Customer
+    public partial class Customer
     {
-        [Key]
-        public int customerId {  get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string birthDate { get; set; }
-        public string resCountry { get; set; }
-        public string gender { get; set; }
-        private string username { get; set; }
-        private string password { get; set; }
-        public bool admin { get; set; }
+        public int CustomerId { get; set; }
+
+        public string? FirstName { get; set; }
+
+        public string? LastName { get; set; }
+
+        public string? BirthDate { get; set; }
+
+        public string? ResCountry { get; set; }
+
+        public string? Gender { get; set; }
+
+        public int? Age { get; set; }
     }
 }

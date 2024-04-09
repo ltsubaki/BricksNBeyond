@@ -1,10 +1,10 @@
 ﻿namespace IntexQueensSlay.Models
 {
-    public class EFSlayRepository: ISlayRepository
+    public class EFSlayRepository : ISlayRepository
     {
         private LegoContext _context;
 
-        public EFSlayRepository(LegoContext temp) 
+        public EFSlayRepository(LegoContext temp)
         {
             _context = temp;
         }
