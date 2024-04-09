@@ -22,7 +22,7 @@ namespace IntexQueensSlay.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNum, string? projectType)
         {
             var Customers1 = _repo.Customers.ToList();
             return View(Customers1);
