@@ -23,6 +23,16 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
+        public IActionResult Products()
+        {
+            return View();
+        }
+
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+
         [Authorize]
         public IActionResult Secrets()
         {
