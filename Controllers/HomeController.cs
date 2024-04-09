@@ -7,11 +7,19 @@ namespace IntexQueensSlay.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        private ISlayRepository _repo;
+
+        public HomeController(ISlayRepository temp)
         {
-            _logger = logger;
+            _repo = temp;
         }
 
         public IActionResult Index()
@@ -23,8 +31,35 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
+        public IActionResult Products()
+        {
+            var productData = _repo.Products;
+
+            return View(productData);
+        }
+
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+
         [Authorize]
         public IActionResult Secrets()
+        {
+            return View();
+        }
+
+        public IActionResult ProductDetails()
+        {
+            return View();
+        }
+
+        public IActionResult OrderConfirmation()
+        {
+            return View();
+        }
+
+        public IActionResult Checkout()
         {
             return View();
         }

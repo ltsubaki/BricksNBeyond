@@ -20,3 +20,34 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar-logo {
+    height: 50px;
+    width: auto;
+    padding: 5px; /* Add padding as needed */
+}
+
+/* Add this to your CSS file or inside a <style> tag in the <head> */
+.bg-blue {
+    background-color: #006CB7; /* Use any blue color you prefer */
+}
+
+.navbar-brand img {
+    margin-right: 10px; /* Adjust the spacing as needed */
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white !important;
+}
+
+    .navbar-light .navbar-nav .nav-link:hover {
+        color: #cccccc !important; /* Lighter shade for hover effect */
+    }
+
+/* Toggler icon color adjustment for better visibility */
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Change the border color if necessary */
+.border-bottom {
