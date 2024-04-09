@@ -24,7 +24,8 @@ namespace IntexQueensSlay.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var Customers1 = _repo.Customers.ToList();
+            return View(Customers1);
         }
 
         public IActionResult Privacy()

@@ -1,24 +1,32 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace IntexQueensSlay.Models
+﻿namespace IntexQueensSlay.Models
 {
-    public class Order
+    public partial class Order
     {
-        [Key]
-        public int transactionId {  get; set; }
-        [ForeignKey("customerId")]
-        public int customerId { get; set; }
-        public string date { get; set; }
-        public string weekDay { get; set; }
-        public string entryMode {  get; set; }
-        public float subtotal { get; set; }
-        public string transactionType { get; set; }
-        public string transCountry { get; set; }
-        public string shippingAddress { get; set; }
-        public string time {  get; set; }
-        public string bank {  get; set; }
-        public string cardType { get; set; }
-        public bool fraud { get; set; }
+        public int TransactionId { get; set; }
+
+        public int? CustomerId { get; set; }
+
+        public string? Date { get; set; }
+
+        public string? WeekDay { get; set; }
+
+        public int? Time { get; set; }
+
+        public string? EntryMode { get; set; }
+
+        public double? Subtotal { get; set; }
+
+        public string? TransactionType { get; set; }
+
+        public string? TransCountry { get; set; }
+
+        public string? ShippingAddress { get; set; }
+
+        public string? Bank { get; set; }
+
+        public string? CardType { get; set; }
+
+        public int? Fraud { get; set; }
     }
+
 }
