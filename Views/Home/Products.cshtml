@@ -1,0 +1,36 @@
+﻿@model IQueryable<Product>
+
+<h1>PRODUCTS</h1>
+@* 
+
+<div class="card card-outline-primary m-1 p-1">
+    <h3>
+        SLAY
+        <span class="badge rounded-pill bg-primary text-white float-end"><small>$@Model.price</small></span>
+    </h3>
+
+    @foreach (Product p in Model) 
+    {
+        <h3>@p.name</h3>
+        
+        <ul>
+            <li>Product ID: @p.productId</li>
+            <li>Year: @p.year</li>
+            <li>Image: @p.imgLink</li>
+            <li>Number of Parts: @p.numParts</li>
+            <li>Primary Color: @p.primaryColor</li>
+            <li>Secondary Color: @p.secondaryColor</li>
+            <li>Description: @p.description</li>
+            <li>Category: @p.category</li>
+            <li>Price: @p.price</li>
+        </ul>
+    }
+
+    
+
+    <form id=@Model.ProductID method="post" asp-page="/Cart">
+        <input type="hidden" asp-for="ProductID" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <button type="submit" class="btn-outline-success btn-sm float-end">BUY</button>
+    </form>
+</div> *@
