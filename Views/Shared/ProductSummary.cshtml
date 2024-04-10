@@ -26,11 +26,14 @@
         <li>Cat 2 : @Model.Category2</li>
         <li>Cat 3: @Model.Category3</li>
     </div>
-    <form id="@Model.ProductId" method="post" asp-page="/ProductDetails">
-        <input type="hidden" asp-for="ProductId" />
-        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <button type="submit" class="text-center btn btn-outline-dark mt-auto">See Product Details</button>
-    </form>
+    <div class="text-center mb-3">
+        <form id="@Model.ProductId" method="post" asp-controller="Home" asp-action="ProductDetails" asp-route-id="@Model.ProductId">
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="text-center btn btn-primary mt-auto">See Product Details</button>
+        </form>
+    </div>
+   
 </div>
 
 

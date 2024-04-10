@@ -3,24 +3,24 @@ using IntexQueensSlay.Models;
 
 namespace IntexQueensSlay.Components
 {
-    public class ProductCategoriesViewComponent : ViewComponent
+    public class PrimaryColorsViewComponent : ViewComponent
     {
         private ISlayRepository _slayRepo;
         //Constructor
-        public ProductCategoriesViewComponent(ISlayRepository temp)
+        public PrimaryColorsViewComponent(ISlayRepository temp)
         {
             _slayRepo = temp;
         }
         public IViewComponentResult Invoke()
         {
-            ViewBag.SelectedProductCat = RouteData?.Values["productCat"];
+            ViewBag.SelectedPrimaryColor = RouteData?.Values["primaryColor"];
 
-            var productCats = _slayRepo.Products
-                .Select(x => x.Category1)
+            var primaryColors = _slayRepo.Products
+                .Select(x => x.PrimaryColor)
                 .Distinct()
                 .OrderBy(x => x);
 
-            return View(productCats);
+            return View(primaryColors);
         }
     }
 }

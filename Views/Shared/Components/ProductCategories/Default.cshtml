@@ -9,8 +9,8 @@
 <div class="d-grid gap-2">
     <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Products" asp-route-productCat="" asp-route-pageNum="">Home</a>
 
-    @foreach (string p in Model ?? Enumerable.Empty<string>())
+    @foreach (string pc in Model ?? Enumerable.Empty<string>())
     {
-        <a class="btn @(p == ViewBag.SelectedProductCat ? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="Index" asp-route-productCat="@p" asp-route-pageNum="1">@p</a>
+        <a class="btn @(pc == ViewBag.SelectedProductCat ? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="Products" asp-route-productCat="@pc" asp-route-pageNum="1">@pc</a>
     }
 </div>

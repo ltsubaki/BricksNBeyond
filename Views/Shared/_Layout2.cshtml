@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="~/IntexQueensSlay.styles.css" asp-append-version="true" />
 </head>
 <body>
-
-    <header style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100;">
+    <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
@@ -41,7 +40,11 @@
         </nav>
     </header>
     <div class="row m-1 p-1">
-        <div class="container">
+        <div class="col-3">
+            <vc:product-cats />
+            <vc:primary-colors />
+        </div>
+        <div class="container col-9">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>

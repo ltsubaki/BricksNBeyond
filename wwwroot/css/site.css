@@ -23,8 +23,8 @@ body {
 
 .navbar-logo {
     height: auto;
-    width: 400px;
-    padding: 2px; /* Add padding as needed */
+    width: 300px;
+    padding: 5px; /* Add padding as needed */
 }
 
 /* Add this to your CSS file or inside a <style> tag in the <head> */

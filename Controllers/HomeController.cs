@@ -4,6 +4,7 @@ using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Versioning;
+using Microsoft.EntityFrameworkCore;
 
 namespace IntexQueensSlay.Controllers
 {
@@ -24,16 +25,26 @@ namespace IntexQueensSlay.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index(int pageNum, string? Category1)
+        public IActionResult Index()
         {
-            int pageSize = 7;
+
+
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Products(int pageNum, string? productCat, string? primaryColor)
+        {
+            int pageSize = 15;
 
             //Bundling up multiple models to pass!
             var blah = new ProductListViewModel
             {
-
                 Products = _repo.Products
-                    .Where(x => x.Category1 == Category1 || Category1 == null)
+                    .Where(x => (x.Category1 == productCat || productCat == null) && (x.PrimaryColor == primaryColor || primaryColor == null))
                     .OrderBy(x => x.Name)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
@@ -42,26 +53,37 @@ namespace IntexQueensSlay.Controllers
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = Category1 == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == Category1).Count()
+                    TotalItems = (productCat == null && primaryColor == null) ? _repo.Products.Count() :
+                         (productCat != null && primaryColor == null) ? _repo.Products.Where(x => x.Category1 == productCat).Count() :
+                         (productCat == null && primaryColor != null) ? _repo.Products.Where(x => x.PrimaryColor == primaryColor).Count() :
+                         _repo.Products.Where(x => x.Category1 == productCat && x.PrimaryColor == primaryColor).Count()
                 },
 
-                CurrentProductCat = Category1
+                CurrentProductCat = productCat,
+                CurrentPrimaryColor = primaryColor
             };
 
             return View(blah);
         }
 
-        public IActionResult Privacy()
+        public IActionResult AboutUs()
         {
             return View();
         }
-        public IActionResult Products(int pageNum, string? Category1)
-        {
-            int pageSize = 15;
 
-            //Bundling up multiple models to pass!
-            var blah = new ProductListViewModel
+        [Authorize]
+        public IActionResult Secrets()
+        {
+            return View();
+        }
+
+        public IActionResult ProductDetails(int id)
+        {
+            var product = _repo.GetProductById(id);
+            if (product == null)
             {
+                return NotFound();
+            }
 
                 Products = _repo.Products
                     .Where(x => x.Category1 == Category1 || Category1 == null)
@@ -75,11 +97,25 @@ namespace IntexQueensSlay.Controllers
                     ItemsPerPage = pageSize,
                     TotalItems = Category1 == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == Category1).Count()
                 },
+            return View(product);
+        }
 
-                CurrentProductCat = Category1
-            };
+        public IActionResult CRUDProducts()
+        {
+            var productData = _repo.Products;
 
-            return View(blah);
+            return View(productData);
+        }
+
+        public IActionResult EditProduct(int id)
+        {
+            var product = _repo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
 
         public IActionResult CRUDProducts()
@@ -90,12 +126,23 @@ namespace IntexQueensSlay.Controllers
         }
 
         public IActionResult AboutUs()
+        public IActionResult EditConfirmation()
         {
             return View();
         }
 
-        [Authorize]
-        public IActionResult Secrets()
+        public IActionResult RemoveProduct(int id)
+        {
+            var product = _repo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        public IActionResult AddProduct()
         {
             return View();
         }
@@ -131,11 +178,33 @@ namespace IntexQueensSlay.Controllers
             }
 
             return View(product);
+        public IActionResult RemoveConfirmation()
+        {
+            return View();
         }
 
         public IActionResult OrderConfirmation()
         {
             return View();
+        }
+
+        public IActionResult AddConfirmation()
+        {
+            return View();
+        }
+
+        public IActionResult ReviewOrders()
+        {
+            var orders = _repo.Orders.Where(o => o.Fraud == 1).Take(200).ToList();
+
+            return View(orders);
+        }
+
+        public IActionResult ManageAccounts()
+        {
+            var orders = _repo.Customers.Take(200).ToList();
+
+            return View(orders);
         }
 
         public IActionResult Checkout()

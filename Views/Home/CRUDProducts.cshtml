@@ -3,6 +3,64 @@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Administration</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Manage & Review</p>
+        </div>
+    </div>
+</header>
+
+<br />
+<div style="display: flex; justify-content: center; align-items: right; padding: 20px;">
+    <div class="form-group">
+        <a asp-action="AddProduct" class="btn btn-lg btn-primary">ADD PRODUCT</a>
+        <a asp-action="ReviewOrders" class="btn btn-lg btn-primary">REVIEW ORDERS</a>
+        <a asp-action="ManageAccounts" class="btn btn-lg btn-primary">MANAGE ACCOUNTS</a>
+    </div>
+</div>
+
+
+<!-- Section-->
+<section class="py-5">
+
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach (Product p in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="@p.ImgLink" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h4 class="fw-bolder">@p.Name</h4>
+                                <!-- Product price-->
+                                <h5>$ @p.Price</h5>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a asp-controller="Home" asp-action="EditProduct" asp-route-id="@p.ProductId" class="btn btn-outline-dark btn-primary mt-auto" style="color: white; margin-right: 10px">EDIT</a>
+                                <a asp-controller="Home" asp-action="RemoveProduct" asp-route-id="@p.ProductId" class="btn btn-outline-dark mt-auto" style="background-color:red; color: white; margin-left: 10px">REMOVE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+
+@*@model IQueryable<Product> 
+@model List<Product> 
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Shop in style</h1>
             <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
         </div>
@@ -32,8 +90,8 @@
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
-                                <a asp-controller="Home" asp-action="EditProduct" asp-route-id="@p.ProductId" class="btn btn-outline-dark mt-auto">EDIT</a>
-                                <a asp-controller="Home" asp-action="RemoveProduct" asp-route-id="@p.ProductId" class="btn btn-outline-dark mt-auto">REMOVE</a>
+                                <a asp-controller="Home" asp-action="EditProduct" asp-route-id="@p.ProductId" class="btn btn-outline-dark btn-primary mt-auto" style="color: white">EDIT</a>
+                                <a asp-controller="Home" asp-action="RemoveProduct" asp-route-id="@p.ProductId" class="btn btn-outline-dark mt-auto" style="background-color:red; color: white">REMOVE</a>
                             </div>
                         </div>
                     }
@@ -44,5 +102,4 @@
     </div>
     </div>
 </section>
-
-
+ *@

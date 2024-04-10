@@ -1,6 +1,9 @@
 ﻿@using IntexQueensSlay.Models.ViewModels
 
 @* @model IQueryable<Product> *@
+@{
+    Layout = "_Layout2"; // Specify the layout file to use
+}
 
 @model ProductListViewModel
 
@@ -8,8 +11,8 @@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+            <h1 class="display-4 fw-bolder">Find the Lego for you!</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Master Builders Unite</p>
         </div>
     </div>
 </header>
@@ -84,6 +87,15 @@
 <div page-model="@Model.PaginationInfo" page-action="Products" page-class-enabled="true" page-class="btn"
      page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
      page-url-productCat="@Model.CurrentProductCat" class="btn-group pull-right m-1"></div>
+
+<div page-model="@Model.PaginationInfo" page-action="Products" page-class-enabled="true" page-class="btn"
+        page-class-normal="btn-outline-dark" page-class-selected="btn-primary"
+        page-url-primaryColor="@Model.CurrentPrimaryColor" page-url-primaryColor="@Model.CurrentPrimaryColor"></div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Products" asp-route-pageNum="1">Clear Filters</a>
+</div>
 
            @*  <div class="col mb-5">
                 <div class="card h-100">
