@@ -23,10 +23,17 @@ namespace IntexQueensSlay
                 options.UseSqlite(builder.Configuration["ConnectionStrings:LegoConnection"]);
             });
 
+
+            builder.Services.AddRazorPages();
+
             builder.Services.AddScoped<ISlayRepository, EFSlayRepository>();
-            //builder.Services.AddRazorPages();
-            //builder.Services.AddDistributedMemoryCache();
-            //builder.Services.AddSession();
+
+            builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            builder.Services.AddSingleton<IHttpContextAccessor,
+                HttpContextAccessor>();
+
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -53,8 +60,6 @@ namespace IntexQueensSlay
                 googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
                 googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
             });
-
-            builder.Services.AddRazorPages();
 
             builder.Services.AddSession();
 

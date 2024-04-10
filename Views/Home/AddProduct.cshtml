@@ -4,10 +4,16 @@
 @{
 }
 
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
 
 @model Product
 
-<h2><b>Edit: @Model.Name</b></h2>
+<h2><b>Add Product</b></h2>
 
 <form method="post" asp-action="EditProduct">
     <input type="hidden" asp-for="ProductId" />
@@ -27,14 +33,14 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
-            <label asp-for="Year" class="control-label"></label>
-            <input asp-for="Year" class="form-control" />
-            <span asp-validation-for="Year" class="text-danger"></span>
+        <label asp-for="Year" class="control-label"></label>
+        <input asp-for="Year" class="form-control" />
+        <span asp-validation-for="Year" class="text-danger"></span>
     </div>
     <div class="form-group">
-            <label asp-for="NumParts" class="control-label"></label>
-            <input asp-for="NumParts" class="form-control" />
-            <span asp-validation-for="NumParts" class="text-danger"></span>
+        <label asp-for="NumParts" class="control-label"></label>
+        <input asp-for="NumParts" class="form-control" />
+        <span asp-validation-for="NumParts" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="ImgLink" class="control-label"></label>
@@ -42,9 +48,9 @@
         <span asp-validation-for="ImgLink" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <button type="submit" asp-action="EditConfirmation" class="btn btn-primary">Save Changes</button>  
+        <a asp-action="AddConfirmation" class="btn btn-primary">Add Product</a>
+
     </div>
 
- </form>
+</form>
 
- 

@@ -6,42 +6,34 @@
 
 @model Product
 
-<div class="container col-3">
-    <img class="card-img-top" src="@Model.ImgLink" alt="..." />
+<div class="container d-flex align-items-center">
+    <div class="col-4 text-center" style="margin-right: 20px">
+        <img class="card-img-top" src="@Model.ImgLink" alt="..." style="width:100%; height:auto" />
+    </div>
+
+    <div class="col-8">
+        <div class="text-center" >
+            <h2><b>@Model.Name</b></h2>
+            <h4><b>Price: $</b> @Model.Price</h4>
+        </div>
+
+        <div class="text-start">
+            <p><b>Description:</b> @Model.Description</p>
+            <p><b>Year:</b> @Model.Year</p>
+            <p><b>Number of Parts:</b> @Model.NumParts</p>
+        </div>
+
+        <div class="text-end">
+
+            <form id=@Model.ProductId method="post" asp-page="/Cart" asp-page-handler="OnPost">
+                <input type="hidden" name="productId" value="@Model.ProductId" />
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+            </form>
+            <br />
+            <div>
+                <a asp-action="Products">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="container col-9">
-    <h2><b>@Model.Name</b></h2>
-
-    <h4><b>Price: $</b> @Model.Price</h4>
-
-    <p><b>Description:</b> @Model.Description</p>
-    <p><b>Year:</b> @Model.Year</p>
-    <p><b>Number of Parts:</b> @Model.NumParts</p>
-
-</div>
-
-<form id=@Model.ProductId method="post" asp-page="/Cart" asp-page-handler="AddToCart">
-    <input type="hidden" asp-for="@Model.ProductId" />
-    <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
-    <button type="submit" class="btn-outline-success btn-sm float-end">Add to Cart</button>
-</form>
-
-@*
-<div style="text-align: right">
-    <form id=@Model.ProductId method="post" asp-page="/Cart">
-        <input type="hidden" asp-for="@Model.ProductId"/>
-        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
-        <button type="submit" class="btn-outline-success btn-sm float-end">Add to Cart</button>
-    </form>
-
-    <form method="post" asp-page="/Cart">
-        <input type="hidden" name="productId" value="@Model.ProductId" />
-        <input type="submit" value="Add to Cart 2" />
-    </form>
-
-
-    <br /><br />
-
-    <a asp-action="Products">Continue Browsing</a>
-</div> *@

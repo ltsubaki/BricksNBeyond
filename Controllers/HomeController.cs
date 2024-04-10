@@ -4,6 +4,7 @@ using IntexQueensSlay.Models;
 using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IntexQueensSlay.Controllers
 {
@@ -97,16 +98,44 @@ namespace IntexQueensSlay.Controllers
             return View(productData);
         }
 
-        public IActionResult EditProduct(int id)
+        public IActionResult EditProduct(int id, Product productModel)
         {
-            var product = _repo.GetProductById(id);
-            if (product == null)
+            if (HttpContext.Request.Method == "POST")
             {
-                return NotFound();
+                if (ModelState.IsValid)
+                {
+                    // Retrieve the product from the database
+                    var product = _repo.GetProductById(id);
+                    if (product == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update the product with the values from the form
+                    product.Name = productModel.Name;
+                    product.Price = productModel.Price;
+                    // ... Update the rest of the properties ...
+
+                    // Update the product in the database
+                    _repo.Update(product);
+                    _repo.SaveChanges();
+
+                    // Redirect to a confirmation page
+                    return RedirectToAction("EditConfirmation");
+                }
+            }
+            else
+            {
+                productModel = _repo.GetProductById(id);
+                if (productModel == null)
+                {
+                    return NotFound();
+                }
             }
 
-            return View(product);
+            return View(productModel);
         }
+
 
         public IActionResult EditConfirmation()
         {
@@ -124,6 +153,11 @@ namespace IntexQueensSlay.Controllers
             return View(product);
         }
 
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+
         public IActionResult RemoveConfirmation()
         {
             return View();
@@ -134,6 +168,24 @@ namespace IntexQueensSlay.Controllers
             return View();
         }
 
+        public IActionResult AddConfirmation()
+        {
+            return View();
+        }
+
+        public IActionResult ReviewOrders()
+        {
+            var orders = _repo.Orders.Where(o => o.Fraud == 1).Take(200).ToList();
+
+            return View(orders);
+        }
+
+        public IActionResult ManageAccounts()
+        {
+            var orders = _repo.Customers.Take(200).ToList();
+
+            return View(orders);
+        }
         public IActionResult Checkout()
         {
             return View();
