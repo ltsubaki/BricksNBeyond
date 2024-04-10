@@ -34,16 +34,15 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-        public IActionResult Products(int pageNum, string? Category1)
+        public IActionResult Products(int pageNum, string? productCat)
         {
             int pageSize = 15;
 
             //Bundling up multiple models to pass!
             var blah = new ProductListViewModel
             {
-
                 Products = _repo.Products
-                    .Where(x => x.Category1 == Category1 || Category1 == null)
+                    .Where(x => x.Category1 == productCat || productCat == null)
                     .OrderBy(x => x.Name)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
@@ -52,10 +51,10 @@ namespace IntexQueensSlay.Controllers
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = Category1 == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == Category1).Count()
+                    TotalItems = productCat == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == productCat).Count()
                 },
 
-                CurrentProductCat = Category1
+                CurrentProductCat = productCat
             };
 
             return View(blah);
