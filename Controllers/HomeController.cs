@@ -34,7 +34,7 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-        public IActionResult Products(int pageNum, string? productCat)
+        public IActionResult Products(int pageNum, string? productCat, string? primaryColor)
         {
             int pageSize = 15;
 
@@ -42,7 +42,7 @@ namespace IntexQueensSlay.Controllers
             var blah = new ProductListViewModel
             {
                 Products = _repo.Products
-                    .Where(x => x.Category1 == productCat || productCat == null)
+                    .Where(x => (x.Category1 == productCat || productCat == null) && (x.PrimaryColor == primaryColor || primaryColor == null))
                     .OrderBy(x => x.Name)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
@@ -51,10 +51,14 @@ namespace IntexQueensSlay.Controllers
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = productCat == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == productCat).Count()
+                    TotalItems = (productCat == null && primaryColor == null) ? _repo.Products.Count() :
+                         (productCat != null && primaryColor == null) ? _repo.Products.Where(x => x.Category1 == productCat).Count() :
+                         (productCat == null && primaryColor != null) ? _repo.Products.Where(x => x.PrimaryColor == primaryColor).Count() :
+                         _repo.Products.Where(x => x.Category1 == productCat && x.PrimaryColor == primaryColor).Count()
                 },
 
-                CurrentProductCat = productCat
+                CurrentProductCat = productCat,
+                CurrentPrimaryColor = primaryColor
             };
 
             return View(blah);
