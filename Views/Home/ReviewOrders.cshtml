@@ -1,0 +1,103 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Order>
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h1>REVIEW ORDERS</h1>
+        <h5>Potential Fraudulent Orders to Review</h5>
+    </div>
+    <div>
+        <a asp-action="CRUDProducts" class="btn btn-primary">Return to Products Summary</a>
+    </div>
+</div>
+<br />
+<br />
+
+<style>
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+</style>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Customer ID</th>
+            <th>Date</th>
+            <th>Weekday</th>
+            <th>Time</th>
+            <th>Entry Mode</th>
+            <th>Subtotal</th>
+            <th>Transaction Type</th>
+            <th>Transaction Country</th>
+            <th>Shipping Address</th>
+            <th>Bank</th>
+            <th>Card Type</th>
+@*             <th>Fraud</th>
+ *@            <th>Review</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Fraud == 1)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WeekDay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EntryMode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subtotal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionType)
+                    </td>
+                     <td>
+                        @Html.DisplayFor(modelItem => item.TransCountry)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShippingAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bank)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardType)
+                    </td>
+                 @*    <td>
+                        @Html.DisplayFor(modelItem => item.Fraud)
+                    </td> *@
+                    <td>
+                        <a asp-controller="Home" asp-route-id="@item.TransactionId" class="btn btn-outline-dark mt-auto" style="background-color:red; color: white; margin-left: 10px">REVIEWED</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+
