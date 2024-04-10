@@ -9,8 +9,17 @@
 <div class="d-grid gap-2">
     <h4>@ViewBag.AllCatFilterTitle</h4>
 
-    @foreach (string pc in Model ?? Enumerable.Empty<string>())
+    @if (Model != null)
     {
-        <a class="btn @(pc == ViewBag.SelectedAllCat ? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="Products" asp-route-allCat="@pc" asp-route-pageNum="1">@pc</a>
+        <div class="row justify-content-center">
+            <!-- Center the columns -->
+            @foreach (var pc in Model)
+            {
+                <div class="col-md-6 text-center">
+                    <!-- Center the content within each column -->
+                    <a class="btn" style="margin-bottom: 5px; width: 100%; background-color: #D21404; color: white; border-color: #D21404;" onmouseover="this.style.backgroundColor='white'; this.style.color='#D21404';" onmouseout="this.style.backgroundColor='#D21404'; this.style.color='white';" asp-controller="Home" asp-action="Products" asp-route-allCat="@pc" asp-route-pageNum="1">@pc</a>
+                </div>
+            }
+        </div>
     }
 </div>

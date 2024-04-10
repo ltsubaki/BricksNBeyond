@@ -20,16 +20,19 @@ namespace IntexQueensSlay.Components
 
             var category1 = _slayRepo.Products
                 .Select(x => x.Category1)
+                .Where(x => x != null)
                 .Distinct()
                 .OrderBy(x => x);
 
             var category2 = _slayRepo.Products
                 .Select(x => x.Category2)
+                .Where(x => x != null)
                 .Distinct()
                 .OrderBy(x => x);
 
             var category3 = _slayRepo.Products
                 .Select(x => x.Category3)
+                .Where(x => x != null)
                 .Distinct()
                 .OrderBy(x => x);
 

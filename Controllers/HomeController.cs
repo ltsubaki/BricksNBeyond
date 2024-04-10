@@ -38,7 +38,7 @@ namespace IntexQueensSlay.Controllers
         }
         public IActionResult Products(int pageNum, string? allCat, string? allColor)
         {
-            int pageSize = 1;
+            int pageSize = 10;
 
             // Bundling up multiple models to pass!
             var blah = new ProductListViewModel
