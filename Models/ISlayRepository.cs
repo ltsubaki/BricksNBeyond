@@ -1,4 +1,7 @@
-﻿namespace IntexQueensSlay.Models
+﻿using IntexQueensSlay.Data;
+using IntexQueensSlay.Models;
+
+namespace IntexQueensSlay.Models
 {
     public interface ISlayRepository
     {
@@ -8,5 +11,10 @@
         public IQueryable<Order> Orders { get; }
 
         Product GetProductById(int id);
+
+        void Update(Product product);
+        void SaveChanges();
     }
 }
+
+

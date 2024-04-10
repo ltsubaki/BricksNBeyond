@@ -1,4 +1,7 @@
-﻿namespace IntexQueensSlay.Models
+﻿using IntexQueensSlay.Data;
+using IntexQueensSlay.Models;
+
+namespace IntexQueensSlay.Models
 {
     public class EFSlayRepository : ISlayRepository
     {
@@ -17,7 +20,17 @@
         public Product GetProductById(int id)
         {
             return _context.Products.Find(id);
+        }    
+            public void Update(Product product)
+        {
+            _context.Update(product);
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
 
     }
 }
+
