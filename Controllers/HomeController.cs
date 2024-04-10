@@ -61,7 +61,7 @@ namespace IntexQueensSlay.Controllers
 
                 CurrentAllCat = allCat,
                 CurrentAllColor = allColor,
-                CategoryFilterTitle = "Category",
+                AllCatFilterTitle = "Category",
                 AllColorFilterTitle = "Color"
             };
 
