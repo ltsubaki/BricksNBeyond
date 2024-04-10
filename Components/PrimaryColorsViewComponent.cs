@@ -13,6 +13,8 @@ namespace IntexQueensSlay.Components
         }
         public IViewComponentResult Invoke()
         {
+            ViewBag.PrimaryColorFilterTitle = "Primary Color";
+
             ViewBag.SelectedPrimaryColor = RouteData?.Values["primaryColor"];
 
             var primaryColors = _slayRepo.Products

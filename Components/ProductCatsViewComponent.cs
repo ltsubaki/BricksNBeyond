@@ -13,6 +13,8 @@ namespace IntexQueensSlay.Components
         }
         public IViewComponentResult Invoke()
         {
+            ViewBag.ProductCatFilterTitle = "Category";
+
             ViewBag.SelectedProductCat = RouteData?.Values["productCat"];
 
             var productCats = _slayRepo.Products

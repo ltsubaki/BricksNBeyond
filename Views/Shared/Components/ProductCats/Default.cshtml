@@ -7,10 +7,11 @@
 @model IEnumerable<string>
 
 <div class="d-grid gap-2">
-    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Products" asp-route-productCat="" asp-route-pageNum="">Home</a>
+    <h4>@ViewBag.ProductCatFilterTitle</h4>
 
     @foreach (string pc in Model ?? Enumerable.Empty<string>())
     {
         <a class="btn @(pc == ViewBag.SelectedProductCat ? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="Products" asp-route-productCat="@pc" asp-route-pageNum="1">@pc</a>
     }
+    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Products" asp-route-productCat="" asp-route-pageNum="">Clear All Filters</a>
 </div>
