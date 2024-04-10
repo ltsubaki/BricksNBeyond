@@ -14,7 +14,7 @@ namespace IntexQueensSlay.Components
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.AllColorFilterTitle = "Category";
+            ViewBag.AllCatFilterTitle = "Category";
 
             ViewBag.SelectedAllColor = RouteData?.Values["allCat"];
 
