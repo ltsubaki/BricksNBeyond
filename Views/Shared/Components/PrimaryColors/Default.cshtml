@@ -7,7 +7,7 @@
 @model IEnumerable<string>
 
 <div class="d-grid gap-2">
-    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Products" asp-route-primaryColor="" asp-route-pageNum="">Home</a>
+    <h4>@ViewBag.PrimaryColorFilterTitle</h4>
 
     @foreach (string pc in Model ?? Enumerable.Empty<string>())
     {
