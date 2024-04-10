@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
 using IntexQueensSlay.Models;
 using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -36,9 +37,9 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-        public IActionResult Products(int pageNum, string? allCat, string? allColor)
+        public IActionResult Products(int pageNum, string? allCat, string? allColor, int pageSize = 15)
         {
-            int pageSize = 10;
+            pageSize = Math.Clamp(pageSize, 5, 20);
 
             // Bundling up multiple models to pass!
             var blah = new ProductListViewModel

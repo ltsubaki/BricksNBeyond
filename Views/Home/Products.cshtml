@@ -28,6 +28,29 @@
     </div>
 </header> *@
 
+<!-- Add dropdown for selecting the number of products per page -->
+<div class="container my-1">
+    <div class="row justify-content-end">
+        <div class="col-md-6 text-center">
+            <form asp-controller="Home" asp-action="Products" method="get">
+                <input type="hidden" name="allCat" value="@Model.CurrentAllCat" />
+                <input type="hidden" name="allColor" value="@Model.CurrentAllColor" />
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="pageSizeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Number of Products
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="pageSizeDropdown">
+                        <li><button class="dropdown-item" type="submit" name="pageSize" value="5">Show 5 Products</button></li>
+                        <li><button class="dropdown-item" type="submit" name="pageSize" value="10">Show 10 Products</button></li>
+                        <li><button class="dropdown-item" type="submit" name="pageSize" value="20">Show 20 Products</button></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <div class="row row-cols-1 row-cols-md-3 g-4 pt-4">
     @foreach (var product in Model.Products)
     {
