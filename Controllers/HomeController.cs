@@ -83,6 +83,45 @@ namespace IntexQueensSlay.Controllers
             return View(product);
         }
 
+        public IActionResult CRUDProducts()
+        {
+            var productData = _repo.Products;
+
+            return View(productData);
+        }
+
+        public IActionResult EditProduct(int id)
+        {
+            var product = _repo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        public IActionResult EditConfirmation()
+        {
+            return View();
+        }
+
+        public IActionResult RemoveProduct(int id)
+        {
+            var product = _repo.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        public IActionResult RemoveConfirmation()
+        {
+            return View();
+        }
+
         public IActionResult OrderConfirmation()
         {
             return View();

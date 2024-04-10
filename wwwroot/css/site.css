@@ -22,8 +22,8 @@ body {
 }
 
 .navbar-logo {
-    height: 50px;
-    width: auto;
+    height: auto;
+    width: 300px;
     padding: 5px; /* Add padding as needed */
 }
 
