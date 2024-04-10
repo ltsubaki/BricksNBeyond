@@ -82,14 +82,53 @@ namespace IntexQueensSlay
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute("AboutUs", "AboutUs", new { Controller = "Home", action = "AboutUs" });
-            //app.MapControllerRoute("ProductDetails", "{id}", new { Controller = "Home", action = "ProductDetails"});
-            app.MapControllerRoute("Index", "Index", new { Controller = "Home", action = "Index" });
-            //app.MapControllerRoute("Secret", "Secret", new { Controller = "Home", action = "Secret" });
-            app.MapControllerRoute("pagenumandcat", "{productCat}/{pageNum}", new { Controller = "Home", action = "Products" });
-            app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Products", pageNum = 1 });
-            app.MapControllerRoute("productCat", "{productCat}", new { Controller = "Home", action = "Products", pageNum = 1 });
+            app.MapControllerRoute(
+                        name: "ProductDetails",
+                        pattern: "Home/ProductDetails/{id}",
+                        defaults: new { Controller = "Home", action = "ProductDetails" }
+                    );
+
+            app.MapControllerRoute(
+                name: "AboutUs",
+                pattern: "AboutUs",
+                defaults: new { Controller = "Home", action = "AboutUs" }
+            );
+
+            app.MapControllerRoute(
+                name: "Index",
+                pattern: "Index",
+                defaults: new { Controller = "Home", action = "Index" }
+            );
+
+            app.MapControllerRoute(
+                name: "ProductsByCategoryAndPage",
+                pattern: "Products/{productCat}/{pageNum:int}",
+                defaults: new { Controller = "Home", action = "Products" }
+            );
+
+            app.MapControllerRoute(
+                name: "ProductsByPage",
+                pattern: "Products/Page/{pageNum:int}",
+                defaults: new { Controller = "Home", action = "Products", productCat = (string)null }
+            );
+
+            app.MapControllerRoute(
+                name: "ProductsByCategory",
+                pattern: "Products/{productCat}",
+                defaults: new { Controller = "Home", action = "Products", pageNum = 1 }
+            );
+
             app.MapDefaultControllerRoute();
+
+
+            //app.MapControllerRoute("AboutUs", "AboutUs", new { Controller = "Home", action = "AboutUs" });
+            ////app.MapControllerRoute("ProductDetails", "{id}", new { Controller = "Home", action = "ProductDetails"});
+            //app.MapControllerRoute("Index", "Index", new { Controller = "Home", action = "Index" });
+            ////app.MapControllerRoute("Secret", "Secret", new { Controller = "Home", action = "Secret" });
+            //app.MapControllerRoute("pagenumandcat", "{productCat}/{pageNum}", new { Controller = "Home", action = "Products" });
+            //app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Products", pageNum = 1 });
+            //app.MapControllerRoute("productCat", "{productCat}", new { Controller = "Home", action = "Products", pageNum = 1 });
+            //app.MapDefaultControllerRoute();
 
             app.MapRazorPages();
 

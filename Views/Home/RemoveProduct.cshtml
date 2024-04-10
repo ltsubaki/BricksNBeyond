@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Product
+
+<div>
+    <div class="align-left">
+        <img class="card-img-top" src="@Model.ImgLink" alt="..." style="height: auto; max-height: 200px; width: 100%; object-fit: contain;" />
+        <br />
+        <h2>@Model.Name</h2>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <a asp-action="CRUDProducts" class="btn btn-primary">NO, don't remove</a>
+        <a asp-action="RemoveConfirmation" class="btn" style="background-color:red; color: white">YES, remove</a>
+    </div>
+</div>
+
+<div>
+    <img src="~/img/legoman - remove.png" />
+</div>
+
+
