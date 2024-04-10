@@ -148,6 +148,13 @@ namespace IntexQueensSlay.Controllers
             return View(orders);
         }
 
+        public IActionResult ManageAccounts()
+        {
+            var orders = _repo.Customers.Take(200).ToList();
+
+            return View(orders);
+        }
+
         public IActionResult Checkout()
         {
             return View();
