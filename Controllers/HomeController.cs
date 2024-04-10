@@ -36,7 +36,7 @@ namespace IntexQueensSlay.Controllers
         }
         public IActionResult Products(int pageNum, string? productCat, string? primaryColor)
         {
-            int pageSize = 15;
+            int pageSize = 1;
 
             //Bundling up multiple models to pass!
             var blah = new ProductListViewModel
@@ -58,7 +58,9 @@ namespace IntexQueensSlay.Controllers
                 },
 
                 CurrentProductCat = productCat,
-                CurrentPrimaryColor = primaryColor
+                CurrentPrimaryColor = primaryColor,
+                CategoryFilterTitle = "Category",
+                PrimaryColorFilterTitle = "Primary Color"
             };
 
             return View(blah);
