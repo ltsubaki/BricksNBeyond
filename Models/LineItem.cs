@@ -1,13 +1,15 @@
-﻿namespace IntexQueensSlay.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace IntexQueensSlay.Models;
+
+public partial class LineItem
 {
-    public partial class LineItem
-    {
-        public int TransactionId { get; set; }
+    public int TransactionId { get; set; }
 
-        public int ProductId { get; set; }
+    public byte ProductId { get; set; }
 
-        public int? Quantity { get; set; }
+    public byte Quantity { get; set; }
 
-        public int? Rating { get; set; }
-    }
+    public byte? Rating { get; set; }
 }

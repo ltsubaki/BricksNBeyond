@@ -1,19 +1,21 @@
-﻿namespace IntexQueensSlay.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace IntexQueensSlay.Models;
+
+public partial class Customer
 {
-    public partial class Customer
-    {
-        public int CustomerId { get; set; }
+    public short CustomerId { get; set; }
 
-        public string? FirstName { get; set; }
+    public string FirstName { get; set; } = null!;
 
-        public string? LastName { get; set; }
+    public string LastName { get; set; } = null!;
 
-        public string? BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 
-        public string? ResCountry { get; set; }
+    public string ResCountry { get; set; } = null!;
 
-        public string? Gender { get; set; }
+    public string? Gender { get; set; }
 
-        public int? Age { get; set; }
-    }
+    public double Age { get; set; }
 }

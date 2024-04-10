@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Product>
+
+@foreach (Product p in Model)
+{
+    <h3>@p.Name</h3>
+
+    <ul>
+        <li>Product ID: @p.ProductId</li>
+        <li>Year: @p.Year</li>
+        <li>Image: @p.ImgLink</li>
+        <li>Number of Parts: @p.NumParts</li>
+        <li>Primary Color: @p.PrimaryColor</li>
+        <li>Secondary Color: @p.SecondaryColor</li>
+        <li>Description: @p.Description</li>
+        <li>Category: @p.Category1</li>
+        <li>Price: @p.Price</li>
+    </ul>
+}

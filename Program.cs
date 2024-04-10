@@ -1,24 +1,23 @@
-using IntexQueensSlay.Data;
+//using IntexQueensSlay.Data;
 using IntexQueensSlay.Models;
 using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
-
+using System.Runtime.ConstrainedExecution;
 
 namespace IntexQueensSlay
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            //builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(connectionString));
+            //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDbContext<LegoContext>(options =>
             {
@@ -30,8 +29,8 @@ namespace IntexQueensSlay
             //builder.Services.AddDistributedMemoryCache();
             //builder.Services.AddSession();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<LegoContext>();
             builder.Services.AddControllersWithViews();
 
             builder.Services.Configure<IdentityOptions>(options =>
@@ -62,8 +61,27 @@ namespace IntexQueensSlay
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            //add roles here if there are not roles 
+            //create scope part is first line
+            //can use code from toa pro ADMIN CUSTOMER 
+            // Seed user roles in case they don't exist
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            //    {
+            //        await roleManager.CreateAsync(new IdentityRole("Admin"));
+            //    }
+            //    if (!await roleManager.RoleExistsAsync("Customer"))
+            //    {
+            //        await roleManager.CreateAsync(new IdentityRole("Customer"));
+            //    }
+            //}
+
+
+
+
+                // Configure the HTTP request pipeline.
+                if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
             }
@@ -73,6 +91,11 @@ namespace IntexQueensSlay
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
+
+
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
