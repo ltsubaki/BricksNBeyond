@@ -8,14 +8,25 @@
 @model ProductListViewModel
 
 @* @model List<Product> *@
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
+
+<header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
+    <div class="container px-4 px-lg-5 my-3">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Find the Lego for you!</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Master Builders Unite</p>
+            <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Find the Lego for you!</h1>
+            <p class="lead fw-normal text-black-50 mb-0" >Master Builders Unite</p>
         </div>
     </div>
 </header>
+
+
+@* <header class="bg py-5" style="background-color: #F2CD37; color: black;">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Find the Lego for you!</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Master Builders Unite</p>
+        </div>
+    </div>
+</header> *@
 
 <div class="row row-cols-1 row-cols-md-3 g-4 pt-4">
     @foreach (var product in Model.Products)
