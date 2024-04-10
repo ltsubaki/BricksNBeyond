@@ -1,3 +1,4 @@
+using IntexQueensSlay.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -7,7 +8,7 @@ using IntexQueensSlay.Models;
 namespace IntexQueensSlay.Pages
 {
     public class CartModel : PageModel
-    {
+    {      
         private ISlayRepository repository;
         public CartModel(ISlayRepository repo, Cart cartService)
         {
@@ -38,11 +39,10 @@ namespace IntexQueensSlay.Pages
             return RedirectToPage(new { returnUrl = returnUrl });
         }
 
-
-        //public IActionResult OnPostRemove(long productId, string returnUrl)
-        //{
-        //    Cart.RemoveLine(Cart.Lines.First(cl => cl.Product.ProductId == productId).Product);
-        //    return RedirectToPage(new { returnUrl = returnUrl });
-        //}
+        public IActionResult OnPostRemove(long productId, string returnUrl)
+        {
+            Cart.RemoveLine(Cart.Lines.First(cl => cl.Product.ProductId == productId).Product);
+            return RedirectToPage(new { returnUrl = returnUrl });
+        }
     }
 }

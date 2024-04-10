@@ -206,7 +206,6 @@ namespace IntexQueensSlay.Controllers
 
             return View(orders);
         }
-
         public IActionResult Checkout()
         {
             return View();

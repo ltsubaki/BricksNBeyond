@@ -24,8 +24,9 @@
         </div>
 
         <div class="text-end">
-            <form id=@Model.ProductId method="post" asp-page="/Cart" asp-page-handler="AddToCart">
-                <input type="hidden" asp-for="@Model.ProductId" />
+
+            <form id=@Model.ProductId method="post" asp-page="/Cart" asp-page-handler="OnPost">
+                <input type="hidden" name="productId" value="@Model.ProductId" />
                 <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
                 <button type="submit" class="btn btn-primary">Add to Cart</button>
             </form>
