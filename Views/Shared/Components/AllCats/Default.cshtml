@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<string>
+
+<div class="d-grid gap-2">
+    <h4>@ViewBag.AllCatFilterTitle</h4>
+
+    @foreach (string pc in Model ?? Enumerable.Empty<string>())
+    {
+        <a class="btn @(pc == ViewBag.SelectedAllCat ? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="Products" asp-route-allCat="@pc" asp-route-pageNum="1">@pc</a>
+    }
+</div>

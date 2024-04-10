@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Drawing;
 using IntexQueensSlay.Models;
 using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -35,15 +36,15 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-        public IActionResult Products(int pageNum, string? productCat, string? primaryColor)
+        public IActionResult Products(int pageNum, string? allCat, string? allColor)
         {
-            int pageSize = 15;
+            int pageSize = 1;
 
-            //Bundling up multiple models to pass!
+            // Bundling up multiple models to pass!
             var blah = new ProductListViewModel
             {
                 Products = _repo.Products
-                    .Where(x => (x.Category1 == productCat || productCat == null) && (x.PrimaryColor == primaryColor || primaryColor == null))
+                    .Where(x => (x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat || allCat == null) && (x.PrimaryColor == allColor || x.SecondaryColor == allColor || allColor == null))
                     .OrderBy(x => x.Name)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
@@ -52,18 +53,21 @@ namespace IntexQueensSlay.Controllers
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = (productCat == null && primaryColor == null) ? _repo.Products.Count() :
-                         (productCat != null && primaryColor == null) ? _repo.Products.Where(x => x.Category1 == productCat).Count() :
-                         (productCat == null && primaryColor != null) ? _repo.Products.Where(x => x.PrimaryColor == primaryColor).Count() :
-                         _repo.Products.Where(x => x.Category1 == productCat && x.PrimaryColor == primaryColor).Count()
+                    TotalItems = (allCat == null && allColor == null) ? _repo.Products.Count() :
+                         (allCat != null && allColor == null) ? _repo.Products.Where(x => x.Category1 == allColor || x.Category2 == allColor || x.Category3 == allColor).Count() :
+                         (allCat == null && allColor != null) ? _repo.Products.Where(x => x.PrimaryColor == allColor || x.SecondaryColor == allColor).Count() :
+                         _repo.Products.Where(x => x.Category1 == allCat && (x.PrimaryColor == allColor || x.SecondaryColor == allColor)).Count()
                 },
 
-                CurrentProductCat = productCat,
-                CurrentPrimaryColor = primaryColor
+                CurrentAllCat = allCat,
+                CurrentAllColor = allColor,
+                AllCatFilterTitle = "Category",
+                AllColorFilterTitle = "Color"
             };
 
             return View(blah);
         }
+
 
         public IActionResult AboutUs()
         {
