@@ -166,9 +166,9 @@ namespace IntexQueensSlay.Controllers
 
         public IActionResult Index1()
         {
-            var Productt = _repo.Products;
+            var productData = _repo.Products;
 
-            return View(Productt);
+            return View(productData);
         }
 
 
