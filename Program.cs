@@ -4,6 +4,8 @@ using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+
+
 namespace IntexQueensSlay
 {
     public class Program
@@ -15,12 +17,12 @@ namespace IntexQueensSlay
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(connectionString));
+                options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDbContext<LegoContext>(options =>
             {
-                options.UseSqlite(builder.Configuration["ConnectionStrings:LegoConnection"]);
+                options.UseSqlServer(builder.Configuration["ConnectionStrings:LegoConnection"]);
             });
 
             builder.Services.AddScoped<ISlayRepository, EFSlayRepository>();
