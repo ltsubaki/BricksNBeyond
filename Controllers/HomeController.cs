@@ -3,6 +3,7 @@ using IntexQueensSlay.Models;
 using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IntexQueensSlay.Controllers
 {
@@ -117,6 +118,11 @@ namespace IntexQueensSlay.Controllers
             return View(product);
         }
 
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+
         public IActionResult RemoveConfirmation()
         {
             return View();
@@ -125,6 +131,18 @@ namespace IntexQueensSlay.Controllers
         public IActionResult OrderConfirmation()
         {
             return View();
+        }
+
+        public IActionResult AddConfirmation()
+        {
+            return View();
+        }
+
+        public IActionResult ReviewOrders()
+        {
+            var orders = _repo.Orders.Where(o => o.Fraud == 1).Take(200).ToList();
+
+            return View(orders);
         }
 
         public IActionResult Checkout()
