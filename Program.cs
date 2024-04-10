@@ -102,19 +102,19 @@ namespace IntexQueensSlay
 
             app.MapControllerRoute(
                 name: "ProductsByCategoryAndPage",
-                pattern: "Products/{productCat}/{pageNum:int}",
+                pattern: "{productCat}/{pageNum:int}",
                 defaults: new { Controller = "Home", action = "Products" }
             );
 
             app.MapControllerRoute(
                 name: "ProductsByPage",
-                pattern: "Products/Page/{pageNum:int}",
+                pattern: "{pageNum:int}",
                 defaults: new { Controller = "Home", action = "Products", productCat = (string)null }
             );
 
             app.MapControllerRoute(
                 name: "ProductsByCategory",
-                pattern: "Products/{productCat}",
+                pattern: "{productCat}",
                 defaults: new { Controller = "Home", action = "Products", pageNum = 1 }
             );
 

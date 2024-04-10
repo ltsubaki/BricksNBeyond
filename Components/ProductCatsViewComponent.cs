@@ -3,11 +3,11 @@ using IntexQueensSlay.Models;
 
 namespace IntexQueensSlay.Components
 {
-    public class ProductCatViewComponent : ViewComponent
+    public class ProductCatsViewComponent : ViewComponent
     {
         private ISlayRepository _slayRepo;
         //Constructor
-        public ProductCatViewComponent(ISlayRepository temp)
+        public ProductCatsViewComponent(ISlayRepository temp)
         {
             _slayRepo = temp;
         }
