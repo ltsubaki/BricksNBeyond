@@ -1,7 +1,10 @@
-﻿namespace IntexQueensSlay.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace IntexQueensSlay.Models
 {
     public partial class Customer
     {
+        [Key]
         public int CustomerId { get; set; }
 
         public string? FirstName { get; set; }

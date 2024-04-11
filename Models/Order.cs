@@ -1,7 +1,10 @@
-﻿namespace IntexQueensSlay.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace IntexQueensSlay.Models
 {
     public partial class Order
     {
+        [Key]
         public int TransactionId { get; set; }
 
         public int? CustomerId { get; set; }
