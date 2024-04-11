@@ -3,7 +3,14 @@
 *@
 @{
 }
-@model IEnumerable<Order>
+@model IEnumerable<IntexQueensSlay.Models.OrderPredictions>
+@{
+    var classTypeDict = new Dictionary<int, string>
+    {
+        { 0, "Not Fraud"},
+        { 1, "Fraud"}
+    };
+}
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <div>
@@ -43,60 +50,34 @@
             <th>Transaction Country</th>
             <th>Shipping Address</th>
             <th>Bank</th>
-            <th>Card Type</th>
-@*             <th>Fraud</th>
- *@            <th>Review</th>
+            <th>Card Type</th>             
+            <th>Fraud</th>
+            <th class="prediction-cell">Fraud Prediction</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.Fraud == 1)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TransactionId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CustomerId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WeekDay)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Time)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EntryMode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Subtotal)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TransactionType)
-                    </td>
-                     <td>
-                        @Html.DisplayFor(modelItem => item.TransCountry)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ShippingAddress)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Bank)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CardType)
-                    </td>
-                 @*    <td>
-                        @Html.DisplayFor(modelItem => item.Fraud)
-                    </td> *@
-                    <td>
+            <tr>
+                <td>@item.Orders.TransactionId</td>
+                <td>@item.Orders.CustomerId</td>
+                <td>@item.Orders.Date</td>
+                <td>@item.Orders.WeekDay</td>
+                <td>@item.Orders.Time</td>
+                <td>@item.Orders.EntryMode</td>
+                <td>@item.Orders.Subtotal</td>
+                <td>@item.Orders.TransactionType</td>
+                <td>@item.Orders.TransCountry</td>
+                <td>@item.Orders.ShippingAddress</td>
+                <td>@item.Orders.Bank</td>
+                <td>@item.Orders.CardType</td>
+                <td>@item.Orders.Fraud</td>
+                <td class="prediction-cell">@item.Predictions</td>
+                  @* <td>
                         <a asp-controller="Home" asp-route-id="@item.TransactionId" class="btn btn-outline-dark mt-auto" style="background-color:red; color: white; margin-left: 10px">REVIEWED</a>
                     </td>
-                </tr>
+            *@
+            </tr>
             }
         }
     </tbody>
