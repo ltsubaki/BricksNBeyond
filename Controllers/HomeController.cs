@@ -126,7 +126,7 @@ namespace IntexQueensSlay.Controllers
             return View(productData);
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult EditProduct(int id, Product productModel)
+        public IActionResult EditProduct(int id, Products productModel)
         {
             if (HttpContext.Request.Method == "POST")
             {
@@ -224,13 +224,13 @@ namespace IntexQueensSlay.Controllers
         [HttpGet]
         public IActionResult AddProduct()
         {
-            return View(new Product());
+            return View(new Products());
         }
 
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddProduct(Product productModel)
+        public IActionResult AddProduct(Products productModel)
         {
             if (ModelState.IsValid)
             {
@@ -296,7 +296,7 @@ namespace IntexQueensSlay.Controllers
         }
         [HttpPost]
         //calls the repo pattern method to delete
-        public IActionResult DeleteUser(Customer task)
+        public IActionResult DeleteUser(Customers task)
         {
             var recordToDelete = _repo.Customers
                 .Single(x => x.CustomerId == task.CustomerId);
@@ -321,7 +321,7 @@ namespace IntexQueensSlay.Controllers
 
         //updates the reccord and redirects to view
         [HttpPost]
-        public IActionResult Edituser(Customer updateresponse)
+        public IActionResult Edituser(Customers updateresponse)
         {
             //update the datebase with the new edits
             _repo.EditCustomer(updateresponse);
@@ -329,7 +329,7 @@ namespace IntexQueensSlay.Controllers
             return RedirectToAction("ManageAccounts");
         }
 
-        public IActionResult AddCustomer(int id, Customer customerModel)
+        public IActionResult AddCustomer(int id, Customers customerModel)
         {
             if (HttpContext.Request.Method == "POST")
             {
