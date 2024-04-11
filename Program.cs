@@ -20,7 +20,7 @@ namespace IntexQueensSlay
 
             builder.Services.AddDbContext<LegoContext>(options =>
             {
-                options.UseSqlite(builder.Configuration["ConnectionStrings:LegoConnection"]);
+                options.UseSqlServer(builder.Configuration["ConnectionStrings:LegoConnection"]);
             });
 
 
