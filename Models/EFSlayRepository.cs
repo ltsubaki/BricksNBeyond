@@ -16,6 +16,7 @@ namespace IntexQueensSlay.Models
         public IQueryable<Product> Products => _context.Products;
         public IQueryable<LineItem> LineItems => _context.LineItems;
         public IQueryable<Order> Orders => _context.Orders;
+        public IQueryable<AspNetUsers> AspNetUserss => _context.AspNetUserss;
 
         public Product GetProductById(int id)
         {
