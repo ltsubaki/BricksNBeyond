@@ -160,23 +160,84 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Admin")]
+
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult RemoveProduct(int id)
+        //{
+        //    var product = _repo.GetProductById(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(product);
+        //}
+
+        [HttpGet]
         public IActionResult RemoveProduct(int id)
         {
+            // Retrieve the product from the database
             var product = _repo.GetProductById(id);
+
             if (product == null)
             {
-                return NotFound();
+                // If the product is not found, return an error view
+                return View("Error");
             }
 
+            // Pass the product to the view
             return View(product);
         }
+
+
+        [HttpPost]
+        public IActionResult RemoveProductConfirmed(int id)
+        {
+            // Retrieve the product from the database
+            var product = _repo.GetProductById(id);
+
+            if (product != null)
+            {
+                // Remove the product from the database
+                _repo.RemoveProduct(product);
+                _repo.SaveChanges();
+
+                // Redirect to a confirmation page
+                return RedirectToAction("RemoveConfirmation");
+            }
+
+            // If the product is not found, return an error view
+            return View("Error");
+        }
+
+
         [Authorize(Roles = "Admin")]
+        [HttpGet]
         public IActionResult AddProduct()
         {
-            return View();
+            return View(new Product());
         }
-        
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult AddProduct(Product productModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Add the product to the database
+                _repo.AddProduct(productModel);
+                _repo.SaveChanges();
+
+                // Redirect to a confirmation page
+                return RedirectToAction("AddConfirmation");
+            }
+
+            // If the model state is not valid, return the form
+            return View(productModel);
+        }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult RemoveConfirmation()
         {
             return View();

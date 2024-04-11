@@ -12,6 +12,10 @@ namespace IntexQueensSlay.Models
         public IQueryable<AspNetUsers> AspNetUserss { get; }
 
         Product GetProductById(int id);
+        void AddProduct(Product product);
+
+        void RemoveProduct(Product product);
+
 
         void Update(Product product);
         void SaveChanges();
