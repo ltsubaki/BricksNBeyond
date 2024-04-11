@@ -37,9 +37,13 @@
         <br />
         <div class="form-group">
             <a asp-action="CRUDProducts" class="btn blue-button">NO, don't remove</a>
-            <a asp-action="RemoveConfirmation" class="btn red-button">YES, remove</a>
+            <form asp-action="RemoveProductConfirmed" method="post" style="display: inline;">
+                <input type="hidden" name="id" value="@Model.ProductId" />
+                <button type="submit" class="btn red-button">YES, remove</button>
+            </form>
         </div>
     </div>
+
 
     <!-- Container for the Lego Man image -->
     <div class="container text-center col-4">

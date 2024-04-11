@@ -4,53 +4,50 @@
 @{
 }
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
 
 @model Product
 
-<h2><b>Add Product</b></h2>
+<div class="mx-auto w-75">
 
-<form method="post" asp-action="EditProduct">
-    <input type="hidden" asp-for="ProductId" />
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Price" class="control-label"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
-        <input asp-for="Description" class="form-control" />
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Year" class="control-label"></label>
-        <input asp-for="Year" class="form-control" />
-        <span asp-validation-for="Year" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="NumParts" class="control-label"></label>
-        <input asp-for="NumParts" class="form-control" />
-        <span asp-validation-for="NumParts" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ImgLink" class="control-label"></label>
-        <input asp-for="ImgLink" class="form-control" />
-        <span asp-validation-for="ImgLink" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <a asp-action="AddConfirmation" class="btn blue-button">Add Product</a>
+    <h2><b>Edit: @Model.Name</b></h2>
 
-    </div>
+    <form method="post" asp-action="AddProduct">
+        <input type="hidden" asp-for="ProductId" />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price" class="control-label"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Year" class="control-label"></label>
+            <input asp-for="Year" class="form-control" />
+            <span asp-validation-for="Year" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NumParts" class="control-label"></label>
+            <input asp-for="NumParts" class="form-control" />
+            <span asp-validation-for="NumParts" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImgLink" class="control-label"></label>
+            <input asp-for="ImgLink" class="form-control" />
+            <span asp-validation-for="ImgLink" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn blue-button">Save Changes</button>
+        </div>
 
-</form>
+    </form>
 
+</div>
