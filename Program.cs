@@ -19,18 +19,14 @@ namespace IntexQueensSlay
 
 
             // Add services to the container.
-            var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"] ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            var connectionStringLego = builder.Configuration["ConnectionStrings:LegoConnection"] ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            //var connectionStringLego = builder.Configuration.GetConnectionString("LegoConnection") ?? throw new InvalidOperationException("Connection string 'LegoConnection' not found.");
-
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionStringLego = builder.Configuration.GetConnectionString("LegoConnection") ?? throw new InvalidOperationException("Connection string 'LegoConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            builder.Services.AddDbContext<LegoContext>(options =>
             {
-                // Configure ApplicationDbContext to use SQL Server and enable retry on failure
-                options.UseSqlServer(connectionString, sqlServerOptions =>
-                {
-                    sqlServerOptions.EnableRetryOnFailure();
-                });
+                options.UseSqlServer(builder.Configuration[connectionStringLego]);
             });
 
             builder.Services.AddDbContext<LegoContext>(options =>
