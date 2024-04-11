@@ -7,31 +7,26 @@
 
 @model Product
 
-<div class="card h-100 mb-3" style="color: black; border: 1px solid black;">
+<div class="card h-100 mb-3" style="color: black; border: 1px solid gray;">
     <!-- Add margin bottom to create space between cards -->
     <!-- Product image-->
-    <img class="card-img-top" src="@Model.ImgLink" alt="..." style="height: auto; max-height: 200px; width: 100%; object-fit: contain;" />
+    <img class="card-img-top" src="@Model.ImgLink" alt="..." style="height: auto; max-height: 200px; width: 100%; object-fit: contain; margin-top: 10px" />
     <!-- Product details-->
     <div class="card-body p-4" style="height: calc(100% - 200px);">
         <div class="text-center">
             <!-- Product name-->
-            <li class="fw-bolder">Name: @Model.Name</li>
-            <!-- Product price-->
-            <li>Price: $ @Model.Price</li>
+            <h5>@Model.Name</h5>
+            <h3>$@Model.Price.00</h3>
+            <p>@Model.Year: @Model.NumParts parts</p>
+          @*   <p style="margin-bottom: 0.5rem;">Year: @Model.Year</p>
+            <p style="margin-bottom: 0.5rem;">Number of Parts: @Model.NumParts</p> *@
         </div>
-        <li>Year: @Model.Year</li>
-        <li>Number of Parts: @Model.NumParts</li>
-        <li>Primary Color: @Model.PrimaryColor</li>
-        <li>Other Color: @Model.SecondaryColor</li>
-        <li>Category: @Model.Category1</li>
-        <li>Cat 2 : @Model.Category2</li>
-        <li>Cat 3: @Model.Category3</li>
     </div>
-    <div class="text-center mb-3">
+    <div class="text-center" style="padding: 10px">
         <form id="@Model.ProductId" method="post" asp-controller="Home" asp-action="ProductDetails" asp-route-id="@Model.ProductId">
             <input type="hidden" asp-for="ProductId" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-            <button type="submit" class="text-center btn btn-primary mt-auto">See Product Details</button>
+            <button type="submit" class="text-center btn blue-button mt-auto">See Product Details</button>
         </form>
     </div>
    

@@ -6,24 +6,29 @@
 
 <script src="~/js/cookieConsent.js"></script>
 
-<div class="container">
-    <div class="text-center">
-        <h1 class="display-4">Welcome to BricksNBeyond!</h1>
-        <p>Start your lego journey with us</p>
+
+<header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
+    <div class="container px-4 px-lg-5 my-3">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Welcome to BricksNBeyond!</h1>
+            <p class="lead fw-normal text-black-50 mb-0">Start your lego journey with us</p>
+        </div>
+    </div>
+</header>
+
+<br /><br />
+
+
+<div style="display: flex; justify-content: center; align-items: center; padding: 5px;">
+    <div class="form-group">
+        <h1>Recommended Products</h1>
+        <br /><br />
+        <a class="nav-link btn blue-button btn-sm" asp-area="" asp-controller="Home" asp-action="Products">View All Products</a>
     </div>
 
-    <h3>Recommended Products</h3>
-
-    <br />
-    <br />
-
- 
-
-   
-
-    <br /><br><br /><br />
-    <div style="width: auto; display: inline-block;">
-        <a class="nav-link text-dark btn btn-primary btn-sm" asp-area="" asp-controller="Home" asp-action="Products">View All Products</a>
+    <!-- Container for the Lego Man image -->
+    <div style="flex: 1; max-width: 50%; padding-right: 0px; box-sizing: border-box; text-align: right; display: flex; align-items: flex-end; justify-content: flex-end;">
+        <img src="~/img/Lego - Recommend2.png" alt="Lego Man" style="width: 50%; height: auto;" />
     </div>
     <!-- Cookie consent banner markup -->
     <div id="cookieConsentBanner" style="display: none; position: fixed; bottom: 75px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; background-color: #f8f9fa; padding: 20px; text-align: center; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
