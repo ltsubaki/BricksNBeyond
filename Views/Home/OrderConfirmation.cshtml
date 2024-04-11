@@ -4,14 +4,25 @@
 @{
 }
 
-<div class="container">
-    <h1>ORDER RECEIVED</h1>
-    <br /><br />
+@* <header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
+    <div class="container px-4 px-lg-5 my-3">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Order Recieved</h1>
+        </div>
+    </div>
+</header> *@
 
-    <h2>Thank you for your purchase! A confirmation has been sent to your email.</h2>
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h1>ORDER RECIEVED!</h1>
+    <h2 style="text-align:center"> Thank you for your purchase! A confirmation has been sent to your email.</h2>
     <br /><br />
 
     <div style="width: auto; display: inline-block;">
-        <a class="nav-link text-dark btn blue-button btn-sm" asp-area="" asp-controller="Home" asp-action="Products">Continue Shopping</a>
+        <a class="nav-link btn blue-button btn-sm" asp-area="" asp-controller="Home" asp-action="Products">Continue Shopping</a>
+    </div>
+    <br /><br />
+    <div style="width: auto; display: inline-block; margin-right: 170px">
+        <img src="~/img/legogif.gif" alt="Lego Man" style="width: 160%; height: auto;" />
     </div>
 </div>
+
