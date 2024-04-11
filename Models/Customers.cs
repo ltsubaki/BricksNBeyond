@@ -1,6 +1,6 @@
 ﻿namespace IntexQueensSlay.Models
 {
-    public partial class Customer
+    public partial class Customers
     {
         public int CustomerId { get; set; }
 

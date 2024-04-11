@@ -1,6 +1,6 @@
 ﻿namespace IntexQueensSlay.Models
 {
-    public partial class Order
+    public partial class Orders
     {
         public int TransactionId { get; set; }
 

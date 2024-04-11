@@ -12,22 +12,22 @@ namespace IntexQueensSlay.Models
             _context = temp;
         }
 
-        public IQueryable<Customer> Customers => _context.Customers;
-        public IQueryable<Product> Products => _context.Products;
-        public IQueryable<LineItem> LineItems => _context.LineItems;
-        public IQueryable<Order> Orders => _context.Orders;
+        public IQueryable<Customers> Customers => _context.Customers;
+        public IQueryable<Products> Products => _context.Products;
+        public IQueryable<LineItems> LineItems => _context.LineItems;
+        public IQueryable<Orders> Orders => _context.Orders;
         public IQueryable<AspNetUsers> AspNetUserss => _context.AspNetUserss;
 
-        public Product ? GetProductById(int id)
+        public Products ? GetProductById(int id)
         {
             return _context.Products.Find(id);
         }
 
-        public Order ? GetOrderById(int id)
+        public Orders ? GetOrderById(int id)
         {
             return _context.Orders.Find(id);
         }
-        public void Update(Product product)
+        public void Update(Products product)
         {
             _context.Update(product);
         }
@@ -37,20 +37,20 @@ namespace IntexQueensSlay.Models
             _context.SaveChanges();
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(Products product)
         {
             _context.Products.Add(product);
             _context.SaveChanges();
         }
 
-        public void RemoveCustomer(Customer customer)
+        public void RemoveCustomer(Customers customer)
         {
             _context.Customers.Remove(customer);
             _context.SaveChanges();
         }
 
 
-        public void RemoveProduct(Product product)
+        public void RemoveProduct(Products product)
         {
             _context.Products.Remove(product);
             _context.SaveChanges();
@@ -68,8 +68,8 @@ namespace IntexQueensSlay.Models
             _context.SaveChanges();
         }
 
+        
         public void EditCustomer(Customers task)
-        public void EditCustomer(Customer task)
         {
             _context.Update(task);
             _context.SaveChanges();

@@ -13,13 +13,13 @@ namespace IntexQueensSlay.Models
         {
         }
 
-        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
 
-        public virtual DbSet<LineItem> LineItems { get; set; }
+        public virtual DbSet<LineItems> LineItems { get; set; }
 
-        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
 
-        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUserss { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -28,7 +28,7 @@ namespace IntexQueensSlay.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>(entity =>
+            modelBuilder.Entity<Customers>(entity =>
             {
                 entity.ToTable("Customer");
 
@@ -43,7 +43,7 @@ namespace IntexQueensSlay.Models
                 entity.Property(e => e.ResCountry).HasColumnName("resCountry");
             });
 
-            modelBuilder.Entity<LineItem>(entity =>
+            modelBuilder.Entity<LineItems>(entity =>
             {
                 entity.HasKey(e => new { e.ProductId, e.TransactionId });
 
@@ -55,7 +55,7 @@ namespace IntexQueensSlay.Models
                 entity.Property(e => e.Rating).HasColumnName("rating");
             });
 
-            modelBuilder.Entity<Order>(entity =>
+            modelBuilder.Entity<Orders>(entity =>
             {
                 entity.HasKey(e => e.TransactionId);
 
@@ -78,7 +78,7 @@ namespace IntexQueensSlay.Models
                 entity.Property(e => e.WeekDay).HasColumnName("weekDay");
             });
 
-            modelBuilder.Entity<Product>(entity =>
+            modelBuilder.Entity<Products>(entity =>
             {
                 entity.ToTable("Product");
 

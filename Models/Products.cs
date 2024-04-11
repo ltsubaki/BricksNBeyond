@@ -1,6 +1,6 @@
 ﻿namespace IntexQueensSlay.Models
 {
-    public partial class Product
+    public partial class Products
     {
         public int ProductId { get; set; }
 
