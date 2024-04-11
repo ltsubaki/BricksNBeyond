@@ -48,15 +48,14 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ReviewOrders">Review Orders</a>
                             </li> *@
                         </ul>
-                        <partial name="_LoginPartial" />
-
-
-                        <div class="row">
-                            <div class="col-6 navbar-text text-end">
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-page="/Cart">Cart</a>
-                                </li>
-                                <vc:cart-summary />
+                        <div class="d-flex align-items-center">
+                            <partial name="_LoginPartial" />
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-6 navbar-text text-end" style="width: 200px;">
+                                        <vc:cart-summary />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +67,7 @@
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue border-bottom box-shadow mb-3">
                 <div class="container-fluid">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/img/bricksnbeyond2.png" alt="IntexQueensSlay Logo" class="navbar-logo" />
+                        <img src="~/img/bricksnbeyond3.png" alt="IntexQueensSlay Logo" class="navbar-logo" />
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -89,15 +88,16 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Secrets">Secrets</a>
                             </li> *@
                         </ul>
-                        <partial name="_LoginPartial" />
-
-
-                        <div class="row">
-                            <div class="col-6 navbar-text text-end">
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-page="/Cart">Cart</a>
-                                </li>
-                                <vc:cart-summary />
+                        <div class="d-flex align-items-center">
+                            <div class="pe-1">
+                                <partial name="_LoginPartial" />
+                            </div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-6 navbar-text text-end" style="width: 200px;">
+                                        <vc:cart-summary />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
