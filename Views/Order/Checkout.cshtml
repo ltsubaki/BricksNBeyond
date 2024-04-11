@@ -1,0 +1,49 @@
+﻿@* @model Order
+
+<div style="padding: 0 150px">
+    <div style="text-align: center">
+        <h2>CHECKOUT</h2>
+        <h5>Please enter your details, and we'll ship your legos right away!</h5>
+    </div>
+    <br />
+
+    <form asp-action="Checkout" method="post">
+        <input type="hidden" asp-for="TransactionId" />
+        <input type="hidden" asp-for="CustomerId" />
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td><label>Transaction Type:</label></td>
+                    <td><input asp-for="TransactionType" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label>Transaction Country:</label></td>
+                    <td><input asp-for="TransCountry" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label>Shipping Address:</label></td>
+                    <td><input asp-for="ShippingAddress" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label>Bank:</label></td>
+                    <td><input asp-for="Bank" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label>CardType:</label></td>
+                    <td><input asp-for="CardType" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><label>Subtotal:</label></td>
+                    <td><input asp-for="Subtotal" class="form-control" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <br /><br />
+        <div class="text-center">
+            <a class="btn blue-button" asp-page="/Cart" style="margin-right: 10px">Back to Cart</a>
+            <a class="btn red-button" asp-controller="Home" asp-action="OrderConfirmation">Place Order</a>
+        </div>
+    </form>
+
+</div>

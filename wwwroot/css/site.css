@@ -8,6 +8,49 @@ html {
   }
 }
 
+.blue-button {
+    background-color: #006CB7;
+    color: white;
+    border: 2px solid transparent;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px; /* Add this line to round the corners */
+}
+
+.blue-button:hover {
+    background-color: white;
+    color: #006CB7;
+    border: 2px solid #006CB7;
+    border-radius: 12px; /* Add this line to keep the corners rounded on hover */
+}
+
+.red-button {
+    background-color: #D21404;
+    color: white;
+    border: 2px solid transparent;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px; /* Add this line to round the corners */
+}
+
+.red-button:hover {
+    background-color: white;
+    color: #D21404;
+    border: 2px solid #D21404;
+    border-radius: 12px; /* Add this line to keep the corners rounded on hover */
+}
+
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -18,12 +61,16 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    cursor: url('../img/lego cursor.png'), auto;
+    overflow-x: hidden;
+
+
 }
 
 .navbar-logo {
     height: auto;
-    width: 300px;
+    width: 400px;
     padding: 5px; /* Add padding as needed */
 }
 
@@ -51,3 +98,4 @@ body {
 
 /* Change the border color if necessary */
 .border-bottom {
+ 
