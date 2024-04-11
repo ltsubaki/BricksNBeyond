@@ -1,3 +1,4 @@
+using System.Configuration;
 using IntexQueensSlay.Data;
 using IntexQueensSlay.Models;
 using IntexQueensSlay.Models.ViewModels;
@@ -17,15 +18,27 @@ namespace IntexQueensSlay
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionStringLego = builder.Configuration.GetConnectionString("LegoConnection") ?? throw new InvalidOperationException("Connection string 'LegoConnection' not found.");
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            {
+                // Configure ApplicationDbContext to use SQL Server and enable retry on failure
+                options.UseSqlServer(connectionString, sqlServerOptions =>
+                {
+                    sqlServerOptions.EnableRetryOnFailure();
+                });
+            });
 
             builder.Services.AddDbContext<LegoContext>(options =>
             {
-                options.UseSqlite(builder.Configuration["ConnectionStrings:LegoConnection"]);
+                // Configure LegoContext to use SQL Server and enable retry on failure
+                options.UseSqlServer(connectionStringLego, sqlServerOptions =>
+                {
+                    sqlServerOptions.EnableRetryOnFailure();
+                });
             });
 
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddRazorPages();
 

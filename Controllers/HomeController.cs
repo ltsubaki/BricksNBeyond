@@ -57,25 +57,34 @@ namespace IntexQueensSlay.Controllers
         [AllowAnonymous]
         public IActionResult Products(int pageNum, string? allCat, string? allColor, int pageSize = 15)
         {
+            // Ensure pageNum is always greater than or equal to 1
+            pageNum = Math.Max(pageNum, 1);
+
+            // Ensure pageSize is within the range of 5 to 20
             pageSize = Math.Clamp(pageSize, 5, 20);
+
+            // Calculate the skip count using pageNum and pageSize
+            int skipCount = (pageNum - 1) * pageSize;
 
             // Bundling up multiple models to pass!
             var blah = new ProductListViewModel
             {
                 Products = _repo.Products
-                    .Where(x => (x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat || allCat == null) && (x.PrimaryColor == allColor || x.SecondaryColor == allColor || allColor == null))
+                    .Where(x => (x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat || allCat == null) &&
+                                (x.PrimaryColor == allColor || x.SecondaryColor == allColor || allColor == null))
                     .OrderBy(x => x.Name)
-                    .Skip((pageNum - 1) * pageSize)
+                    .Skip(skipCount)
                     .Take(pageSize),
 
                 PaginationInfo = new PaginationInfo
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = (allCat == null && allColor == null) ? _repo.Products.Count() :
-                         (allCat != null && allColor == null) ? _repo.Products.Where(x => x.Category1 == allColor || x.Category2 == allColor || x.Category3 == allColor).Count() :
-                         (allCat == null && allColor != null) ? _repo.Products.Where(x => x.PrimaryColor == allColor || x.SecondaryColor == allColor).Count() :
-                         _repo.Products.Where(x => x.Category1 == allCat && (x.PrimaryColor == allColor || x.SecondaryColor == allColor)).Count()
+                    TotalItems = _repo.Products
+                        .Where(x => (allCat == null || x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat) &&
+                                    (allColor == null || x.PrimaryColor == allColor || x.SecondaryColor == allColor))
+                        .Count()
+
                 },
 
                 CurrentAllCat = allCat,

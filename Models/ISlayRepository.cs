@@ -5,11 +5,10 @@ namespace IntexQueensSlay.Models
 {
     public interface ISlayRepository
     {
-        public IQueryable<Customer> Customers { get; }
-        public IQueryable<Product> Products { get; }
-        public IQueryable<LineItem> LineItems { get; }
-        public IQueryable<Order> Orders { get; }
-        public IQueryable<AspNetUsers> AspNetUserss { get; }
+        public IQueryable<Customers> Customers { get; }
+        public IQueryable<Products> Products { get; }
+        public IQueryable<LineItems> LineItems { get; }
+        public IQueryable<Orders> Orders { get; }
 
         Product GetProductById(int id);
         void AddProduct(Product product);
