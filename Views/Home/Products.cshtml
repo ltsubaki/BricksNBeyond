@@ -19,24 +19,15 @@
 </header>
 
 
-@* <header class="bg py-5" style="background-color: #F2CD37; color: black;">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Find the Lego for you!</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Master Builders Unite</p>
-        </div>
-    </div>
-</header> *@
-
 <!-- Add dropdown for selecting the number of products per page -->
-<div class="container my-1">
+<div class="container my-4">
     <div class="row justify-content-end">
-        <div class="col-md-6 text-center">
+        <div class="col-lg-3 text-right">
             <form asp-controller="Home" asp-action="Products" method="get">
                 <input type="hidden" name="allCat" value="@Model.CurrentAllCat" />
                 <input type="hidden" name="allColor" value="@Model.CurrentAllColor" />
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="pageSizeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn blue-button dropdown-toggle" type="button" id="pageSizeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Select Number of Products
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="pageSizeDropdown">
@@ -51,7 +42,7 @@
 </div>
 
 
-<div class="row row-cols-1 row-cols-md-3 g-4 pt-4">
+<div class="row row-cols-1 row-cols-md-3 g-4 pt-2">
     @foreach (var product in Model.Products)
     {
         <div class="col mb-4">

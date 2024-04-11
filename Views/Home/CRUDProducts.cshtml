@@ -1,10 +1,11 @@
 ﻿@model IQueryable<Product>
 @* @model List<Product> *@
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
+
+<header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
+    <div class="container px-4 px-lg-5 my-3">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Administration</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Manage & Review</p>
+            <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Administration</h1>
+            <p class="lead fw-normal text-black-50 mb-0">Manage & Review</p>
         </div>
     </div>
 </header>
@@ -12,9 +13,9 @@
 <br />
 <div style="display: flex; justify-content: center; align-items: right; padding: 20px;">
     <div class="form-group">
-        <a asp-action="AddProduct" class="btn btn-lg btn-primary">ADD PRODUCT</a>
-        <a asp-action="ReviewOrders" class="btn btn-lg btn-primary">REVIEW ORDERS</a>
-        <a asp-action="ManageAccounts" class="btn btn-lg btn-primary">MANAGE ACCOUNTS</a>
+        <a asp-action="AddProduct" class="btn btn-lg blue-button">ADD PRODUCT</a>
+        <a asp-action="ReviewOrders" class="btn btn-lg blue-button">REVIEW ORDERS</a>
+        <a asp-action="ManageAccounts" class="btn btn-lg blue-button">MANAGE ACCOUNTS</a>
     </div>
 </div>
 
@@ -42,8 +43,8 @@
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
-                                <a asp-controller="Home" asp-action="EditProduct" asp-route-id="@p.ProductId" class="btn btn-outline-dark btn-primary mt-auto" style="color: white; margin-right: 10px">EDIT</a>
-                                <a asp-controller="Home" asp-action="RemoveProduct" asp-route-id="@p.ProductId" class="btn btn-outline-dark mt-auto" style="background-color:red; color: white; margin-left: 10px">REMOVE</a>
+                                <a asp-controller="Home" asp-action="EditProduct" asp-route-id="@p.ProductId" class="btn blue-button mt-auto" style="margin-right: 10px">EDIT</a>
+                                <a asp-controller="Home" asp-action="RemoveProduct" asp-route-id="@p.ProductId" class="btn red-button mt-auto" style="margin-left: 10px">REMOVE</a>
                             </div>
                         </div>
                     </div>
