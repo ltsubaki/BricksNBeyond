@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.Security.Cryptography.X509Certificates;
 using IntexQueensSlay.Models;
 using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -36,21 +38,38 @@ namespace IntexQueensSlay.Controllers
             // initialize the InferenceSession
             _session = new InferenceSession(_onnxModelPath);
         }
-
-        public IActionResult Index()
+        [AllowAnonymous]
+        public ActionResult Index()
         {
-
-
+            if (!HasCookieConsent())
+            {
+                ViewBag.ShowConsentBanner = true;
+            }
             return View();
         }
+        
+        private bool HasCookieConsent()
+        {
+            if (Request.Cookies["cookieConsent"] != null)
+            {
+                // Compare the cookie value directly
+                return Request.Cookies["cookieConsent"] == "true";
+            }
+            return false;
+        }
 
+
+        //    //return View();
+        //}
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
         }
-        public IActionResult Products(int pageNum, string? allCat, string? allColor)
+        [AllowAnonymous]
+        public IActionResult Products(int pageNum, string? allCat, string? allColor, int pageSize = 15)
         {
-            int pageSize = 1;
+            pageSize = Math.Clamp(pageSize, 5, 20);
 
             // Bundling up multiple models to pass!
             var blah = new ProductListViewModel
@@ -80,7 +99,7 @@ namespace IntexQueensSlay.Controllers
             return View(blah);
         }
 
-
+        [AllowAnonymous]
         public IActionResult AboutUs()
         {
             return View();
@@ -91,7 +110,7 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-
+        [AllowAnonymous]
         public IActionResult ProductDetails(int id)
         {
             var product = _repo.GetProductById(id);
@@ -102,50 +121,140 @@ namespace IntexQueensSlay.Controllers
 
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult CRUDProducts()
         {
             var productData = _repo.Products;
 
             return View(productData);
         }
-
-        public IActionResult EditProduct(int id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditProduct(int id, Product productModel)
         {
-            var product = _repo.GetProductById(id);
-            if (product == null)
+            if (HttpContext.Request.Method == "POST")
             {
-                return NotFound();
+                if (ModelState.IsValid)
+                {
+                    // Retrieve the product from the database
+                    var product = _repo.GetProductById(id);
+                    if (product == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update the product with the values from the form
+                    product.Name = productModel.Name;
+                    product.Price = productModel.Price;
+                    // ... Update the rest of the properties ...
+
+                    // Update the product in the database
+                    _repo.Update(product);
+                    _repo.SaveChanges();
+
+                    // Redirect to a confirmation page
+                    return RedirectToAction("EditConfirmation");
+                }
+            }
+            else
+            {
+                productModel = _repo.GetProductById(id);
+                if (productModel == null)
+                {
+                    return NotFound();
+                }
             }
 
-            return View(product);
+            return View(productModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EditConfirmation()
         {
             return View();
         }
 
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult RemoveProduct(int id)
+        //{
+        //    var product = _repo.GetProductById(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(product);
+        //}
+
+        [HttpGet]
         public IActionResult RemoveProduct(int id)
         {
+            // Retrieve the product from the database
             var product = _repo.GetProductById(id);
+
             if (product == null)
             {
-                return NotFound();
+                // If the product is not found, return an error view
+                return View("Error");
             }
 
+            // Pass the product to the view
             return View(product);
         }
 
-        public IActionResult AddProduct()
+
+        [HttpPost]
+        public IActionResult RemoveProductConfirmed(int id)
         {
-            return View();
+            // Retrieve the product from the database
+            var product = _repo.GetProductById(id);
+
+            if (product != null)
+            {
+                // Remove the product from the database
+                _repo.RemoveProduct(product);
+                _repo.SaveChanges();
+
+                // Redirect to a confirmation page
+                return RedirectToAction("RemoveConfirmation");
+            }
+
+            // If the product is not found, return an error view
+            return View("Error");
         }
 
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            return View(new Product());
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult AddProduct(Product productModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Add the product to the database
+                _repo.AddProduct(productModel);
+                _repo.SaveChanges();
+
+                // Redirect to a confirmation page
+                return RedirectToAction("AddConfirmation");
+            }
+
+            // If the model state is not valid, return the form
+            return View(productModel);
+        }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult RemoveConfirmation()
         {
             return View();
         }
+        [Authorize(Roles = "Customer,Admin")]
 
         public IActionResult OrderConfirmation()
         {
@@ -157,12 +266,129 @@ namespace IntexQueensSlay.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult ReviewOrders()
+        {
+            var orders = _repo.Orders.Where(o => o.Fraud == 1).Take(200).ToList();
+
+            return View(orders);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
         public IActionResult ManageAccounts()
         {
             var orders = _repo.Customers.Take(200).ToList();
 
             return View(orders);
         }
+
+        //[HttpPost]
+        //public IActionResult ManageAccounts()
+        //    {
+
+        //    }
+
+        [HttpGet]
+        public IActionResult DeleteUser(int id)
+        {
+            //delete the record by ID num
+            var recordToDelete = _repo.Customers
+                .Single(x => x.CustomerId == id);
+
+            return View(recordToDelete);
+        }
+        [HttpPost]
+        //calls the repo pattern method to delete
+        public IActionResult DeleteUser(Customer task)
+        {
+            var recordToDelete = _repo.Customers
+                .Single(x => x.CustomerId == task.CustomerId);
+            //actually delete it
+            _repo.DeleteCustomer(recordToDelete);
+            //goes back to quadrant views
+            return RedirectToAction("ManageAccounts");
+        }
+
+        [HttpGet]
+        public IActionResult EditUser(int id)
+
+        {
+            var recordToEdit = _repo.Customers
+                .Single(x => x.CustomerId == id);
+
+            //ViewBag.Category = _repo.Category
+            //    .OrderBy(x => x.CategoryName)
+            //    .ToList();
+            return View("AddCustomer", recordToEdit);
+        }
+
+        //updates the reccord and redirects to view
+        [HttpPost]
+        public IActionResult Edituser(Customer updateresponse)
+        {
+            //update the datebase with the new edits
+            _repo.EditCustomer(updateresponse);
+            //return to view
+            return RedirectToAction("ManageAccounts");
+        }
+
+        public IActionResult AddCustomer(int id, Customer customerModel)
+        {
+            if (HttpContext.Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    // Retrieve the product from the database
+                    var customer = _repo.GetCustomerById(id);
+                    if (customer == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update the product with the values from the form
+                    customer.FirstName = customerModel.FirstName;
+                    customer.LastName = customerModel.LastName;
+                    customer.BirthDate = customerModel.BirthDate;
+                    customer.ResCountry = customerModel.ResCountry;
+                    customer.Gender = customerModel.Gender;
+                    customer.Age = customerModel.Age;
+                    // ... Update the rest of the properties ...
+
+                    // Update the product in the database
+                    _repo.UpdateCustomer(customer);
+                    _repo.SaveChanges();
+
+                    // Redirect to a confirmation page
+                    return RedirectToAction("EditConfirmation");
+                }
+            }
+            else
+            {
+                customerModel = _repo.GetCustomerById(id);
+                if (customerModel == null)
+                {
+                    return NotFound();
+                } 
+            }
+
+            return View(customerModel);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Authorize(Roles = "Customer,Admin")]
         public IActionResult Checkout()
         {
             return View();

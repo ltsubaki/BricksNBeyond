@@ -1,13 +1,6 @@
-﻿@* @*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@* @model Cart
 
-@*
-@model Cart
-
-<div class="cart-summary">
+<div class="">
     @if (Model.Lines.Count() > 0)
     {
         <small class="navbar-text">
@@ -20,7 +13,22 @@
        asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()">
         <i class="fa fa-shopping-cart"></i>
     </a>
-</div>
+</div> *@
 
-    
- *@
+
+@model Cart
+
+<div class="" style="background-color: #006CB7">
+    @if (Model.Lines.Count() > 0)
+    {
+        <small class="navbar-text" style="color: white;">
+            <b>Your cart:</b>
+            @Model.Lines.Sum(x => x.Quantity) item(s)
+            @Model.CalculateTotal().ToString("c")
+        </small>
+    }
+    <a class="btn btn-sm btn-secondary border-0 navbar-btn" asp-page="/Cart"
+       asp-route-returnurl="@ViewContext.HttpContext.Request.Path@ViewContext.HttpContext.Request.QueryString" style="border:none; background-color: #006CB7 ">
+        <i class="fa fa-shopping-cart fa-2x" style="color: white; Background: #006CB7 "></i>
+    </a>
+</div>

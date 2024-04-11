@@ -6,42 +6,49 @@
 
 @model Product
 
-<div style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+
+@* <div style="display: flex; justify-content: center; align-items: center; padding: 0px;">
     <!-- Container for the product and actions -->
-    <div style="flex: 1; max-width: 50%; padding-right: 10px; box-sizing: border-box;">
-        <img class="card-img-top" src="@Model.ImgLink" alt="Product Image" style="max-width: 50%; height: auto; object-fit: contain;" />
+    <div class="container text-center col-6" style="max-width: 35%;">
+        <img class="card-img-top" src="@Model.ImgLink" alt="Product Image" style="max-width: 90%; height: auto; object-fit: contain;" />
+        <br />
         <h2>@Model.Name</h2>
+        <br />
         <div class="form-group">
-            <a asp-action="CRUDProducts" class="btn btn-primary">NO, don't remove</a>
-            <a asp-action="RemoveConfirmation" class="btn btn-danger">YES, remove</a>
+            <a asp-action="CRUDProducts" class="btn blue-button">NO, don't remove</a>
+            <a asp-action="RemoveConfirmation" class="btn red-button">YES, remove</a>
         </div>
     </div>
 
     <!-- Container for the Lego Man image -->
-    <div style="flex: 1; max-width: 50%; padding-right: 100px; box-sizing: border-box; text-align: right; display: flex; align-items: flex-end; justify-content: flex-end;">
-        <img src="~/img/legoman - remove.png" alt="Lego Man" style="width: 100%; height: auto;" />
-    </div>
-</div>
-
-
-
-@* 
-<div>
-    <div class="align-left">
-        <img class="card-img-top" src="@Model.ImgLink" alt="..." style="height: auto; max-height: 200px; width: 100%; object-fit: contain;" />
-        <br />
-        <h2>@Model.Name</h2>
-    </div>
-
-    <br />
-    <div class="form-group">
-        <a asp-action="CRUDProducts" class="btn btn-primary">NO, don't remove</a>
-        <a asp-action="RemoveConfirmation" class="btn" style="background-color:red; color: white">YES, remove</a>
-    </div>
-</div>
-
-<div>
-    <img src="~/img/legoman - remove.png" />
+   <div class="container text-center col-6" style="max-width: 35%; text-align: right; display: flex; align-items: flex-end; justify-content: flex-end;">
+        <img src="~/img/legoman - remove2.png" alt="Lego Man" style="width: 120%; height: auto;" />
+    </div> 
 </div>
  *@
+
+<div style="display: flex; justify-content: center; align-items: center; padding-top: 50px; margin-top: auto;">
+    <!-- Container for the product and actions -->
+    <div class="container col-2"></div>
+    <div class="container text-center col-4">
+        <img class="card-img-top" src="@Model.ImgLink" alt="Product Image" style="max-width: 80%; height: auto; object-fit: contain;" />
+        <br />
+        <h2>@Model.Name</h2>
+        <br />
+        <div class="form-group">
+            <a asp-action="CRUDProducts" class="btn blue-button">NO, don't remove</a>
+            <form asp-action="RemoveProductConfirmed" method="post" style="display: inline;">
+                <input type="hidden" name="id" value="@Model.ProductId" />
+                <button type="submit" class="btn red-button">YES, remove</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Container for the Lego Man image -->
+    <div class="container text-center col-4">
+        <img src="~/img/legoman - remove2.png" alt="Lego Man" style="width: 120%; height: auto;" />
+    </div>
+    <div class="container col-2"></div>
+</div>
 

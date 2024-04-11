@@ -1,15 +1,34 @@
 ﻿@model Product
 
-<div style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+@* <div style="display: flex; justify-content: center; align-items: center; padding: 20px;">
     <div class="form-group">
         <h1>SUCCESS!</h1>
         <br /><br />
-        <a asp-action="CRUDProducts" class="btn btn-primary">Return to Products Summary</a>
+        <a asp-action="CRUDProducts" class="btn blue-button">Return to Products Summary</a>
+    </div>
+    
+    <!-- Container for the Lego Man image -->
+    <div style="flex: 1; max-width: 50%; padding-right: 100px; box-sizing: border-box; text-align: right; display: flex; align-items: flex-end; justify-content: flex-end;">
+        <img src="~/img/lego - confirmadd2.png" alt="Lego Man" style="width: 100%; height: auto;" />
+    </div>
+</div> *@
+
+<div style="display: flex; justify-content: center; align-items: center; padding-top: 50px; margin-top: auto;">
+    <!-- Empty space -->
+    <div class="container col-2"></div>
+
+    <!-- Container for the success message and button -->
+    <div class="container text-center col-4">
+        <h1>SUCCESS!</h1>
+        <br /><br />
+        <a asp-action="CRUDProducts" class="btn blue-button">Return to Products Summary</a>
     </div>
 
     <!-- Container for the Lego Man image -->
-    <div style="flex: 1; max-width: 50%; padding-right: 100px; box-sizing: border-box; text-align: right; display: flex; align-items: flex-end; justify-content: flex-end;">
-        <img src="~/img/lego - confirmadd.png" alt="Lego Man" style="width: 100%; height: auto;" />
+    <div class="container text-center col-4">
+        <img src="~/img/lego - confirmadd2.png" alt="Lego Man" style="width: 120%; height: auto;" />
     </div>
-</div>
 
+    <!-- Empty space -->
+    <div class="container col-2"></div>
+</div>

@@ -10,7 +10,7 @@
         <h1>MANAGE ACCOUNTS</h1>
     </div>
     <div>
-        <a asp-action="CRUDProducts" class="btn btn-primary">Return to Products Summary</a>
+        <a asp-action="CRUDProducts" class="btn btn-primary">Return to Admin Summary</a>
     </div>
 </div>
 <br />
@@ -26,6 +26,12 @@
             padding: 8px;
             text-align: left;
         }
+
+    .custom-button {
+        background-color: #F2CD37;
+        /* Add other styles as needed */
+    }
+
 </style>
 
 <table class="table table-bordered">
@@ -67,7 +73,11 @@
                         @Html.DisplayFor(modelItem => item.Age)
                     </td>
                     <td>
-                        <a asp-controller="Home" asp-route-id="@item.CustomerId" class="btn btn-outline-dark mt-auto" style="background-color:red; color: white; margin-left: 10px">CHANGE ROLE</a>
+                    <a asp-controller="Home" asp-route-id="@item.CustomerId" asp-action="EditUser" class="btn blue-button mt-auto" style="text-align: center; background-color: #F2CD37;">Edit</a>
+                    <a asp-controller="Home" asp-route-id="@item.CustomerId" asp-action="DeleteUser" class="btn red-button mt-auto" style="text-align: center;">Delete</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Home" asp-route-id="@item.CustomerId" class="btn blue-button mt-auto" style="margin-left: 10px">CHANGE ROLE</a>
                     </td>
                 </tr>
         }
