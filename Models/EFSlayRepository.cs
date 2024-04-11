@@ -31,41 +31,41 @@ namespace IntexQueensSlay.Models
             _context.SaveChanges();
         }
 
-        public void AddProduct(Products product)
+        public void AddProduct(Product product)
         {
             _context.Products.Add(product);
             _context.SaveChanges();
         }
 
-        public void RemoveProduct(Products product)
+        public void RemoveProduct(Product product)
         {
             _context.Products.Remove(product);
             _context.SaveChanges();
         }
 
-        public void AddCustomer(Customers task)
+        public void AddCustomer(Customer task)
         {
             _context.Add(task);
             _context.SaveChanges();
         }
 
-        public void DeleteCustomer(Customers task)
+        public void DeleteCustomer(Customer task)
         {
             _context.Remove(task);
             _context.SaveChanges();
         }
 
-        public void EditCustomer(Customers task)
+        public void EditCustomer(Customer task)
         {
             _context.Update(task);
             _context.SaveChanges();
         }
 
-        public Customers GetCustomerById(int id)
+        public Customer GetCustomerById(int id)
         {
             return _context.Customers.Find(id);
         }
-        public void UpdateCustomer(Customers customer)
+        public void UpdateCustomer(Customer customer)
         {
             _context.Update(customer);
         }

@@ -10,21 +10,21 @@ namespace IntexQueensSlay.Models
         public IQueryable<LineItems> LineItems { get; }
         public IQueryable<Orders> Orders { get; }
 
-        Products GetProductById(int id);
-        void AddProduct(Products product);
+        Product GetProductById(int id);
+        void AddProduct(Product product);
 
-        void RemoveProduct(Products product);
+        void RemoveProduct(Product product);
 
 
-        void Update(Products product);
+        void Update(Product product);
         void SaveChanges();
 
-        public void AddCustomer(Customers task);
-        public void DeleteCustomer(Customers task);
-        public void EditCustomer(Customers task);
+        public void AddCustomer(Customer task);
+        public void DeleteCustomer(Customer task);
+        public void EditCustomer(Customer task);
 
-        Customers GetCustomerById(int id);
-        void UpdateCustomer(Customers customer);
+        Customer GetCustomerById(int id);
+        void UpdateCustomer(Customer customer);
     }
 }
 
