@@ -215,6 +215,105 @@ namespace IntexQueensSlay.Controllers
 
         //    }
 
+        [HttpGet]
+        public IActionResult DeleteUser(int id)
+        {
+            //delete the record by ID num
+            var recordToDelete = _repo.Customers
+                .Single(x => x.CustomerId == id);
+
+            return View(recordToDelete);
+        }
+        [HttpPost]
+        //calls the repo pattern method to delete
+        public IActionResult DeleteUser(Customer task)
+        {
+            var recordToDelete = _repo.Customers
+                .Single(x => x.CustomerId == task.CustomerId);
+            //actually delete it
+            _repo.DeleteCustomer(recordToDelete);
+            //goes back to quadrant views
+            return RedirectToAction("ManageAccounts");
+        }
+
+        [HttpGet]
+        public IActionResult EditUser(int id)
+
+        {
+            var recordToEdit = _repo.Customers
+                .Single(x => x.CustomerId == id);
+
+            //ViewBag.Category = _repo.Category
+            //    .OrderBy(x => x.CategoryName)
+            //    .ToList();
+            return View("AddCustomer", recordToEdit);
+        }
+
+        //updates the reccord and redirects to view
+        [HttpPost]
+        public IActionResult Edituser(Customer updateresponse)
+        {
+            //update the datebase with the new edits
+            _repo.EditCustomer(updateresponse);
+            //return to view
+            return RedirectToAction("ManageAccounts");
+        }
+
+        public IActionResult AddCustomer(int id, Customer customerModel)
+        {
+            if (HttpContext.Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    // Retrieve the product from the database
+                    var customer = _repo.GetCustomerById(id);
+                    if (customer == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update the product with the values from the form
+                    customer.FirstName = customerModel.FirstName;
+                    customer.LastName = customerModel.LastName;
+                    customer.BirthDate = customerModel.BirthDate;
+                    customer.ResCountry = customerModel.ResCountry;
+                    customer.Gender = customerModel.Gender;
+                    customer.Age = customerModel.Age;
+                    // ... Update the rest of the properties ...
+
+                    // Update the product in the database
+                    _repo.UpdateCustomer(customer);
+                    _repo.SaveChanges();
+
+                    // Redirect to a confirmation page
+                    return RedirectToAction("EditConfirmation");
+                }
+            }
+            else
+            {
+                customerModel = _repo.GetCustomerById(id);
+                if (customerModel == null)
+                {
+                    return NotFound();
+                } 
+            }
+
+            return View(customerModel);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         [Authorize(Roles = "Customer,Admin")]
         public IActionResult Checkout()

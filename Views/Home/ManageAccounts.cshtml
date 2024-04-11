@@ -67,6 +67,10 @@
                         @Html.DisplayFor(modelItem => item.Age)
                     </td>
                     <td>
+                        <a asp-controller="Home" asp-route-id="@item.CustomerId" asp-action="EditUser" class="btn blue-button mt-auto" style="margin-left: 10px">Edit</a>
+                        <a asp-controller="Home" asp-route-id="@item.CustomerId" asp-action="DeleteUser" class="btn blue-button mt-auto" style="margin-left: 10px">Delete</a>
+                    </td>
+                    <td>
                         <a asp-controller="Home" asp-route-id="@item.CustomerId" class="btn blue-button mt-auto" style="margin-left: 10px">CHANGE ROLE</a>
                     </td>
                 </tr>
