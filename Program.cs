@@ -68,42 +68,50 @@ namespace IntexQueensSlay
 
             var app = builder.Build();
 
+            //Add CSP header middleware
             // Add CSP header middleware
-            // Add CSP header middleware
-            // Add CSP header middleware
-            //app.Use(async (context, next) =>
-            //{
-            //    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; " +
-            //        "script-src 'self' 'unsafe-inline'; " + // 'unsafe-inline' is used to allow inline scripts, use it with caution
-            //        "style-src 'self'; " +
-            //        "font-src 'self'; " +
-            //        "img-src 'self' data:; " +
-            //        "media-src 'self'; " +
-            //        "frame-src 'self'; " +
-            //        "connect-src 'self'; " +
-            //        "worker-src 'self'; " +
-            //        "frame-ancestors 'self'; " +
-            //        "form-action 'self'; " +
-            //        "base-uri 'self'; " +
-            //        "manifest-src 'self'; " +
-            //        "object-src 'none'; " + // prevent loading any objects (e.g., Flash)
-            //        "base-uri 'self'; " +
-            //        "manifest-src 'self'; " +
-            //        "require-sri-for script style; " + // require Subresource Integrity for scripts and stylesheets
-            //        "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' " + // allow 'unsafe-inline' and 'unsafe-eval' for scripts loaded as elements
-            //        "'strict-dynamic' 'nonce-{nonce}' https://www.google-analytics.com https://www.googletagmanager.com; " +
-            //        "style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-            //        "frame-ancestors 'none'; " + // prevent the document from being used in an iframe
-            //        "upgrade-insecure-requests;" + // always attempt to load HTTPS resources
-            //        "block-all-mixed-content;" + // prevent loading mixed (HTTP and HTTPS) content
-            //        "reflected-xss block; " + // enable XSS filtering
-            //        "referrer origin-when-cross-origin; " + // only send the origin of the document as the referrer for same-origin requests
-            //        "feature-policy 'none'; " + // disable all browser features
-            //        "sandbox allow-forms allow-same-origin allow-scripts; " + // sandbox the document
-            //        "report-uri https://example.com/csp-report-endpoint"); // report violations to the specified URL
+
+            //app.Use(async (context, next) => {
+            //    context.Response.Headers.Add("script-src 'self' https://code.jquery.com/jquery-3.5.1.min.js https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.31/moment-timezone-with-data.js https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js; style-src 'self' https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css; font-src 'self' https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.woff2 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.woff https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.ttf https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.woff2 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.woff https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.ttf https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.woff2 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.woff https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.ttf; img-src 'self'; frame-src 'self'");
 
             //    await next();
             //});
+            // Add CSP header middleware
+        //    app.Use(async (context, next) =>
+        //    {
+        //        context.Response.Headers.Add("Content-Security-Policy-Report-Only", "default-src 'self'; " +
+        //            "script-src 'self' 'unsafe-inline' https://localhost:44365/js/cookieConsent.js https://localhost:44365/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo https://localhost:44365/lib/bootstrap/dist/js/bootstrap.bundle.min.js https://localhost:44365/lib/jquery/dist/jquery.min.js; " + // 'unsafe-inline' is used to allow inline scripts, use it with caution
+        //            "style-src 'self'; 'unsafe-inline';" +
+        //            "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' 'nonce-{nonce}' " +
+        //"https://www.google-analytics.com https://www.googletagmanager.com https://localhost:44365;" +
+        //            "font-src 'self'; " +
+        //            "img-src 'self' data:; " +
+        //            "media-src 'self'; " +
+        //            "frame-src 'self'; " +
+        //            "connect-src 'self'; " +
+        //            "worker-src 'self'; " +
+        //            "frame-ancestors 'self'; " +
+        //            "form-action 'self'; " +
+        //            "base-uri 'self'; " +
+        //            "manifest-src 'self'; " +
+        //            "object-src 'none'; " + // prevent loading any objects (e.g., Flash)
+        //            "base-uri 'self'; " +
+        //            "manifest-src 'self'; " +
+        //            "require-sri-for script style; " + // require Subresource Integrity for scripts and stylesheets
+        //            "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' " + // allow 'unsafe-inline' and 'unsafe-eval' for scripts loaded as elements
+        //            "'strict-dynamic' 'nonce-{nonce}' https://www.google-analytics.com https://www.googletagmanager.com; " +
+        //            "style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+        //            "frame-ancestors 'none'; " + // prevent the document from being used in an iframe
+        //            "upgrade-insecure-requests;" + // always attempt to load HTTPS resources
+        //            "block-all-mixed-content;" + // prevent loading mixed (HTTP and HTTPS) content
+        //            "reflected-xss block; " + // enable XSS filtering
+        //            "referrer origin-when-cross-origin; " + // only send the origin of the document as the referrer for same-origin requests
+        //            "feature-policy 'none'; " + // disable all browser features
+        //            "sandbox allow-forms allow-same-origin allow-scripts; " + // sandbox the document
+        //            "report-uri https://example.com/csp-report-endpoint"); // report violations to the specified URL
+
+        //        await next();
+        //    });
 
 
 
