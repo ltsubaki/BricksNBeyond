@@ -14,13 +14,15 @@ namespace IntexQueensSlay
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionStringLego = builder.Configuration.GetConnectionString("LegoConnection") ?? throw new InvalidOperationException("Connection string 'LegoConnection' not found.");
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(connectionString));
+                options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDbContext<LegoContext>(options =>
             {
-                options.UseSqlite(builder.Configuration["ConnectionStrings:LegoConnection"]);
+                options.UseSqlServer(connectionStringLego);
             });
 
 

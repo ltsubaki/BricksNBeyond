@@ -9,12 +9,12 @@
             _context = temp;
         }
 
-        public IQueryable<Customer> Customers => _context.Customers;
-        public IQueryable<Product> Products => _context.Products;
-        public IQueryable<LineItem> LineItems => _context.LineItems;
-        public IQueryable<Order> Orders => _context.Orders;
+        public IQueryable<Customers> Customers => _context.Customers;
+        public IQueryable<Products> Products => _context.Products;
+        public IQueryable<LineItems> LineItems => _context.LineItems;
+        public IQueryable<Orders> Orders => _context.Orders;
 
-        public Product GetProductById(int id)
+        public Products GetProductById(int id)
         {
             return _context.Products.Find(id);
         }
