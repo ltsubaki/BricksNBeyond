@@ -3,20 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IntexQueensSlay.Models
 {
-    public partial class LineItem
+    public partial class LineItems
     {
-        public int TransactionId { get; set; }
 
+        [Key]
+        public int TransactionId { get; set; }
         public int ProductId { get; set; }
 
+        // Other properties
         public int? Quantity { get; set; }
-
         public int? Rating { get; set; }
-
-        // Navigation properties for the related entities
-        public virtual Order Transaction { get; set; }
-
-        public virtual Product Product { get; set; }
     }
 }
+
 

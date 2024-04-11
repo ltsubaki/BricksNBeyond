@@ -13,13 +13,13 @@ namespace IntexQueensSlay.Models
         {
         }
 
-        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
 
-        public virtual DbSet<LineItem> LineItems { get; set; }
+        public virtual DbSet<LineItems> LineItems { get; set; }
 
-        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
 
-        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
 
 
 

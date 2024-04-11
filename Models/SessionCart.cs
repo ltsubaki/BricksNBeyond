@@ -22,13 +22,13 @@ namespace IntexQueensSlay.Models
         [JsonIgnore]
         public ISession? Session { get; set; }
 
-        public override void AddItem(Product product, int quantity)
+        public override void AddItem(Products product, int quantity)
         {
             base.AddItem(product, quantity);
             Session?.SetJson("Cart", this);
         }
 
-        public override void RemoveLine(Product product)
+        public override void RemoveLine(Products product)
         {
             base.RemoveLine(product);
             Session?.SetJson("Cart", this);

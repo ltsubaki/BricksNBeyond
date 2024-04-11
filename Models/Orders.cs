@@ -2,7 +2,7 @@
 
 namespace IntexQueensSlay.Models
 {
-    public partial class Order
+    public partial class Orders
     {
         [Key]
         public int TransactionId { get; set; }
@@ -17,7 +17,7 @@ namespace IntexQueensSlay.Models
 
         public string? EntryMode { get; set; }
 
-        public double? Subtotal { get; set; }
+        public int? Subtotal { get; set; }
 
         public string? TransactionType { get; set; }
 

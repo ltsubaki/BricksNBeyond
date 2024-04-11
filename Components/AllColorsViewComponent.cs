@@ -20,13 +20,15 @@ namespace IntexQueensSlay.Components
 
             var primaryColors = _slayRepo.Products
                 .Select(x => x.PrimaryColor)
+                .Where(color => !string.IsNullOrEmpty(color)) // Filter out null or empty primary colors
                 .Distinct()
-                .OrderBy(x => x);
+                .OrderBy(color => color);
 
             var secondaryColors = _slayRepo.Products
                 .Select(x => x.SecondaryColor)
+                .Where(color => !string.IsNullOrEmpty(color)) // Filter out null or empty secondary colors
                 .Distinct()
-                .OrderBy(x => x);
+                .OrderBy(color => color);
 
             var allColors = primaryColors.Concat(secondaryColors).Distinct().OrderBy(x => x);
 

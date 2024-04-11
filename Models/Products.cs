@@ -2,7 +2,7 @@
 
 namespace IntexQueensSlay.Models
 {
-    public partial class Product
+    public partial class Products
     {
         [Key]
         public int ProductId { get; set; }
@@ -13,7 +13,7 @@ namespace IntexQueensSlay.Models
 
         public int? NumParts { get; set; }
 
-        public double? Price { get; set; }
+        public int? Price { get; set; }
 
         public string? ImgLink { get; set; }
 
