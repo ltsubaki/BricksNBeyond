@@ -1,5 +1,4 @@
-﻿
-
+﻿@model ProductListViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -22,8 +21,19 @@
 <div style="display: flex; justify-content: center; align-items: center; padding: 5px;">
     <div class="form-group">
         <h1>Recommended Products</h1>
-        <br /><br />
+        <br />
         <a class="nav-link btn blue-button btn-sm" asp-area="" asp-controller="Home" asp-action="Products">View All Products</a>
+    </div>
+    <br />
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4 pt-2">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col mb-4">
+                <!-- Add margin bottom to create space between columns -->
+                <partial name="productsummary" model="product" />
+            </div>
+        }
     </div>
 
     <!-- Container for the Lego Man image -->
