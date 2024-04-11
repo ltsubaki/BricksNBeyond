@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Security.Cryptography.X509Certificates;
 using IntexQueensSlay.Models;
 using IntexQueensSlay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -200,12 +201,21 @@ namespace IntexQueensSlay.Controllers
             return View(orders);
         }
         [Authorize(Roles = "Admin")]
+        [HttpGet]
         public IActionResult ManageAccounts()
         {
             var orders = _repo.Customers.Take(200).ToList();
 
             return View(orders);
         }
+
+        //[HttpPost]
+        //public IActionResult ManageAccounts()
+        //    {
+
+        //    }
+
+
         [Authorize(Roles = "Customer,Admin")]
         public IActionResult Checkout()
         {
