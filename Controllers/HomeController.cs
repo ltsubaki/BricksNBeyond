@@ -103,11 +103,14 @@ namespace IntexQueensSlay.Controllers
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = _repo.Products
-                        .Where(x => (allCat == null || x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat) &&
-                                    (allColor == null || x.PrimaryColor == allColor || x.SecondaryColor == allColor))
-                        .Count()
-
+                    TotalItems = (allCat == null && allColor == null) ? _repo.Products.Count() :
+                                 (allCat != null && allColor == null) ? _repo.Products.Where(x => x.Category1 == allColor ||
+                                                                                                  x.Category2 == allColor ||
+                                                                                                  x.Category3 == allColor).Count() :
+                                 (allCat == null && allColor != null) ? _repo.Products.Where(x => x.PrimaryColor == allColor ||
+                                                                                                  x.SecondaryColor == allColor).Count() :
+                                 _repo.Products.Where(x => x.Category1 == allCat &&
+                                                           (x.PrimaryColor == allColor || x.SecondaryColor == allColor)).Count()
                 },
 
                 CurrentAllCat = allCat,
