@@ -56,23 +56,30 @@ namespace IntexQueensSlay.Models
             _context.SaveChanges();
         }
 
-        public void AddCustomer(Customer task)
+        public void AddCustomer(Customers task)
         {
             _context.Add(task);
             _context.SaveChanges();
         }
 
+        public void DeleteCustomer(Customers task)
+        {
+            _context.Remove(task);
+            _context.SaveChanges();
+        }
+
+        public void EditCustomer(Customers task)
         public void EditCustomer(Customer task)
         {
             _context.Update(task);
             _context.SaveChanges();
         }
 
-        public Customer GetCustomerById(int id)
+        public Customers GetCustomerById(int id)
         {
             return _context.Customers.Find(id);
         }
-        public void UpdateCustomer(Customer customer)
+        public void UpdateCustomer(Customers customer)
         {
             _context.Update(customer);
         }

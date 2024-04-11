@@ -1,48 +1,5 @@
 ﻿@* @model Order
 
-<h2>Check out now</h2>
-<p>Please enter your details, and we'll ship your goods right away!</p>
-
-<form asp-action="Checkout" method="post">
-    <input type="hidden" asp-for="TransactionId" />
-    <input type="hidden" asp-for="CustomerId" />
-
-    <h3>Ship to</h3>
-    <div class="form-group">
-        <label>Transaction Type:</label>  
-        <input asp-for="TransactionType" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Transaction Country:</label>
-        <input asp-for="TransCountry" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Shipping Address:</label>
-        <input asp-for="ShippingAddress" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Bank:</label>
-        <input asp-for="Bank" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>CardType:</label>
-        <input asp-for="CardType" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Subtotal:</label>
-        <input asp-for="Subtotal" class="form-control" />
-    </div>
-    <br /><br />
-    <div class="text-center">
-        <a class="btn btn-primary" asp-controller="Home" asp-action="OrderConfirmation">Place Order</a>
-    </div>
-</form>
-
- *@
-
-@model Order
-
 <div style="padding: 0 150px">
     <div style="text-align: center">
         <h2>CHECKOUT</h2>
