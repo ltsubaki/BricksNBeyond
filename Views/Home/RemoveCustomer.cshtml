@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Customer
+
+
+
+<div style="display: flex; justify-content: center; align-items: center; padding-top: 50px; margin-top: auto;">
+    <!-- Container for the product and actions -->
+    <div class="container col-2"></div>
+    <div class="container text-center col-4">
+        <h2>Are you sure you want to remove @Model.FirstName @Model.LastName?</h2>
+        <br />
+        <div class="form-group">
+            <a asp-action="ManageAccounts" class="btn blue-button">NO, don't remove</a>
+            <form asp-action="RemoveCustomerConfirmed" method="post" style="display: inline;">
+                <input type="hidden" name="id" value="@Model.CustomerId" />
+                <button type="submit" class="btn red-button">YES, remove</button>
+            </form>
+
+            @* <form asp-action="RemoveAdminConfirm" method="post" style="display: inline;">
+                <input type="hidden" name="id" value="@Model.CustomerId" />
+                <button type="submit" class="btn red-button">YES, remove</button>
+            </form> *@
+        </div>
+    </div>
+
+@* 
+    <!-- Container for the Lego Man image -->
+    <div class="container text-center col-4">
+        <img src="~/img/legoman - remove2.png" alt="Lego Man" style="width: 120%; height: auto;" />
+    </div> *@
+    <div class="container col-2"></div>
+</div>
+

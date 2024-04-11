@@ -18,11 +18,16 @@ namespace IntexQueensSlay.Models
         public IQueryable<Order> Orders => _context.Orders;
         public IQueryable<AspNetUsers> AspNetUserss => _context.AspNetUserss;
 
-        public Product GetProductById(int id)
+        public Product ? GetProductById(int id)
         {
             return _context.Products.Find(id);
-        }    
-            public void Update(Product product)
+        }
+
+        public Order ? GetOrderById(int id)
+        {
+            return _context.Orders.Find(id);
+        }
+        public void Update(Product product)
         {
             _context.Update(product);
         }
@@ -38,6 +43,13 @@ namespace IntexQueensSlay.Models
             _context.SaveChanges();
         }
 
+        public void RemoveCustomer(Customer customer)
+        {
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+        }
+
+
         public void RemoveProduct(Product product)
         {
             _context.Products.Remove(product);
@@ -47,12 +59,6 @@ namespace IntexQueensSlay.Models
         public void AddCustomer(Customer task)
         {
             _context.Add(task);
-            _context.SaveChanges();
-        }
-
-        public void DeleteCustomer(Customer task)
-        {
-            _context.Remove(task);
             _context.SaveChanges();
         }
 

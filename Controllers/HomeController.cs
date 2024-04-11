@@ -161,6 +161,25 @@ namespace IntexQueensSlay.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult AddAdminConfirm()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditAdminConfirm()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult RemoveAdminConfirm()
+        {
+            return View();
+        }
+
+
         //[Authorize(Roles = "Admin")]
         //public IActionResult RemoveProduct(int id)
         //{
@@ -237,6 +256,32 @@ namespace IntexQueensSlay.Controllers
             return View(productModel);
         }
 
+        //[Authorize(Roles = "Admin")]
+        //[HttpGet]
+        //public IActionResult AddCustomer()
+        //{
+        //    return View(new Product());
+        //}
+
+
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost]
+        //public IActionResult AddCustomer(Product productModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Add the product to the database
+        //        _repo.AddProduct(productModel);
+        //        _repo.SaveChanges();
+
+        //        // Redirect to a confirmation page
+        //        return RedirectToAction("AddConfirmation");
+        //    }
+
+        //    // If the model state is not valid, return the form
+        //    return View(productModel);
+        //}
+
         [Authorize(Roles = "Admin")]
         public IActionResult RemoveConfirmation()
         {
@@ -248,6 +293,45 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
+
+        public IActionResult ReviewOrderConfirmation()
+        {
+            return View();
+        }
+
+        //public IActionResult ReviewOrderDone()
+        //{
+        //    return View();
+        //}
+
+        //public IActionResult ReviewOrderDone()
+        //{
+        //    return View();
+        //}
+
+
+        //[HttpPost]
+        //public IActionResult ReviewOrderDone(int id, int fraud)
+        //{
+        //    // Retrieve the order using the id
+        //    var order = _repo.GetOrderById(id);
+
+        //    // Check if the order exists
+        //    if (order == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    // Update the fraud status
+        //    order.Fraud = fraud;
+
+        //    // Save changes
+        //    _repo.SaveChanges();
+
+        //    // Redirect to the ReviewOrderDone view
+        //    return View("ReviewOrderDone");
+        //}
+
 
         public IActionResult AddConfirmation()
         {
@@ -276,64 +360,83 @@ namespace IntexQueensSlay.Controllers
 
         //    }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult DeleteUser(int id)
+        public IActionResult RemoveCustomer(int id)
         {
-            //delete the record by ID num
-            var recordToDelete = _repo.Customers
-                .Single(x => x.CustomerId == id);
+            // Retrieve the customer from the database
+            var customer = _repo.GetCustomerById(id);
 
-            return View(recordToDelete);
+            if (customer == null)
+            {
+                // If the customer is not found, return an error view
+                return View("Error");
+            }
+
+            // Pass the customer to the view
+            return View(customer);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        //calls the repo pattern method to delete
-        public IActionResult DeleteUser(Customer task)
+        public IActionResult RemoveCustomerConfirmed(int id)
         {
-            var recordToDelete = _repo.Customers
-                .Single(x => x.CustomerId == task.CustomerId);
-            //actually delete it
-            _repo.DeleteCustomer(recordToDelete);
-            //goes back to quadrant views
-            return RedirectToAction("ManageAccounts");
+            // Retrieve the customer from the database
+            var customer = _repo.GetCustomerById(id);
+
+            if (customer != null)
+            {
+                // Remove the customer from the database
+                _repo.RemoveCustomer(customer);
+
+                // Redirect to a confirmation page
+                return RedirectToAction("RemoveAdminConfirm");
+            }
+
+            // If the customer is not found, return an error view
+            return View("Error");
         }
 
-        [HttpGet]
-        public IActionResult EditUser(int id)
 
-        {
-            var recordToEdit = _repo.Customers
-                .Single(x => x.CustomerId == id);
+        //[HttpGet]
+        //public IActionResult EditUser(int id)
 
-            //ViewBag.Category = _repo.Category
-            //    .OrderBy(x => x.CategoryName)
-            //    .ToList();
-            return View("AddCustomer", recordToEdit);
-        }
+        //{
+        //    var recordToEdit = _repo.Customers
+        //        .Single(x => x.CustomerId == id);
 
-        //updates the reccord and redirects to view
-        [HttpPost]
-        public IActionResult Edituser(Customer updateresponse)
-        {
-            //update the datebase with the new edits
-            _repo.EditCustomer(updateresponse);
-            //return to view
-            return RedirectToAction("ManageAccounts");
-        }
+        //    //ViewBag.Category = _repo.Category
+        //    //    .OrderBy(x => x.CategoryName)
+        //    //    .ToList();
+        //    return View("AddCustomer", recordToEdit);
+        //}
 
-        public IActionResult AddCustomer(int id, Customer customerModel)
+        ////updates the reccord and redirects to view
+        //[HttpPost]
+        //public IActionResult Edituser(Customer updateresponse)
+        //{
+        //    //update the datebase with the new edits
+        //    _repo.EditCustomer(updateresponse);
+        //    //return to view
+        //    return RedirectToAction("ManageAccounts");
+        //}
+
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditCustomer(int id, Customer customerModel)
         {
             if (HttpContext.Request.Method == "POST")
             {
                 if (ModelState.IsValid)
                 {
-                    // Retrieve the product from the database
+                    // Retrieve the customer from the database
                     var customer = _repo.GetCustomerById(id);
                     if (customer == null)
                     {
                         return NotFound();
                     }
 
-                    // Update the product with the values from the form
+                    // Update the customer with the values from the form
                     customer.FirstName = customerModel.FirstName;
                     customer.LastName = customerModel.LastName;
                     customer.BirthDate = customerModel.BirthDate;
@@ -342,12 +445,12 @@ namespace IntexQueensSlay.Controllers
                     customer.Age = customerModel.Age;
                     // ... Update the rest of the properties ...
 
-                    // Update the product in the database
+                    // Update the customer in the database
                     _repo.UpdateCustomer(customer);
                     _repo.SaveChanges();
 
                     // Redirect to a confirmation page
-                    return RedirectToAction("EditConfirmation");
+                    return RedirectToAction("EditAdminConfirm");
                 }
             }
             else
@@ -356,24 +459,37 @@ namespace IntexQueensSlay.Controllers
                 if (customerModel == null)
                 {
                     return NotFound();
-                } 
+                }
             }
 
             return View(customerModel);
         }
 
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult AddCustomer()
+        {
+            return View(new Customer());
+        }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult AddCustomer(Customer customerModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Add the new customer to the database
+                _repo.AddCustomer(customerModel);
+                _repo.SaveChanges();
 
+                // Redirect to a confirmation page
+                return RedirectToAction("AddAdminConfirm");
+            }
 
-
-
-
-
-
-
-
-
+            // If the model state is not valid, return the form
+            return View(customerModel);
+        }
 
 
         [Authorize(Roles = "Customer,Admin")]

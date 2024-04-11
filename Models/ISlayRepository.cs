@@ -16,15 +16,18 @@ namespace IntexQueensSlay.Models
 
         void RemoveProduct(Product product);
 
-
+        void RemoveCustomer(Customer customer);
+   
         void Update(Product product);
         void SaveChanges();
 
         public void AddCustomer(Customer task);
-        public void DeleteCustomer(Customer task);
         public void EditCustomer(Customer task);
 
         Customer GetCustomerById(int id);
+
+        Order GetOrderById(int id);
+
         void UpdateCustomer(Customer customer);
     }
 }
