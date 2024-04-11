@@ -1,9 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model IEnumerable<IntexQueensSlay.Models.OrderPredictions>
+﻿@model IEnumerable<IntexQueensSlay.Models.OrderPredictions>
+
 @{
     var classTypeDict = new Dictionary<int, string>
     {
@@ -50,7 +46,7 @@
             <th>Transaction Country</th>
             <th>Shipping Address</th>
             <th>Bank</th>
-            <th>Card Type</th>             
+            <th>Card Type</th>
             <th>Fraud</th>
             <th class="prediction-cell">Fraud Prediction</th>
         </tr>
@@ -73,12 +69,7 @@
                 <td>@item.Orders.CardType</td>
                 <td>@item.Orders.Fraud</td>
                 <td class="prediction-cell">@item.Predictions</td>
-                  @* <td>
-                        <a asp-controller="Home" asp-route-id="@item.TransactionId" class="btn btn-outline-dark mt-auto" style="background-color:red; color: white; margin-left: 10px">REVIEWED</a>
-                    </td>
-            *@
             </tr>
-            }
         }
     </tbody>
-
+</table>

@@ -33,7 +33,7 @@ namespace IntexQueensSlay.Controllers
             _repo = temp;
 
             // these are for ReviewOrders
-            _onnxModelPath = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "saved_model_reg.onnx");
+            _onnxModelPath = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "fraudulentorders.onnx");
 
             // initialize the InferenceSession
             _session = new InferenceSession(_onnxModelPath);
@@ -267,12 +267,12 @@ namespace IntexQueensSlay.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult ReviewOrders()
-        {
-            var orders = _repo.Orders.Where(o => o.Fraud == 1).Take(200).ToList();
+       // public IActionResult ReviewOrders()
+       // {
+        //    var orders = _repo.Orders.Where(o => o.Fraud == 1).Take(200).ToList();
 
-            return View(orders);
-        }
+      //      return View(orders);
+      //  }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult ManageAccounts()
@@ -374,20 +374,6 @@ namespace IntexQueensSlay.Controllers
             return View(customerModel);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         [Authorize(Roles = "Customer,Admin")]
         public IActionResult Checkout()
         {
@@ -402,10 +388,6 @@ namespace IntexQueensSlay.Controllers
 
         public IActionResult ReviewOrders()
         {
-            var orders = _repo.Orders.Where(o => o.Fraud == 1).Take(200).ToList();
-
-            return View(orders);
-
             var records = _repo.Orders
                 .OrderByDescending(o => o.Date)
                 .Take(20)
@@ -414,71 +396,63 @@ namespace IntexQueensSlay.Controllers
 
             //Dictionary mapping the numeric prediction to a fraud type
             var class_type_dict = new Dictionary<int, string>
-            {
-                {0, "Not Fraud" },
-                {1, "Fraud" }
-            };
+                    {
+                        {0, "Not Fraud" },
+                        {1, "Fraud" }
+                    };
 
-            foreach (var record in records)
-            {
-                // calculate days since Jan 1, 2022
-                var daysSinceJan12022 = 0;
-                if (!string.IsNullOrEmpty(record.Date))
-                {
-                    var date = DateTime.Parse(record.Date);
-                    var january1_2022 = new DateTime(2022, 1, 1);
-                    daysSinceJan12022 = Math.Abs((date - january1_2022).Days);
-                }
-
-
-                //preprocess features to make them combatible with model
-                var input = new List<float>
-                {
-                    (float)record.CustomerId,
-                    (float)record.Time,
-                    // fix amount if it's null
-                    (float)(record.Subtotal ?? 0),
-
-                    // fix date
-                    daysSinceJan12022,
-
-                    // check the dummy coded data
-                    record.WeekDay == "Mon" ? 1 : 0,
-                    record.WeekDay == "Sat" ? 1 : 0,
-                    record.WeekDay == "Sun" ? 1 : 0,
-                    record.WeekDay == "Thu" ? 1 : 0,
-                    record.WeekDay == "Tue" ? 1 : 0,
-                    record.WeekDay == "Wed" ? 1 : 0,
-                    record.WeekDay == "Fri" ? 1 : 0,
-
-                    record.EntryMode == "Pin" ? 1 : 0,
-                    record.EntryMode == "Tap" ? 1 : 0,
-
-                    record.TransactionType == "Online" ? 1 : 0,
-                    record.TransactionType == "POS" ? 1 : 0,
-
-                    record.TransCountry == "India" ? 1 : 0,
-                    record.TransCountry == "Russia" ? 1 : 0,
-                    record.TransCountry == "USA" ? 1 : 0,
-                    record.TransCountry == "UnitedKingdon" ? 1 : 0,
-
-                    // use transCountry if shipping address is null
-                    (record.ShippingAddress ?? record.TransCountry) == "India" ? 1 : 0,
-                    (record.ShippingAddress ?? record.TransCountry) == "Russia" ? 1 : 0,
-                    (record.ShippingAddress ?? record.TransCountry) == "USA" ? 1 : 0,
-                    (record.ShippingAddress ?? record.TransCountry) == "UnitedKingdom" ? 1 : 0,
+                    foreach (var record in records)
+                    {
+                        // calculate days since Jan 1, 2022
+                       // var daysSinceJan12022 = 0;
+                       // if (!string.IsNullOrEmpty(record.Date))
+                       // {
+                        //    var date = DateTime.Parse(record.Date);
+                        //    var january1_2022 = new DateTime(2022, 1, 1);
+                        //    daysSinceJan12022 = Math.Abs((date - january1_2022).Days);
+                      //  }
 
 
-                    record.Bank == "HSBC" ? 1 : 0,
-                    record.Bank == "Halifax" ? 1 : 0,
-                    record.Bank == "Lloyds" ? 1 : 0,
-                    record.Bank == "Metro" ? 1 : 0,
-                    record.Bank == "Monzo" ? 1 : 0,
-                    record.Bank == "RBS" ? 1 : 0,
+                        //preprocess features to make them compatible with model
+                        //preprocess features to make them compatible with model
+                        // Update the input tensor creation to include 'time' and 'daysSinceJan12022'
+                    var input = new List<int>
+                    {
+                        (int)record.CustomerId,
+                      //  (float)record.Time,
+                        (int)(record.Subtotal ?? 0),
+                       //daysSinceJan12022,
+                       // record.WeekDay == "Mon" ? 1 : 0,
+                       // record.WeekDay == "Sat" ? 1 : 0,
+                       // record.WeekDay == "Sun" ? 1 : 0,
+                        //record.WeekDay == "Thu" ? 1 : 0,
+                        //record.WeekDay == "Tue" ? 1 : 0,
+                        //record.WeekDay == "Wed" ? 1 : 0,
+                        //record.WeekDay == "Fri" ? 1 : 0,
+                     // record.EntryMode == "Pin" ? 1 : 0,
+                     // record.EntryMode == "Tap" ? 1 : 0,
+                     // record.TransactionType == "Online" ? 1 : 0,
+                     // record.TransactionType == "POS" ? 1 : 0,
+                     // record.TransCountry == "India" ? 1 : 0,
+                     // record.TransCountry == "Russia" ? 1 : 0,
+                     // record.TransCountry == "USA" ? 1 : 0,
+                     // record.TransCountry == "UnitedKingdon" ? 1 : 0,
+                    //  (record.ShippingAddress ?? record.TransCountry) == "India" ? 1 : 0,
+                    //  (record.ShippingAddress ?? record.TransCountry) == "Russia" ? 1 : 0,
+                    //  (record.ShippingAddress ?? record.TransCountry) == "USA" ? 1 : 0,
+                     // (record.ShippingAddress ?? record.TransCountry) == "UnitedKingdom" ? 1 : 0,
+                     // record.Bank == "HSBC" ? 1 : 0,
+                     // record.Bank == "Halifax" ? 1 : 0,
+                     // record.Bank == "Lloyds" ? 1 : 0,
+                     // record.Bank == "Metro" ? 1 : 0,
+                     // record.Bank == "Monzo" ? 1 : 0,
+                     // record.Bank == "RBS" ? 1 : 0,
+                     // record.CardType == "Visa" ? 1 : 0,
+                    };
 
-                    record.CardType == "Visa" ? 1 : 0,
-                };
-                var inputTensor = new DenseTensor<float>(input.ToArray(), new[] { 1, input.Count });
+                // Update the inputTensor creation to reflect the new input list
+                // Update the inputTensor creation to reflect the new input list
+                var inputTensor = new DenseTensor<int>(input.ToArray(), new[] { 1, 2 }); // Adjust the second dimension to match the number of features
 
                 var inputs = new List<NamedOnnxValue>
                 {
@@ -492,10 +466,13 @@ namespace IntexQueensSlay.Controllers
                     predictionResult = prediction != null && prediction.Length > 0 ? class_type_dict.GetValueOrDefault((int)prediction[0], "Unknown") : "Error in prediction";
                 }
 
+
+
                 predictions.Add(new OrderPredictions { Orders = record, Predictions = predictionResult }); // Adds the animal information and prediction for that animal to AnimalPrediction viewmodel
             }
 
             return View(predictions);
         }
+
     }
 }
