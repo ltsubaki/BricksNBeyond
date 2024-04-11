@@ -25,7 +25,7 @@ namespace IntexQueensSlay.Controllers
         {
             _repo = temp;
         }
-
+        [AllowAnonymous]
         public ActionResult Index()
         {
             if (!HasCookieConsent())
@@ -34,7 +34,7 @@ namespace IntexQueensSlay.Controllers
             }
             return View();
         }
-
+        
         private bool HasCookieConsent()
         {
             if (Request.Cookies["cookieConsent"] != null)
@@ -48,11 +48,12 @@ namespace IntexQueensSlay.Controllers
 
         //    //return View();
         //}
-
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult Products(int pageNum, string? allCat, string? allColor, int pageSize = 15)
         {
             pageSize = Math.Clamp(pageSize, 5, 20);
@@ -85,7 +86,7 @@ namespace IntexQueensSlay.Controllers
             return View(blah);
         }
 
-
+        [AllowAnonymous]
         public IActionResult AboutUs()
         {
             return View();
@@ -96,7 +97,7 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-
+        [AllowAnonymous]
         public IActionResult ProductDetails(int id)
         {
             var product = _repo.GetProductById(id);
@@ -107,14 +108,14 @@ namespace IntexQueensSlay.Controllers
 
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult CRUDProducts()
         {
             var productData = _repo.Products;
 
             return View(productData);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult EditProduct(int id, Product productModel)
         {
             if (HttpContext.Request.Method == "POST")
@@ -153,12 +154,12 @@ namespace IntexQueensSlay.Controllers
             return View(productModel);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult EditConfirmation()
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult RemoveProduct(int id)
         {
             var product = _repo.GetProductById(id);
@@ -169,16 +170,17 @@ namespace IntexQueensSlay.Controllers
 
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult AddProduct()
         {
             return View();
         }
-
+        
         public IActionResult RemoveConfirmation()
         {
             return View();
         }
+        [Authorize(Roles = "Customer,Admin")]
 
         public IActionResult OrderConfirmation()
         {
@@ -190,19 +192,21 @@ namespace IntexQueensSlay.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult ReviewOrders()
         {
             var orders = _repo.Orders.Where(o => o.Fraud == 1).Take(200).ToList();
 
             return View(orders);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult ManageAccounts()
         {
             var orders = _repo.Customers.Take(200).ToList();
 
             return View(orders);
         }
+        [Authorize(Roles = "Customer,Admin")]
         public IActionResult Checkout()
         {
             return View();
