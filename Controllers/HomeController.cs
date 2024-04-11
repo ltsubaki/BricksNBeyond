@@ -26,12 +26,28 @@ namespace IntexQueensSlay.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
-
-
+            if (!HasCookieConsent())
+            {
+                ViewBag.ShowConsentBanner = true;
+            }
             return View();
         }
+
+        private bool HasCookieConsent()
+        {
+            if (Request.Cookies["cookieConsent"] != null)
+            {
+                // Compare the cookie value directly
+                return Request.Cookies["cookieConsent"] == "true";
+            }
+            return false;
+        }
+
+
+        //    //return View();
+        //}
 
         public IActionResult Privacy()
         {
