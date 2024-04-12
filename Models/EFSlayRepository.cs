@@ -6,18 +6,20 @@ namespace IntexQueensSlay.Models
     public class EFSlayRepository : ISlayRepository
     {
         private LegoContext _context;
+       
 
         public EFSlayRepository(LegoContext temp)
         {
             _context = temp;
         }
+        
 
         public IQueryable<Customers> Customers => _context.Customers;
         public IQueryable<Products> Products => _context.Products;
         public IQueryable<LineItems> LineItems => _context.LineItems;
         public IQueryable<Orders> Orders => _context.Orders;
 
-        public IQueryable<AspNetUsers> AspNetUserss => throw new NotImplementedException();
+        
 
         public Products GetProductById(int id)
         {

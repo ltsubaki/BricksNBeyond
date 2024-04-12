@@ -9,7 +9,7 @@ namespace IntexQueensSlay.Models
         public IQueryable<Products> Products { get; }
         public IQueryable<LineItems> LineItems { get; }
         public IQueryable<Orders> Orders { get; }
-        public IQueryable<AspNetUsers> AspNetUserss { get; }
+        
 
         Products GetProductById(int id);
         void AddProduct(Products product);

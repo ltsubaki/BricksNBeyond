@@ -32,6 +32,7 @@ namespace IntexQueensSlay
             builder.Services.AddRazorPages();
 
             builder.Services.AddScoped<ISlayRepository, EFSlayRepository>();
+            builder.Services.AddScoped<IauthRepository, EFauthRepository>();
 
             builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             builder.Services.AddSingleton<IHttpContextAccessor,
