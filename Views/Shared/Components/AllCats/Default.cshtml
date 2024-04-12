@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<string>
+
+<div class="d-grid gap-2">
+    <h4>@ViewBag.AllCatFilterTitle</h4>
+
+    @if (Model != null)
+    {
+        <div class="row justify-content-center">
+            <!-- Center the columns -->
+            @foreach (var pc in Model)
+            {
+                <div class="col-md-6 text-center">
+                    <!-- Center the content within each column -->
+                    <a class="btn" style="margin-bottom: 5px; width: 100%; background-color: #D21404; color: white; border-color: #D21404;" onmouseover="this.style.backgroundColor='white'; this.style.color='#D21404';" onmouseout="this.style.backgroundColor='#D21404'; this.style.color='white';" asp-controller="Home" asp-action="Products" asp-route-allCat="@pc" asp-route-pageNum="1">@pc</a>
+@*                     <a class="btn" style="margin-bottom: 5px; width: 100%; background-color: #D21404; color: white; border: 1px solid black;" onmouseover="this.style.backgroundColor='white'; this.style.color='#D21404'; this.style.borderColor='black';" onmouseout="this.style.backgroundColor='#D21404'; this.style.color='white'; this.style.borderColor='black';" asp-controller="Home" asp-action="Products" asp-route-allCat="@pc" asp-route-pageNum="1">@pc</a>
+ *@
+                </div>
+            }
+        </div>
+    }
+</div>
+
+

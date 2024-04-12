@@ -1,57 +1,72 @@
 ﻿@page
-@model IntexQueensSlay.Pages.CartModel
+@model CartModel
 @{
 }
 
-<h2>Your Cart</h2>
+<div style="padding: 0 150px">
+    <header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
+        <div class="container px-4 px-lg-5 my-3">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Your Cart</h1>
+            </div>
+        </div>
+    </header>
 
-<table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped">
 
-    <thead> 
-        <tr>
-            <th>Quantity</th>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
             <th>Item</th>
-            <th class="text-right">Price</th>
-            <th class="text-right">Subtotal</th>
-            <th></th>
-        </tr>
-    </thead>
+                <th class="text-right">Price</th>
+                <th class="text-right">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+
 
     <tbody>
         @foreach (var l in Model.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
         {
             <tr>
-                <td class="text-left">@l.Quantity</td>
-                <td class="text-center">@l.Product.Name</td>
+                <td class="text-left">@l.Product.Name</td>
+                <td class="text-center">@l.Quantity</td>
                 <td class="text-right">@l.Product.Price</td>
-                <td class="text-right">@(l.Quantity * l.Product.Price)</td>
-         @*        <td class="text-center">
+                <td class="text-right">@((l.Quantity * l.Product.Price))</td>
+                <td class="text-center">
                     <form asp-page-handler="Remove" method="post">
-                        <input type="hidden" name="ProductID"
+                        <input type="hidden" name="productId"
                                value="@l.Product.ProductId" />
                         <input type="hidden" name="returnUrl"
                                value="@Model?.ReturnUrl" />
                         <button type="submit"
-                                class="btn btn-sm btn-danger">
+                                class="btn btn-sm red-button">
                             Remove
                         </button>
                     </form>
-                </td> *@
+                </td>
             </tr>
         }
     </tbody>
 
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right">Total:</td>
-            <td class="text-right">
-                @Model.Cart?.CalculateTotal().ToString("c")
-            </td>
-        </tr>
-    </tfoot>
 
-</table>
+        <tfoot>
+           @*  <a class="btn red-button" asp-controller="Order" asp-action="Checkout"
+               onclick="document.getElementById('total').value = '@Model.Cart?.CalculateTotal().ToString("c")';">Checkout</a>
+            <input type="hidden" id="total" />
+ *@
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td class="text-right">@Model.Cart?.CalculateTotal().ToString("c")</td>
+            </tr>
+        </tfoot>
 
-<div class="text-center">
-    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+    </table>
+
+    <div class="text-center">
+    @*     <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+        *@ <a class="btn blue-button" asp-action="Products" style="margin-right: 10px">Continue Shopping</a>
+           <a class="btn red-button" asp-controller="Order" asp-action="Checkout">Checkout</a>
+    </div>
 </div>

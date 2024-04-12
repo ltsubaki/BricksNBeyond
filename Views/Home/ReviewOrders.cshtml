@@ -1,0 +1,115 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Orders>
+
+@{ 
+    var sortedOrders = Model.OrderBy(order => order.TransactionId);
+}
+
+
+<div style="padding: 0 150px">
+    <header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
+        <div class="container px-4 px-lg-5 my-3">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Review Orders</h1>
+                <p class="lead fw-normal text-black-50 mb-0">Potential Fraudulent Orders to Review</p>
+            </div>
+        </div>
+    </header>
+    <br /><br />
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div>
+            <a asp-action="CRUDProducts">Return to Admin Summary</a>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <style>
+        .table-bordered {
+            border: 1px solid #ddd;
+        }
+
+            .table-bordered th, .table-bordered td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+    </style>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Customer ID</th>
+                <th>Date</th>
+                <th>Weekday</th>
+                <th>Time</th>
+                <th>Entry Mode</th>
+                <th>Subtotal</th>
+                <th>Transaction Type</th>
+                <th>Transaction Country</th>
+                <th>Shipping Address</th>
+                <th>Bank</th>
+                <th>Card Type</th>
+    @*             <th>Fraud</th>
+     *@            <th>Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in sortedOrders)
+            {
+                if (item.Fraud == 1)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransactionId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustomerId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WeekDay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EntryMode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subtotal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransactionType)
+                        </td>
+                         <td>
+                            @Html.DisplayFor(modelItem => item.Trans_Country)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShippingAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Bank)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CardType)
+                        </td>
+                     @*    <td>
+                            @Html.DisplayFor(modelItem => item.Fraud)
+                        </td> *@
+                        <td>
+                            <a asp-action="ReviewOrderConfirmation" asp-route-id="@item.TransactionId" class="btn red-button">NOT FRAUDULENT</a>
+    @*                         <a asp-controller="Home" asp-route-id="@item.TransactionId" class="btn red-button mt-auto" style="margin-left: 10px">REVIEWED</a>
+     *@                 </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </div>

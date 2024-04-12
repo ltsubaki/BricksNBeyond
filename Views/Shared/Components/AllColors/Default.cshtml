@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<string>
+
+<div class="d-grid gap-2">
+    <h4>@ViewBag.AllColorFilterTitle</h4>
+
+    @if (Model != null)
+    {
+        <div class="row justify-content-center">
+            <!-- Center the columns -->
+            @for (int i = 0; i < Model.Count(); i += 2)
+            {
+                <div class="col-md-6">
+                    <!-- Center the content within each column -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (i < Model.Count())
+                            {
+                                <a class="btn" style="margin-bottom: 5px; width: 100%; background-color: #D21404; color: white; border-color: #D21404;" onmouseover="this.style.backgroundColor='white'; this.style.color='#D21404';" onmouseout="this.style.backgroundColor='#D21404'; this.style.color='white';" asp-controller="Home" asp-action="Products" asp-route-allColor="@Model.ElementAt(i)" asp-route-pageNum="1">@Model.ElementAt(i)</a>
+                            }
+                        </div>
+                        <div class="col-md-12">
+                            @if (i + 1 < Model.Count())
+                            {
+                                <a class="btn" style="margin-bottom: 5px; width: 100%; background-color: #D21404; color: white; border-color: #D21404;" onmouseover="this.style.backgroundColor='white'; this.style.color='#D21404';" onmouseout="this.style.backgroundColor='#D21404'; this.style.color='white';" asp-controller="Home" asp-action="Products" asp-route-allColor="@Model.ElementAt(i + 1)" asp-route-pageNum="1">@Model.ElementAt(i + 1)</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    <a class="btn btn-outline-secondary" style="margin-bottom: 5px; width: 100%;" asp-controller="Home" asp-action="Products" asp-route-allCat="" asp-route-allColor="" asp-route-pageNum="1">Clear filters</a>
+</div>

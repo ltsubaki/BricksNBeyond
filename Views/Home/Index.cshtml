@@ -1,35 +1,68 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ProductListViewModel
+
+@{
+    ViewData["Title"] = "";
 }
 
-@* @model List<Customer> *@
+<script src="~/js/cookieConsent.js"></script>
+﻿
+<header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
+    <div class="container px-4 px-lg-5 my-3">
+        <div class="text-center text-white" style="font-family: 'Roboto', sans-serif;">
+            <h1 class="display-4 fw-bolder" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Welcome, Master Builder!</h1>
+            <p class="lead fw-normal text-black-50 mb-0">Discover creativity in every brick with our unique LEGO designs!</p>
+        </div>
+    </div>
+</header>
 
+<div style="display: flex; justify-content: center; align-items: center; padding: 5px;">
+    <div class="form-group">
+        <br /><br />
+        <div class="container" style="max-width: 80%">
+            <h1 style="text-align: center">Recommended Products</h1>
+            <br />
+            <div class="row justify-content-center">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-md-4 mb-4">
+                        <!-- Each product will take up 4 columns on medium screens and above -->
+                        <!-- Add margin bottom to create space between columns -->
+                        <partial name="productsummary" model="product" />
+                    </div>
+                }
+            </div>
+        </div>
 
- <br /><br />
-<div class="container">
-    <div class="text-center">
-        <h1 class="display-4">Welcome to BricksNBeyond!</h1>
-        <p>Start your lego journey with us</p>
+        <br />
     </div>
 
-    <h3>Recommended Products</h3>
-
-    <br />
-    <br />
-
-    <div style="width: auto; display: inline-block;">
-        <a class="nav-link text-dark btn btn-primary btn-sm" asp-area="" asp-controller="Home" asp-action="Products">View All Products</a>
+@*     <!-- Container for the Lego Man image -->
+ *@    <div style="flex: 1; max-width: 40%; padding-right: 0px; box-sizing: border-box; text-align: right; display: flex; align-items: flex-end; justify-content: flex-center;">
+        <img src="~/img/Lego - Recommend2.png" alt="Lego Man" style="width: 90%; height: auto;" />
     </div>
 </div>
-@* 
-@foreach (Customer c in Model)
-{
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <ul>
-        <li>First: @c.FirstName</li>
-        <li>Last: @c.LastName</li>
-    </ul>
+
+
+<div style="text-align: right; margin-right: 50px">
+    <a class="nav-link btn blue-button btn-sm" asp-area="" asp-controller="Home" asp-action="Products" style="font-size: 1.5em; padding: 10px 30px;">View All Products</a>
+</div>
+
+
+
+
+@*     <!-- Cookie consent banner markup -->
+ *@    <div id="cookieConsentBanner" style="display: none; position: fixed; bottom: 75px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; background-color: #f8f9fa; padding: 20px; text-align: center; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+        <p>This website uses cookies to ensure you get the best experience. By using our site, you consent to our <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a>.</p>
+        <button onclick="giveConsent()">Accept</button>
+        <button onclick="declineConsent()">Decline</button>
     </div>
-} *@
+    <div>
+        @if (ViewBag.ShowConsentBanner != null && (bool)ViewBag.ShowConsentBanner)
+        {
+            <script>
+                // Call JavaScript function to show the consent banner
+                showConsentBannerWithDelay();
+            </script>
+        }
+    </div>
+</>

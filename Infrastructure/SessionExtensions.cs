@@ -2,7 +2,7 @@
 
 namespace IntexQueensSlay.Infrastructure
 {
-    public static class SessionExtentions
+    public static class SessionExtensions
     {
         public static void SetJson(this ISession session, string key, object value)
         {
@@ -17,3 +17,4 @@ namespace IntexQueensSlay.Infrastructure
         }
     }
 }
+

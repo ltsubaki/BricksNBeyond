@@ -120,8 +120,10 @@ namespace IntexQueensSlay.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    // Add the user to the "Customer" role
+                    await _userManager.AddToRoleAsync(user, "Customer");
 
+                    _logger.LogInformation("User created a new account with password.");
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -159,6 +161,7 @@ namespace IntexQueensSlay.Areas.Identity.Pages.Account
             try
             {
                 return Activator.CreateInstance<IdentityUser>();
+                
             }
             catch
             {
