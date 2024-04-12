@@ -7,6 +7,38 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy"
+          content="base-uri 'self' https://startbootstrap.com/;
+        default-src 'self'
+                   http://localhost:64187/6ceddc7d31eb442bb30f5db42a85f656/browserLinkSignalR/negotiate
+                   http://localhost:64187/6ceddc7d31eb442bb30f5db42a85f656/browserLinkSignalR/negotiate;
+        connect-src 'self' http://localhost:64187 wss://localhost:44387 ;
+        img-src data: https:
+                      'self';
+        object-src 'none';
+        script-src
+                   'self'
+                   'unsafe-inline'
+                   'unsafe-eval';
+        script-src-elem 'self'
+                  'sha256-q3akkuDDQH+ArNT1eqIj4+9SUnA2KBnJohMyfEWOvqU=';
+        font-src fonts.gstatic.com
+                https://localhost:44365/lib/font-awesome/webfonts/fa-brands-400.woff2
+                https://localhost:44365/lib/font-awesome/webfonts/fa-brands-400.ttf
+                https://localhost:44365/lib/font-awesome/webfonts/fa-regular-400.woff2
+                https://localhost:44365/lib/font-awesome/webfonts/fa-regular-400.ttf
+                https://localhost:44365/lib/font-awesome/webfonts/fa-solid-900.woff2
+                https://localhost:44365/lib/font-awesome/webfonts/fa-solid-900.ttf
+                https://localhost:44365/lib/font-awesome/webfonts/fa-brands-400.woff2
+                https://localhost:44365/lib/font-awesome/webfonts/fa-brands-400.ttf
+                https://localhost:44365/lib/font-awesome/webfonts/fa-v4compatibility.woff2
+                https://localhost:44365/lib/font-awesome/webfonts/fa-v4compatibility.ttf;
+        style-src
+                  'self'
+                  'unsafe-inline'
+;
+        upgrade-insecure-requests;">
+
     <title>@ViewData["Title"] BricksNBeyond</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
