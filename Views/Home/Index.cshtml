@@ -15,14 +15,19 @@
     </div>
 </header>
 
-<br /><br />
+<br />
+
+<div style="text-align: right; margin-right: 20px">
+    <a class="nav-link btn blue-button btn-sm" asp-area="" asp-controller="Home" asp-action="Products" style="font-size: 1.5em; padding: 10px 30px;">View All Products</a>
+</div>
 
 
 <div style="display: flex; justify-content: center; align-items: center; padding: 5px;">
     <div class="form-group">
-        <h1>Recommended Products</h1>
         <br /><br />
-        <div class="container">
+        <div class="container" style="max-width: 80%">
+            <h1 style="text-align: center">Recommended Products</h1>
+            <br />
             <div class="row justify-content-center">
                 @foreach (var product in Model.Products)
                 {
@@ -36,15 +41,18 @@
         </div>
 
         <br />
-        <a class="nav-link btn blue-button btn-sm" asp-area="" asp-controller="Home" asp-action="Products">View All Products</a>
     </div>
 
-    <!-- Container for the Lego Man image -->
-    <div style="flex: 1; max-width: 50%; padding-right: 0px; box-sizing: border-box; text-align: right; display: flex; align-items: flex-end; justify-content: flex-end;">
-        <img src="~/img/Lego - Recommend2.png" alt="Lego Man" style="width: 50%; height: auto;" />
+@*     <!-- Container for the Lego Man image -->
+ *@    <div style="flex: 1; max-width: 40%; padding-right: 0px; box-sizing: border-box; text-align: right; display: flex; align-items: flex-end; justify-content: flex-center;">
+        <img src="~/img/Lego - Recommend2.png" alt="Lego Man" style="width: 90%; height: auto;" />
     </div>
-    <!-- Cookie consent banner markup -->
-    <div id="cookieConsentBanner" style="display: none; position: fixed; bottom: 75px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; background-color: #f8f9fa; padding: 20px; text-align: center; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+</div>
+
+
+
+@*     <!-- Cookie consent banner markup -->
+ *@    <div id="cookieConsentBanner" style="display: none; position: fixed; bottom: 75px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; background-color: #f8f9fa; padding: 20px; text-align: center; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
         <p>This website uses cookies to ensure you get the best experience. By using our site, you consent to our <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a>.</p>
         <button onclick="giveConsent()">Accept</button>
         <button onclick="declineConsent()">Decline</button>

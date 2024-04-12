@@ -66,7 +66,7 @@ namespace IntexQueensSlay.Models
 
         public void AddCustomer(Customers task)
         {
-            _context.Add(task);
+            _context.Customers.Add(task);
             _context.SaveChanges();
         }
 
