@@ -619,7 +619,7 @@ namespace IntexQueensSlay.Controllers
                 _repo.SaveChanges();
 
                 // Redirect to a confirmation page
-                return RedirectToAction("Order", "Checkout");
+                return RedirectToAction("Checkout", "Order");
             }
             // If the model state is not valid, return the form
             return View(customerModel);
@@ -640,7 +640,7 @@ namespace IntexQueensSlay.Controllers
             //    // Redirect to a confirmation page
             //    return RedirectToAction("");
             //}
-            _repo.ClearCart();
+            //_repo.ClearCart();
             return View();
         }
 
