@@ -153,20 +153,33 @@ namespace IntexQueensSlay
             );
 
             app.MapControllerRoute(
+                name: "ProductsByCategoryAndColorAndPage",
+                pattern: "{allCat}/{allColor}/{pageNum:int}",
+                defaults: new { Controller = "Home", action = "Products" }
+            );
+
+            app.MapControllerRoute(
                 name: "ProductsByCategoryAndPage",
-                pattern: "{productCat}/{pageNum:int}",
+                pattern: "{allCat}/{pageNum:int}",
                 defaults: new { Controller = "Home", action = "Products" }
             );
 
             app.MapControllerRoute(
                 name: "ProductsByPage",
                 pattern: "{pageNum:int}",
-                defaults: new { Controller = "Home", action = "Products", productCat = (string)null }
+                defaults: new { Controller = "Home", action = "Products", allCat = (string)null }
             );
+
 
             app.MapControllerRoute(
                 name: "ProductsByCategory",
-                pattern: "{productCat}",
+                pattern: "{allCat}",
+                defaults: new { Controller = "Home", action = "Products", pageNum = 1 }
+            );
+
+            app.MapControllerRoute(
+                name: "ProductsByColor",
+                pattern: "{allColor}",
                 defaults: new { Controller = "Home", action = "Products", pageNum = 1 }
             );
 
