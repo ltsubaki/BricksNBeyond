@@ -7,5 +7,18 @@ namespace IntexQueensSlay.Controllers
     {
         public ViewResult Checkout() => View(new Orders());
 
+
+
+
+
+        //public IActionResult OrderConfirmation()
+        //{
+        //    _repo.ClearCart();
+
+        //    return View();
+        //}
+
+
+
     }
 }

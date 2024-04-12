@@ -33,6 +33,7 @@ namespace IntexQueensSlay.Models
             _context.Update(product);
         }
 
+
         public void SaveChanges()
         {
             _context.SaveChanges();
