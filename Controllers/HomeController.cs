@@ -29,13 +29,39 @@ namespace IntexQueensSlay.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            if (!HasCookieConsent())
+            if (User.IsInRole("Customer"))
             {
-                ViewBag.ShowConsentBanner = true;
+                // Bundling up multiple models to pass!
+                var blah2 = new ProductListViewModel
+                {
+                    Products = _repo.Products
+                    .Where(x => (x.ProductId == 17 || x.ProductId == 9 || x.ProductId == 16))
+                };
+                if (!HasCookieConsent())
+                {
+
+                    ViewBag.ShowConsentBanner = true;
+                }
+                return View(blah2);
             }
-            return View();
+            else //if customer (admin is not relevent)
+            {
+                var blah2 = new ProductListViewModel
+                {
+                    Products = _repo.Products
+                    .Where(x => (x.ProductId == 23 || x.ProductId == 19 || x.ProductId == 21))
+                };
+                if (!HasCookieConsent())
+                {
+
+                    ViewBag.ShowConsentBanner = true;
+                }
+                return View(blah2);
+
+            }
+
         }
-        
+
         private bool HasCookieConsent()
         {
             if (Request.Cookies["cookieConsent"] != null)
