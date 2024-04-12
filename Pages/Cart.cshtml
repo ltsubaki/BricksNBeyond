@@ -51,6 +51,10 @@
 
 
         <tfoot>
+           @*  <a class="btn red-button" asp-controller="Order" asp-action="Checkout"
+               onclick="document.getElementById('total').value = '@Model.Cart?.CalculateTotal().ToString("c")';">Checkout</a>
+            <input type="hidden" id="total" />
+ *@
             <tr>
                 <td colspan="3" class="text-right">Total:</td>
                 <td class="text-right">@Model.Cart?.CalculateTotal().ToString("c")</td>
