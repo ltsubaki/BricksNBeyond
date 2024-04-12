@@ -40,5 +40,10 @@ namespace IntexQueensSlay.Pages
             Cart.RemoveLine(Cart.Lines.First(cl => cl.Product.ProductId == productId).Product);
             return RedirectToPage(new { returnUrl = returnUrl });
         }
+
+        public void Clear()
+        {
+            Cart.Lines.Clear();
+        }
     }
 }

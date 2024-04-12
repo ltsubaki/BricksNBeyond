@@ -1,12 +1,11 @@
-﻿
+﻿@model ProductListViewModel
 
 @{
     ViewData["Title"] = "";
 }
 
 <script src="~/js/cookieConsent.js"></script>
-
-
+﻿
 <header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
     <div class="container px-4 px-lg-5 my-3">
         <div class="text-center text-white" style="font-family: 'Roboto', sans-serif;">
@@ -23,6 +22,20 @@
     <div class="form-group">
         <h1>Recommended Products</h1>
         <br /><br />
+        <div class="container">
+            <div class="row justify-content-center">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-md-4 mb-4">
+                        <!-- Each product will take up 4 columns on medium screens and above -->
+                        <!-- Add margin bottom to create space between columns -->
+                        <partial name="productsummary" model="product" />
+                    </div>
+                }
+            </div>
+        </div>
+
+        <br />
         <a class="nav-link btn blue-button btn-sm" asp-area="" asp-controller="Home" asp-action="Products">View All Products</a>
     </div>
 
@@ -45,4 +58,4 @@
             </script>
         }
     </div>
-</div>
+</>

@@ -29,13 +29,39 @@ namespace IntexQueensSlay.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            if (!HasCookieConsent())
+            if (User.IsInRole("Customer"))
             {
-                ViewBag.ShowConsentBanner = true;
+                // Bundling up multiple models to pass!
+                var blah2 = new ProductListViewModel
+                {
+                    Products = _repo.Products
+                    .Where(x => (x.ProductId == 17 || x.ProductId == 9 || x.ProductId == 16))
+                };
+                if (!HasCookieConsent())
+                {
+
+                    ViewBag.ShowConsentBanner = true;
+                }
+                return View(blah2);
             }
-            return View();
+            else //if customer (admin is not relevent)
+            {
+                var blah2 = new ProductListViewModel
+                {
+                    Products = _repo.Products
+                    .Where(x => (x.ProductId == 23 || x.ProductId == 19 || x.ProductId == 21))
+                };
+                if (!HasCookieConsent())
+                {
+
+                    ViewBag.ShowConsentBanner = true;
+                }
+                return View(blah2);
+
+            }
+
         }
-        
+
         private bool HasCookieConsent()
         {
             if (Request.Cookies["cookieConsent"] != null)
@@ -297,11 +323,43 @@ namespace IntexQueensSlay.Controllers
         }
         [Authorize(Roles = "Customer,Admin")]
 
-        public IActionResult OrderConfirmation()
+        public IActionResult Checkout(Orders order)
         {
-            return View();
+            if (TempData["total"] != null)
+            {
+                order.Subtotal = (int?)Convert.ToDecimal(TempData["total"]);
+            }
+
+            if (ModelState.IsValid)
+            {
+                var now = DateTime.Now;
+                order.Date = now.ToString("MM/dd/yyyy"); // Convert DateTime to string in "MM/dd/yyyy" format
+                order.WeekDay = now.DayOfWeek.ToString();
+                order.Time = now.Hour; // Get the hour in military time
+
+                _repo.AddOrder(order);
+                _repo.SaveChanges();
+                return RedirectToAction("OrderConfirmation");
+            }
+            return View(order);
         }
 
+
+        //public IActionResult Checkout(Orders order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var now = DateTime.Now;
+        //        order.Date = now.ToString("yyyy-MM-dd"); // Convert DateTime to string
+        //        order.WeekDay = now.DayOfWeek.ToString();
+        //        order.Time = now.Hour * 3600 + now.Minute * 60 + now.Second; // Convert TimeSpan to int
+
+        //        _repo.AddOrder(order);
+        //        _repo.SaveChanges();
+        //        return RedirectToAction("OrderConfirmation");
+        //    }
+        //    return View(order);
+        //}
 
 
         public IActionResult ReviewOrderConfirmation(int id)
@@ -507,10 +565,11 @@ namespace IntexQueensSlay.Controllers
             return View(customerModel);
         }
 
-
         [Authorize(Roles = "Customer,Admin")]
-        public IActionResult Checkout()
+        public IActionResult OrderConfirmation()
         {
+            _repo.ClearCart();
+
             return View();
         }
 

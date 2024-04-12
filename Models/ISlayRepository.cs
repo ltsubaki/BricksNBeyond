@@ -22,6 +22,8 @@ namespace IntexQueensSlay.Models
         void SaveChanges();
 
         public void AddCustomer(Customers task);
+        public void AddOrder(Orders order);
+
         public void EditCustomer(Customers task);
 
         Customers GetCustomerById(int id);
@@ -29,6 +31,8 @@ namespace IntexQueensSlay.Models
         Orders GetOrderById(int id);
 
         void UpdateCustomer(Customers customer);
+
+        void ClearCart();
     }
 }
 

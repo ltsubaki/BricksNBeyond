@@ -44,6 +44,12 @@ namespace IntexQueensSlay.Models
             _context.SaveChanges();
         }
 
+        public void AddOrder(Orders order)
+        {
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+        }
+
         public void 
             Customer(Customers customer)
         {
@@ -89,6 +95,14 @@ namespace IntexQueensSlay.Models
         {
             throw new NotImplementedException();
         }
+
+        public void ClearCart()
+        {
+            //var userCartItems = _context.CartItems;
+            //_context.CartItems.RemoveRange(userCartItems);
+            //_context.SaveChanges();
+        }
+
     }
 }
 
