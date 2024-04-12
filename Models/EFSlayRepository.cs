@@ -103,10 +103,10 @@ namespace IntexQueensSlay.Models
         //    _context.SaveChanges();
         //}
 
-        public Product GetProductById(int id)
-        {
-            return _context.Products.Find(id);
-        }
+        //public Products GetProductById(int id)
+        //{
+        //    return _context.Products.Find(id);
+        //}
 
     }
 }

@@ -2,6 +2,6 @@
 {
     public class CartViewModel
     {
-        public IQueryable<Product> Products { get; set; }
+        public IQueryable<Products> Products { get; set; }
     }
 }
