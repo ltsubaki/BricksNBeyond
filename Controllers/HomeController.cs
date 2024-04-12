@@ -547,6 +547,14 @@ namespace IntexQueensSlay.Controllers
             return View(customerModel);
         }
 
+
+        //[Authorize(Roles = "Admin")]
+        //[HttpGet]
+        //public IActionResult AddCustomer()
+        //{
+        //    return View(new Customers());
+        //}
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddCustomer(Customers customerModel)
