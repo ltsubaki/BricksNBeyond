@@ -18,6 +18,8 @@
 
         <table class="table table-bordered table-striped">
             <tbody>
+                <input asp-for="CustomerId" type="hidden">
+
                 <tr>
                     <td><label>Transaction Type:</label></td>
                     <td><input asp-for="TransactionType" class="form-control" value="Online" readonly /></td>
