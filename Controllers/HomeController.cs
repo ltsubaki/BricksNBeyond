@@ -328,6 +328,7 @@ namespace IntexQueensSlay.Controllers
             if (TempData["total"] != null)
             {
                 order.Subtotal = (int?)Convert.ToDecimal(TempData["total"]);
+                var TOTAL = order.Subtotal = (int?)Convert.ToDecimal(TempData["total"]);
             }
 
             if (ModelState.IsValid)
@@ -339,7 +340,7 @@ namespace IntexQueensSlay.Controllers
 
                 _repo.AddOrder(order);
                 _repo.SaveChanges();
-                return RedirectToAction("OrderConfirmation");
+                return RedirectToAction("OrderConfirmation", new Orders());
             }
             return View(order);
         }
@@ -556,6 +557,8 @@ namespace IntexQueensSlay.Controllers
         //}
 
         [Authorize(Roles = "Admin")]
+
+
         [HttpPost]
         public IActionResult AddCustomer(Customers customerModel)
         {
@@ -573,13 +576,74 @@ namespace IntexQueensSlay.Controllers
             return View(customerModel);
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        public IActionResult CreateCustomer()
+        {
+            return base.View("CreateCustomer", new Customers());
+        }
+
+        [HttpPost]
+        public IActionResult CreateCustomer(Customers customerModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Add the new customer to the database
+                _repo.AddCustomer(customerModel);
+                _repo.SaveChanges();
+
+                // Redirect to a confirmation page
+                return RedirectToAction("Order", "Checkout");
+            }
+            // If the model state is not valid, return the form
+            return View(customerModel);
+        }
+
+
         [Authorize(Roles = "Customer,Admin")]
         public IActionResult OrderConfirmation()
         {
-            _repo.ClearCart();
+            //if (ModelState.IsValid)
+            //{
+            //    // Add the new customer to the database
+            //    _repo.AddOrder(order);
 
+            //    // Redirect to a confirmation page
+            //    return RedirectToAction("");
+            //}
+            _repo.ClearCart();
             return View();
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
