@@ -587,10 +587,10 @@ namespace IntexQueensSlay.Controllers
 
 
 
-        [HttpGet]
+        
         public IActionResult CreateCustomer()
         {
-            return View();
+            return base.View("CreateCustomer", new Customers());
         }
 
         [HttpPost]

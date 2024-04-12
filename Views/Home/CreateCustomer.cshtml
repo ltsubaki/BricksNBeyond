@@ -9,8 +9,8 @@
 <div class="mx-auto w-75">
 
     <h2><b>CREATE CUSTOMER</b></h2>
-
-    <form method="post" asp-action="CreateCustomer">
+    @* asp-action="CreateCustomer" *@
+    <form method="post" >
         <input type="hidden" asp-for="CustomerId" />
         <div class="form-group">
             <label asp-for="FirstName" class="control-label"></label>
