@@ -17,16 +17,18 @@ namespace IntexQueensSlay.Models
         public IQueryable<LineItems> LineItems => _context.LineItems;
         public IQueryable<Orders> Orders => _context.Orders;
 
+        public IQueryable<AspNetUsers> AspNetUserss => throw new NotImplementedException();
+
         public Products GetProductById(int id)
         {
             return _context.Products.Find(id);
         }
 
-        public Order ? GetOrderById(int id)
+        public Orders ? GetOrderById(int id)
         {
             return _context.Orders.Find(id);
         }
-        public void Update(Product product)
+        public void Update(Products product)
         {
             _context.Update(product);
         }
@@ -36,20 +38,21 @@ namespace IntexQueensSlay.Models
             _context.SaveChanges();
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(Products product)
         {
             _context.Products.Add(product);
             _context.SaveChanges();
         }
 
-        public void RemoveCustomer(Customer customer)
+        public void 
+            Customer(Customers customer)
         {
             _context.Customers.Remove(customer);
             _context.SaveChanges();
         }
 
 
-        public void RemoveProduct(Product product)
+        public void RemoveProduct(Products product)
         {
             _context.Products.Remove(product);
             _context.SaveChanges();
@@ -68,7 +71,6 @@ namespace IntexQueensSlay.Models
         }
 
         public void EditCustomer(Customers task)
-        public void EditCustomer(Customer task)
         {
             _context.Update(task);
             _context.SaveChanges();
@@ -83,6 +85,10 @@ namespace IntexQueensSlay.Models
             _context.Update(customer);
         }
 
+        public void RemoveCustomer(Customers customer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

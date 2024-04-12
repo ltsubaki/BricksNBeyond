@@ -388,7 +388,6 @@ namespace IntexQueensSlay.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         //calls the repo pattern method to delete
-        public IActionResult DeleteUser(Customers task)
         public IActionResult RemoveCustomerConfirmed(int id)
         {
             // Retrieve the customer from the database
@@ -405,8 +404,9 @@ namespace IntexQueensSlay.Controllers
 
             // If the customer is not found, return an error view
             return View("Error");
-        //updates the reccord and redirects to view
-        [HttpPost]
+        }
+    //updates the reccord and redirects to view
+    [HttpPost]
         public IActionResult Edituser(Customers updateresponse)
         {
             //update the datebase with the new edits
@@ -441,7 +441,7 @@ namespace IntexQueensSlay.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public IActionResult EditCustomer(int id, Customer customerModel)
+        public IActionResult EditCustomer(int id, Customers customerModel)
         {
             if (HttpContext.Request.Method == "POST")
             {
@@ -483,17 +483,9 @@ namespace IntexQueensSlay.Controllers
             return View(customerModel);
         }
 
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public IActionResult AddCustomer()
-        {
-            return View(new Customer());
-        }
-
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddCustomer(Customer customerModel)
+        public IActionResult AddCustomer(Customers customerModel)
         {
             if (ModelState.IsValid)
             {
@@ -523,3 +515,4 @@ namespace IntexQueensSlay.Controllers
         }
     }
 }
+
