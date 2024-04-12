@@ -96,12 +96,12 @@ namespace IntexQueensSlay.Models
             throw new NotImplementedException();
         }
 
-        public void ClearCart()
-        {
-            //var userCartItems = _context.CartItems;
-            //_context.CartItems.RemoveRange(userCartItems);
-            //_context.SaveChanges();
-        }
+        //public void ClearCart()
+        //{
+        //    var userCartItems = _context.LineItems;
+        //    _context.LineItems.RemoveRange(userCartItems);
+        //    _context.SaveChanges();
+        //}
 
     }
 }

@@ -32,7 +32,7 @@ namespace IntexQueensSlay.Models
 
         void UpdateCustomer(Customers customer);
 
-        void ClearCart();
+        //void ClearCart();
     }
 }
 

@@ -22,9 +22,12 @@ namespace IntexQueensSlay.Controllers
 
         private ISlayRepository _repo;
 
-        public HomeController(ISlayRepository temp)
+        private Cart _cart;
+
+        public HomeController(ISlayRepository temp, Cart cart)
         {
             _repo = temp;
+            _cart = cart;
         }
         [AllowAnonymous]
         public ActionResult Index()
@@ -323,11 +326,12 @@ namespace IntexQueensSlay.Controllers
         }
         [Authorize(Roles = "Customer,Admin")]
 
-        public IActionResult Checkout(Orders order)
+        public IActionResult Checkout(Orders order, Cart cart)
         {
             if (TempData["total"] != null)
             {
                 order.Subtotal = (int?)Convert.ToDecimal(TempData["total"]);
+                TempData["subtotal"] = order.Subtotal;
             }
 
             if (ModelState.IsValid)
@@ -339,6 +343,9 @@ namespace IntexQueensSlay.Controllers
 
                 _repo.AddOrder(order);
                 _repo.SaveChanges();
+
+                cart.Clear();
+
                 return RedirectToAction("OrderConfirmation");
             }
             return View(order);
@@ -573,10 +580,12 @@ namespace IntexQueensSlay.Controllers
             return View(customerModel);
         }
 
+
         [Authorize(Roles = "Customer,Admin")]
         public IActionResult OrderConfirmation()
         {
-            _repo.ClearCart();
+            //_repo.ClearCart();
+            _cart.Clear();
 
             return View();
         }
