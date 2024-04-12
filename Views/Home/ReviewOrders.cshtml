@@ -4,6 +4,12 @@
 @{
 }
 @model IEnumerable<Order>
+
+@{ 
+    var sortedOrders = Model.OrderBy(order => order.TransactionId);
+}
+
+
 <div style="padding: 0 150px">
     <header class="bg py-3" style="background-color: #F2CD37; color: black; border: 1px solid black;">
         <div class="container px-4 px-lg-5 my-3">
@@ -54,7 +60,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in sortedOrders)
             {
                 if (item.Fraud == 1)
                 {
@@ -99,7 +105,7 @@
                             @Html.DisplayFor(modelItem => item.Fraud)
                         </td> *@
                         <td>
-                            <a asp-action="ReviewOrderConfirmation" asp-route-id="@item.TransactionId" class="btn red-button">REVIEWED</a>
+                            <a asp-action="ReviewOrderConfirmation" asp-route-id="@item.TransactionId" class="btn red-button">MARK AS NOT FRAUD</a>
     @*                         <a asp-controller="Home" asp-route-id="@item.TransactionId" class="btn red-button mt-auto" style="margin-left: 10px">REVIEWED</a>
      *@                 </td>
                     </tr>
