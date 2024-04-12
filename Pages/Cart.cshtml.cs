@@ -28,7 +28,7 @@ namespace IntexQueensSlay.Pages
 
         public IActionResult OnPost(long productId, string returnUrl)
         {
-            Product? product = repository.Products
+            Products? product = repository.Products
                 .FirstOrDefault(p => p.ProductId == productId);
             if (product != null)
             {
@@ -43,6 +43,11 @@ namespace IntexQueensSlay.Pages
         {
             Cart.RemoveLine(Cart.Lines.First(cl => cl.Product.ProductId == productId).Product);
             return RedirectToPage(new { returnUrl = returnUrl });
+        }
+
+        public void Clear()
+        {
+            Cart.Lines.Clear();
         }
     }
 }

@@ -41,13 +41,39 @@ namespace IntexQueensSlay.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            if (!HasCookieConsent())
+            if (User.IsInRole("Customer"))
             {
-                ViewBag.ShowConsentBanner = true;
+                // Bundling up multiple models to pass!
+                var blah2 = new ProductListViewModel
+                {
+                    Products = _repo.Products
+                    .Where(x => (x.ProductId == 17 || x.ProductId == 9 || x.ProductId == 16))
+                };
+                if (!HasCookieConsent())
+                {
+
+                    ViewBag.ShowConsentBanner = true;
+                }
+                return View(blah2);
             }
-            return View();
+            else //if customer (admin is not relevent)
+            {
+                var blah2 = new ProductListViewModel
+                {
+                    Products = _repo.Products
+                    .Where(x => (x.ProductId == 23 || x.ProductId == 19 || x.ProductId == 21))
+                };
+                if (!HasCookieConsent())
+                {
+
+                    ViewBag.ShowConsentBanner = true;
+                }
+                return View(blah2);
+
+            }
+
         }
-        
+
         private bool HasCookieConsent()
         {
             if (Request.Cookies["cookieConsent"] != null)
@@ -66,28 +92,36 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-        [AllowAnonymous]
         public IActionResult Products(int pageNum, string? allCat, string? allColor, int pageSize = 15)
         {
+            // Ensure pageNum is always greater than or equal to 1
+            pageNum = Math.Max(pageNum, 1);
+
+            // Ensure pageSize is within the range of 5 to 20
             pageSize = Math.Clamp(pageSize, 5, 20);
+
+            // Calculate the skip count using pageNum and pageSize
+            int skipCount = (pageNum - 1) * pageSize;
 
             // Bundling up multiple models to pass!
             var blah = new ProductListViewModel
             {
                 Products = _repo.Products
-                    .Where(x => (x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat || allCat == null) && (x.PrimaryColor == allColor || x.SecondaryColor == allColor || allColor == null))
+                    .Where(x => (x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat || allCat == null) &&
+                                (x.PrimaryColor == allColor || x.SecondaryColor == allColor || allColor == null))
                     .OrderBy(x => x.Name)
-                    .Skip((pageNum - 1) * pageSize)
+                    .Skip(skipCount)
                     .Take(pageSize),
 
                 PaginationInfo = new PaginationInfo
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = (allCat == null && allColor == null) ? _repo.Products.Count() :
-                         (allCat != null && allColor == null) ? _repo.Products.Where(x => x.Category1 == allColor || x.Category2 == allColor || x.Category3 == allColor).Count() :
-                         (allCat == null && allColor != null) ? _repo.Products.Where(x => x.PrimaryColor == allColor || x.SecondaryColor == allColor).Count() :
-                         _repo.Products.Where(x => x.Category1 == allCat && (x.PrimaryColor == allColor || x.SecondaryColor == allColor)).Count()
+                    TotalItems = _repo.Products
+                        .Where(x => (allCat == null || x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat) &&
+                                    (allColor == null || x.PrimaryColor == allColor || x.SecondaryColor == allColor))
+                        .Count()
+
                 },
 
                 CurrentAllCat = allCat,
@@ -129,7 +163,7 @@ namespace IntexQueensSlay.Controllers
             return View(productData);
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult EditProduct(int id, Product productModel)
+        public IActionResult EditProduct(int id, Products productModel)
         {
             if (HttpContext.Request.Method == "POST")
             {
@@ -172,6 +206,25 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AddAdminConfirm()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditAdminConfirm()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult RemoveAdminConfirm()
+        {
+            return View();
+        }
+
 
         //[Authorize(Roles = "Admin")]
         //public IActionResult RemoveProduct(int id)
@@ -227,13 +280,13 @@ namespace IntexQueensSlay.Controllers
         [HttpGet]
         public IActionResult AddProduct()
         {
-            return View(new Product());
+            return View(new Products());
         }
 
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddProduct(Product productModel)
+        public IActionResult AddProduct(Products productModel)
         {
             if (ModelState.IsValid)
             {
@@ -249,6 +302,32 @@ namespace IntexQueensSlay.Controllers
             return View(productModel);
         }
 
+        //[Authorize(Roles = "Admin")]
+        //[HttpGet]
+        //public IActionResult AddCustomer()
+        //{
+        //    return View(new Product());
+        //}
+
+
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost]
+        //public IActionResult AddCustomer(Product productModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Add the product to the database
+        //        _repo.AddProduct(productModel);
+        //        _repo.SaveChanges();
+
+        //        // Redirect to a confirmation page
+        //        return RedirectToAction("AddConfirmation");
+        //    }
+
+        //    // If the model state is not valid, return the form
+        //    return View(productModel);
+        //}
+
         [Authorize(Roles = "Admin")]
         public IActionResult RemoveConfirmation()
         {
@@ -256,10 +335,87 @@ namespace IntexQueensSlay.Controllers
         }
         [Authorize(Roles = "Customer,Admin")]
 
-        public IActionResult OrderConfirmation()
+        public IActionResult Checkout(Orders order)
+        {
+            if (TempData["total"] != null)
+            {
+                order.Subtotal = (int?)Convert.ToDecimal(TempData["total"]);
+            }
+
+            if (ModelState.IsValid)
+            {
+                var now = DateTime.Now;
+                order.Date = now.ToString("MM/dd/yyyy"); // Convert DateTime to string in "MM/dd/yyyy" format
+                order.WeekDay = now.DayOfWeek.ToString();
+                order.Time = now.Hour; // Get the hour in military time
+
+                _repo.AddOrder(order);
+                _repo.SaveChanges();
+                return RedirectToAction("OrderConfirmation");
+            }
+            return View(order);
+        }
+
+
+        //public IActionResult Checkout(Orders order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var now = DateTime.Now;
+        //        order.Date = now.ToString("yyyy-MM-dd"); // Convert DateTime to string
+        //        order.WeekDay = now.DayOfWeek.ToString();
+        //        order.Time = now.Hour * 3600 + now.Minute * 60 + now.Second; // Convert TimeSpan to int
+
+        //        _repo.AddOrder(order);
+        //        _repo.SaveChanges();
+        //        return RedirectToAction("OrderConfirmation");
+        //    }
+        //    return View(order);
+        //}
+
+
+        public IActionResult ReviewOrderConfirmation(int id)
+        {
+            var order = _repo.GetOrderById(id);
+            if (order != null)
+            {
+                order.Fraud = 0;
+                _repo.SaveChanges();
+            }
+            return RedirectToAction("ReviewOrders");
+        }
+
+
+        [HttpPost]
+        public IActionResult ReviewOrderDone()
         {
             return View();
         }
+
+
+
+        //[HttpPost]
+        //public IActionResult ReviewOrderDone(int id, int fraud)
+        //{
+        //    // Retrieve the order using the id
+        //    var order = _repo.GetOrderById(id);
+
+        //    // Check if the order exists
+        //    if (order == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    // Update the fraud status
+        //    order.Fraud = fraud;
+
+        //    // Save changes
+        //    _repo.SaveChanges();
+
+        //    // Redirect to the ReviewOrderDone view
+        //    return View("ReviewOrderDone");
+        //}
+
 
         public IActionResult AddConfirmation()
         {
@@ -288,43 +444,46 @@ namespace IntexQueensSlay.Controllers
 
         //    }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult DeleteUser(int id)
+        public IActionResult RemoveCustomer(int id)
         {
-            //delete the record by ID num
-            var recordToDelete = _repo.Customers
-                .Single(x => x.CustomerId == id);
+            // Retrieve the customer from the database
+            var customer = _repo.GetCustomerById(id);
 
-            return View(recordToDelete);
+            if (customer == null)
+            {
+                // If the customer is not found, return an error view
+                return View("Error");
+            }
+
+            // Pass the customer to the view
+            return View(customer);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         //calls the repo pattern method to delete
-        public IActionResult DeleteUser(Customer task)
+        public IActionResult RemoveCustomerConfirmed(int id)
         {
-            var recordToDelete = _repo.Customers
-                .Single(x => x.CustomerId == task.CustomerId);
-            //actually delete it
-            _repo.DeleteCustomer(recordToDelete);
-            //goes back to quadrant views
-            return RedirectToAction("ManageAccounts");
+            // Retrieve the customer from the database
+            var customer = _repo.GetCustomerById(id);
+
+            if (customer != null)
+            {
+                // Remove the customer from the database
+                _repo.RemoveCustomer(customer);
+
+                // Redirect to a confirmation page
+                return RedirectToAction("RemoveAdminConfirm");
+            }
+
+            // If the customer is not found, return an error view
+            return View("Error");
         }
-
-        [HttpGet]
-        public IActionResult EditUser(int id)
-
-        {
-            var recordToEdit = _repo.Customers
-                .Single(x => x.CustomerId == id);
-
-            //ViewBag.Category = _repo.Category
-            //    .OrderBy(x => x.CategoryName)
-            //    .ToList();
-            return View("AddCustomer", recordToEdit);
-        }
-
-        //updates the reccord and redirects to view
-        [HttpPost]
-        public IActionResult Edituser(Customer updateresponse)
+    //updates the reccord and redirects to view
+    [HttpPost]
+        public IActionResult Edituser(Customers updateresponse)
         {
             //update the datebase with the new edits
             _repo.EditCustomer(updateresponse);
@@ -332,20 +491,46 @@ namespace IntexQueensSlay.Controllers
             return RedirectToAction("ManageAccounts");
         }
 
-        public IActionResult AddCustomer(int id, Customer customerModel)
+
+        //[HttpGet]
+        //public IActionResult EditUser(int id)
+
+        //{
+        //    var recordToEdit = _repo.Customers
+        //        .Single(x => x.CustomerId == id);
+
+        //    //ViewBag.Category = _repo.Category
+        //    //    .OrderBy(x => x.CategoryName)
+        //    //    .ToList();
+        //    return View("AddCustomer", recordToEdit);
+        //}
+
+        ////updates the reccord and redirects to view
+        //[HttpPost]
+        //public IActionResult Edituser(Customer updateresponse)
+        //{
+        //    //update the datebase with the new edits
+        //    _repo.EditCustomer(updateresponse);
+        //    //return to view
+        //    return RedirectToAction("ManageAccounts");
+        //}
+
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditCustomer(int id, Customers customerModel)
         {
             if (HttpContext.Request.Method == "POST")
             {
                 if (ModelState.IsValid)
                 {
-                    // Retrieve the product from the database
+                    // Retrieve the customer from the database
                     var customer = _repo.GetCustomerById(id);
                     if (customer == null)
                     {
                         return NotFound();
                     }
 
-                    // Update the product with the values from the form
+                    // Update the customer with the values from the form
                     customer.FirstName = customerModel.FirstName;
                     customer.LastName = customerModel.LastName;
                     customer.BirthDate = customerModel.BirthDate;
@@ -354,12 +539,12 @@ namespace IntexQueensSlay.Controllers
                     customer.Age = customerModel.Age;
                     // ... Update the rest of the properties ...
 
-                    // Update the product in the database
+                    // Update the customer in the database
                     _repo.UpdateCustomer(customer);
                     _repo.SaveChanges();
 
                     // Redirect to a confirmation page
-                    return RedirectToAction("EditConfirmation");
+                    return RedirectToAction("EditAdminConfirm");
                 }
             }
             else
@@ -368,12 +553,21 @@ namespace IntexQueensSlay.Controllers
                 if (customerModel == null)
                 {
                     return NotFound();
-                } 
+                }
             }
 
             return View(customerModel);
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult AddCustomer(Customers customerModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Add the new customer to the database
+                _repo.AddCustomer(customerModel);
+                _repo.SaveChanges();
         [Authorize(Roles = "Customer,Admin")]
         public IActionResult Checkout()
         {
@@ -423,7 +617,13 @@ namespace IntexQueensSlay.Controllers
         {
             NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
         };
+                // Redirect to a confirmation page
+                return RedirectToAction("AddAdminConfirm");
+            }
 
+            // If the model state is not valid, return the form
+            return View(customerModel);
+        }
                 string predictionResult;
                 using (var results = _session.Run(inputs))
                 {
@@ -431,6 +631,13 @@ namespace IntexQueensSlay.Controllers
                     var outputLabelName = "output_label"; // Replace with the actual name
                     var prediction = results.FirstOrDefault(item => item.Name == outputLabelName)?.AsTensor<long>().ToArray();
 
+        [Authorize(Roles = "Customer,Admin")]
+        public IActionResult OrderConfirmation()
+        {
+            _repo.ClearCart();
+
+            return View();
+        }
                     if (prediction != null && prediction.Length > 0)
                     {
                         if (prediction[0] == 0) // Check if the prediction is 0
@@ -457,3 +664,4 @@ namespace IntexQueensSlay.Controllers
 
     }
 }
+

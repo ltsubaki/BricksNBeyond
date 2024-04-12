@@ -5,27 +5,34 @@ namespace IntexQueensSlay.Models
 {
     public interface ISlayRepository
     {
-        public IQueryable<Customer> Customers { get; }
-        public IQueryable<Product> Products { get; }
-        public IQueryable<LineItem> LineItems { get; }
-        public IQueryable<Order> Orders { get; }
+        public IQueryable<Customers> Customers { get; }
+        public IQueryable<Products> Products { get; }
+        public IQueryable<LineItems> LineItems { get; }
+        public IQueryable<Orders> Orders { get; }
         public IQueryable<AspNetUsers> AspNetUserss { get; }
 
-        Product GetProductById(int id);
-        void AddProduct(Product product);
+        Products GetProductById(int id);
+        void AddProduct(Products product);
 
-        void RemoveProduct(Product product);
+        void RemoveProduct(Products product);
 
-
-        void Update(Product product);
+        void RemoveCustomer(Customers customer);
+   
+        void Update(Products product);
         void SaveChanges();
 
-        public void AddCustomer(Customer task);
-        public void DeleteCustomer(Customer task);
-        public void EditCustomer(Customer task);
+        public void AddCustomer(Customers task);
+        public void AddOrder(Orders order);
 
-        Customer GetCustomerById(int id);
-        void UpdateCustomer(Customer customer);
+        public void EditCustomer(Customers task);
+
+        Customers GetCustomerById(int id);
+
+        Orders GetOrderById(int id);
+
+        void UpdateCustomer(Customers customer);
+
+        void ClearCart();
     }
 }
 

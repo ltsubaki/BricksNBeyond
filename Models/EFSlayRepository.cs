@@ -12,17 +12,23 @@ namespace IntexQueensSlay.Models
             _context = temp;
         }
 
-        public IQueryable<Customer> Customers => _context.Customers;
-        public IQueryable<Product> Products => _context.Products;
-        public IQueryable<LineItem> LineItems => _context.LineItems;
-        public IQueryable<Order> Orders => _context.Orders;
-        public IQueryable<AspNetUsers> AspNetUserss => _context.AspNetUserss;
+        public IQueryable<Customers> Customers => _context.Customers;
+        public IQueryable<Products> Products => _context.Products;
+        public IQueryable<LineItems> LineItems => _context.LineItems;
+        public IQueryable<Orders> Orders => _context.Orders;
 
-        public Product GetProductById(int id)
+        public IQueryable<AspNetUsers> AspNetUserss => throw new NotImplementedException();
+
+        public Products GetProductById(int id)
         {
             return _context.Products.Find(id);
-        }    
-            public void Update(Product product)
+        }
+
+        public Orders ? GetOrderById(int id)
+        {
+            return _context.Orders.Find(id);
+        }
+        public void Update(Products product)
         {
             _context.Update(product);
         }
@@ -32,43 +38,69 @@ namespace IntexQueensSlay.Models
             _context.SaveChanges();
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(Products product)
         {
             _context.Products.Add(product);
             _context.SaveChanges();
         }
 
-        public void RemoveProduct(Product product)
+        public void AddOrder(Orders order)
+        {
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+        }
+
+        public void 
+            Customer(Customers customer)
+        {
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+        }
+
+
+        public void RemoveProduct(Products product)
         {
             _context.Products.Remove(product);
             _context.SaveChanges();
         }
 
-        public void AddCustomer(Customer task)
+        public void AddCustomer(Customers task)
         {
             _context.Add(task);
             _context.SaveChanges();
         }
 
-        public void DeleteCustomer(Customer task)
+        public void DeleteCustomer(Customers task)
         {
             _context.Remove(task);
             _context.SaveChanges();
         }
 
-        public void EditCustomer(Customer task)
+        public void EditCustomer(Customers task)
         {
             _context.Update(task);
             _context.SaveChanges();
         }
 
-        public Customer GetCustomerById(int id)
+        public Customers GetCustomerById(int id)
         {
             return _context.Customers.Find(id);
         }
-        public void UpdateCustomer(Customer customer)
+        public void UpdateCustomer(Customers customer)
         {
             _context.Update(customer);
+        }
+
+        public void RemoveCustomer(Customers customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ClearCart()
+        {
+            //var userCartItems = _context.CartItems;
+            //_context.CartItems.RemoveRange(userCartItems);
+            //_context.SaveChanges();
         }
 
     }

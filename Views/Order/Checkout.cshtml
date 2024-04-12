@@ -1,47 +1,4 @@
-﻿@* @model Order
-
-<h2>Check out now</h2>
-<p>Please enter your details, and we'll ship your goods right away!</p>
-
-<form asp-action="Checkout" method="post">
-    <input type="hidden" asp-for="TransactionId" />
-    <input type="hidden" asp-for="CustomerId" />
-
-    <h3>Ship to</h3>
-    <div class="form-group">
-        <label>Transaction Type:</label>  
-        <input asp-for="TransactionType" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Transaction Country:</label>
-        <input asp-for="TransCountry" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Shipping Address:</label>
-        <input asp-for="ShippingAddress" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Bank:</label>
-        <input asp-for="Bank" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>CardType:</label>
-        <input asp-for="CardType" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Subtotal:</label>
-        <input asp-for="Subtotal" class="form-control" />
-    </div>
-    <br /><br />
-    <div class="text-center">
-        <a class="btn btn-primary" asp-controller="Home" asp-action="OrderConfirmation">Place Order</a>
-    </div>
-</form>
-
- *@
-
-@model Order
+﻿@model Orders
 
 <div style="padding: 0 150px">
     <div style="text-align: center">
@@ -51,18 +8,27 @@
     <br />
 
     <form asp-action="Checkout" method="post">
-        <input type="hidden" asp-for="TransactionId" />
+  @*       <input type="hidden" asp-for="TransactionId" />
         <input type="hidden" asp-for="CustomerId" />
+     
+        <input type="hidden" asp-for="EntryMode" />
+        <input type="hidden" asp-for="Fraud" />
+
+ *@
 
         <table class="table table-bordered table-striped">
             <tbody>
                 <tr>
                     <td><label>Transaction Type:</label></td>
-                    <td><input asp-for="TransactionType" class="form-control" /></td>
+                    <td><input asp-for="TransactionType" class="form-control" value="Online" readonly /></td>
+                </tr>
+                <tr>
+                    <td><label>Entry Mode:</label></td>
+                    <td><input asp-for="EntryMode" class="form-control" value="CVC" readonly /></td>
                 </tr>
                 <tr>
                     <td><label>Transaction Country:</label></td>
-                    <td><input asp-for="TransCountry" class="form-control" /></td>
+                    <td><input asp-for="Trans_Country" class="form-control" /></td>
                 </tr>
                 <tr>
                     <td><label>Shipping Address:</label></td>
@@ -72,17 +38,22 @@
                     <td><label>Bank:</label></td>
                     <td><input asp-for="Bank" class="form-control" /></td>
                 </tr>
-                <tr>
                     <td><label>CardType:</label></td>
-                    <td><input asp-for="CardType" class="form-control" /></td>
-                </tr>
+                    <td>
+                    <select asp-for="CardType" class="form-control">
+                        <option value="">Select Option</option>
+                        <option value="MasterCard">MasterCard</option>
+                        <option value="Visa">Visa</option>
+                    </select>
+                    </td>
                 <tr>
                     <td><label>Subtotal:</label></td>
-                    <td><input asp-for="Subtotal" class="form-control" /></td>
+                    <td><input asp-for="Subtotal" class="form-control" readonly/></td>
                 </tr>
             </tbody>
         </table>
         <br /><br />
+
         <div class="text-center">
             <a class="btn blue-button" asp-page="/Cart" style="margin-right: 10px">Back to Cart</a>
             <a class="btn red-button" asp-controller="Home" asp-action="OrderConfirmation">Place Order</a>
@@ -90,3 +61,4 @@
     </form>
 
 </div>
+
