@@ -90,7 +90,7 @@
                             @Html.DisplayFor(modelItem => item.TransactionType)
                         </td>
                          <td>
-                            @Html.DisplayFor(modelItem => item.TransCountry)
+                            @Html.DisplayFor(modelItem => item.Trans_Country)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ShippingAddress)
@@ -105,7 +105,7 @@
                             @Html.DisplayFor(modelItem => item.Fraud)
                         </td> *@
                         <td>
-                            <a asp-action="ReviewOrderConfirmation" asp-route-id="@item.TransactionId" class="btn red-button">MARK AS NOT FRAUD</a>
+                            <a asp-action="ReviewOrderConfirmation" asp-route-id="@item.TransactionId" class="btn red-button">NOT FRAUDULENT</a>
     @*                         <a asp-controller="Home" asp-route-id="@item.TransactionId" class="btn red-button mt-auto" style="margin-left: 10px">REVIEWED</a>
      *@                 </td>
                     </tr>
