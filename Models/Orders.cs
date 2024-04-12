@@ -21,7 +21,7 @@ namespace IntexQueensSlay.Models
 
         public string? TransactionType { get; set; }
 
-        public string? TransCountry { get; set; }
+        public string? Trans_Country { get; set; }
 
         public string? ShippingAddress { get; set; }
 

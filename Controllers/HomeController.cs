@@ -302,29 +302,19 @@ namespace IntexQueensSlay.Controllers
             return View();
         }
 
-        public IActionResult ReviewOrderConfirmation(int id, int fraud)
+
+
+        public IActionResult ReviewOrderConfirmation(int id)
         {
-
-            // Retrieve the order using the id
             var order = _repo.GetOrderById(id);
-
-            // Check if the order exists
-            if (order == null)
+            if (order != null)
             {
-                return NotFound();
+                order.Fraud = 0;
+                _repo.SaveChanges();
             }
-
-            // Update the fraud status
-            order.Fraud = fraud;
-
-            // Save changes
-            _repo.SaveChanges();
-
-            // Redirect to the ReviewOrderDone view
-            return View("ReviewOrderConfirmation");
-
-      
+            return RedirectToAction("ReviewOrders");
         }
+
 
         [HttpPost]
         public IActionResult ReviewOrderDone()
