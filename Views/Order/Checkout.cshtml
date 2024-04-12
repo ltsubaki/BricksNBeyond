@@ -7,60 +7,51 @@
     </div>
     <br />
 
+<div class="mx-auto w-75">
     <form asp-action="Checkout" method="post">
-  @*       <input type="hidden" asp-for="TransactionId" />
-        <input type="hidden" asp-for="CustomerId" />
-     
-        <input type="hidden" asp-for="EntryMode" />
-        <input type="hidden" asp-for="Fraud" />
+        @* <div class="form-group">
+            <label asp-for="TransactionType" class="control-label">Transaction Type:</label>
+            <input asp-for="TransactionType" class="form-control" value="Online" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="EntryMode" class="control-label">Entry Mode:</label>
+            <input asp-for="EntryMode" class="form-control" value="CVC" readonly />
+        </div> *@
+        <div class="form-group">
+            <label asp-for="ShippingAddress" class="control-label">Shipping Address:</label>
+            <input asp-for="ShippingAddress" class="form-control" />
+        </div>
+            <div class="form-group">
+                <label asp-for="Trans_Country" class="control-label">Country:</label>
+                <input asp-for="Trans_Country" class="form-control" />
+            </div>
+        <div class="form-group">
+            <label asp-for="Bank" class="control-label">Bank:</label>
+            <input asp-for="Bank" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CardType" class="control-label">CardType:</label>
+            <select asp-for="CardType" class="form-control">
+                <option value="">Select Option</option>
+                <option value="MasterCard">MasterCard</option>
+                <option value="Visa">Visa</option>
+            </select>
+        </div>
 
- *@
-
-        <table class="table table-bordered table-striped">
-            <tbody>
-                <input asp-for="CustomerId" type="hidden">
-
-                <tr>
-                    <td><label>Transaction Type:</label></td>
-                    <td><input asp-for="TransactionType" class="form-control" value="Online" readonly /></td>
-                </tr>
-                <tr>
-                    <td><label>Entry Mode:</label></td>
-                    <td><input asp-for="EntryMode" class="form-control" value="CVC" readonly /></td>
-                </tr>
-                <tr>
-                    <td><label>Transaction Country:</label></td>
-                    <td><input asp-for="Trans_Country" class="form-control" /></td>
-                </tr>
-                <tr>
-                    <td><label>Shipping Address:</label></td>
-                    <td><input asp-for="ShippingAddress" class="form-control" /></td>
-                </tr>
-                <tr>
-                    <td><label>Bank:</label></td>
-                    <td><input asp-for="Bank" class="form-control" /></td>
-                </tr>
-                    <td><label>CardType:</label></td>
-                    <td>
-                    <select asp-for="CardType" class="form-control">
-                        <option value="">Select Option</option>
-                        <option value="MasterCard">MasterCard</option>
-                        <option value="Visa">Visa</option>
-                    </select>
-                    </td>
-                <tr>
-                    <td><label>Subtotal:</label></td>
-                    <td><input asp-for="Subtotal" class="form-control" readonly/></td>
-                </tr>
-            </tbody>
-        </table>
+@*             <div class="form-group">
+                <label asp-for="Subtotal" class="control-label">Subtotal:</label>
+                <input class="form-control" readonly value="@Model.Subtotal" />
+            </div> *@
+        
         <br /><br />
 
-        <div class="text-center">
+        <div class="form-group text-center">
             <a class="btn blue-button" asp-page="/Cart" style="margin-right: 10px">Back to Cart</a>
             <a class="btn red-button" asp-controller="Home" asp-action="OrderConfirmation">Place Order</a>
         </div>
     </form>
+</div>
+
 
 </div>
 
