@@ -1,7 +1,10 @@
-﻿namespace IntexQueensSlay.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace IntexQueensSlay.Models
 {
-    public partial class Order
+    public partial class Orders
     {
+        [Key]
         public int TransactionId { get; set; }
 
         public int? CustomerId { get; set; }
@@ -14,7 +17,7 @@
 
         public string? EntryMode { get; set; }
 
-        public double? Subtotal { get; set; }
+        public int? Subtotal { get; set; }
 
         public string? TransactionType { get; set; }
 

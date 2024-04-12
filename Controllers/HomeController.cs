@@ -54,28 +54,36 @@ namespace IntexQueensSlay.Controllers
         {
             return View();
         }
-        [AllowAnonymous]
         public IActionResult Products(int pageNum, string? allCat, string? allColor, int pageSize = 15)
         {
+            // Ensure pageNum is always greater than or equal to 1
+            pageNum = Math.Max(pageNum, 1);
+
+            // Ensure pageSize is within the range of 5 to 20
             pageSize = Math.Clamp(pageSize, 5, 20);
+
+            // Calculate the skip count using pageNum and pageSize
+            int skipCount = (pageNum - 1) * pageSize;
 
             // Bundling up multiple models to pass!
             var blah = new ProductListViewModel
             {
                 Products = _repo.Products
-                    .Where(x => (x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat || allCat == null) && (x.PrimaryColor == allColor || x.SecondaryColor == allColor || allColor == null))
+                    .Where(x => (x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat || allCat == null) &&
+                                (x.PrimaryColor == allColor || x.SecondaryColor == allColor || allColor == null))
                     .OrderBy(x => x.Name)
-                    .Skip((pageNum - 1) * pageSize)
+                    .Skip(skipCount)
                     .Take(pageSize),
 
                 PaginationInfo = new PaginationInfo
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = (allCat == null && allColor == null) ? _repo.Products.Count() :
-                         (allCat != null && allColor == null) ? _repo.Products.Where(x => x.Category1 == allColor || x.Category2 == allColor || x.Category3 == allColor).Count() :
-                         (allCat == null && allColor != null) ? _repo.Products.Where(x => x.PrimaryColor == allColor || x.SecondaryColor == allColor).Count() :
-                         _repo.Products.Where(x => x.Category1 == allCat && (x.PrimaryColor == allColor || x.SecondaryColor == allColor)).Count()
+                    TotalItems = _repo.Products
+                        .Where(x => (allCat == null || x.Category1 == allCat || x.Category2 == allCat || x.Category3 == allCat) &&
+                                    (allColor == null || x.PrimaryColor == allColor || x.SecondaryColor == allColor))
+                        .Count()
+
                 },
 
                 CurrentAllCat = allCat,
@@ -396,7 +404,6 @@ namespace IntexQueensSlay.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         //calls the repo pattern method to delete
-        public IActionResult DeleteUser(Customers task)
         public IActionResult RemoveCustomerConfirmed(int id)
         {
             // Retrieve the customer from the database
@@ -413,8 +420,9 @@ namespace IntexQueensSlay.Controllers
 
             // If the customer is not found, return an error view
             return View("Error");
-        //updates the reccord and redirects to view
-        [HttpPost]
+        }
+    //updates the reccord and redirects to view
+    [HttpPost]
         public IActionResult Edituser(Customers updateresponse)
         {
             //update the datebase with the new edits
@@ -449,7 +457,7 @@ namespace IntexQueensSlay.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public IActionResult EditCustomer(int id, Customer customerModel)
+        public IActionResult EditCustomer(int id, Customers customerModel)
         {
             if (HttpContext.Request.Method == "POST")
             {
@@ -491,17 +499,9 @@ namespace IntexQueensSlay.Controllers
             return View(customerModel);
         }
 
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public IActionResult AddCustomer()
-        {
-            return View(new Customer());
-        }
-
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddCustomer(Customer customerModel)
+        public IActionResult AddCustomer(Customers customerModel)
         {
             if (ModelState.IsValid)
             {
@@ -531,3 +531,4 @@ namespace IntexQueensSlay.Controllers
         }
     }
 }
+
