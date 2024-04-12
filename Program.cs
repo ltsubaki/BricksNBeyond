@@ -20,12 +20,12 @@ namespace IntexQueensSlay
             var connectionStringLego = builder.Configuration.GetConnectionString("LegoConnection") ?? throw new InvalidOperationException("Connection string 'LegoConnection' not found.");
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlite(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDbContext<LegoContext>(options =>
             {
-                options.UseSqlServer(connectionStringLego);
+                options.UseSqlite(connectionStringLego);
             });
 
 
