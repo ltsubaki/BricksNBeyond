@@ -392,87 +392,68 @@ namespace IntexQueensSlay.Controllers
                 .OrderByDescending(o => o.Date)
                 .Take(20)
                 .ToList(); //fetch the 20 most recent records
+
+            if (records.Count == 0)
+            {
+                // Handle the case where there are no records, for example, return an empty view
+                return View(new List<OrderPredictions>());
+            }
+
             var predictions = new List<OrderPredictions>(); //your ViewModel for the view
 
             //Dictionary mapping the numeric prediction to a fraud type
             var class_type_dict = new Dictionary<int, string>
-                    {
-                        {0, "Not Fraud" },
-                        {1, "Fraud" }
-                    };
+    {
+        {0, "Not Fraud" },
+        {1, "Fraud" }
+    };
 
-                    foreach (var record in records)
-                    {
-                        // calculate days since Jan 1, 2022
-                       // var daysSinceJan12022 = 0;
-                       // if (!string.IsNullOrEmpty(record.Date))
-                       // {
-                        //    var date = DateTime.Parse(record.Date);
-                        //    var january1_2022 = new DateTime(2022, 1, 1);
-                        //    daysSinceJan12022 = Math.Abs((date - january1_2022).Days);
-                      //  }
-
-
-                        //preprocess features to make them compatible with model
-                        //preprocess features to make them compatible with model
-                        // Update the input tensor creation to include 'time' and 'daysSinceJan12022'
-                    var input = new List<int>
-                    {
-                        (int)record.CustomerId,
-                      //  (float)record.Time,
-                        (int)(record.Subtotal ?? 0),
-                       //daysSinceJan12022,
-                       // record.WeekDay == "Mon" ? 1 : 0,
-                       // record.WeekDay == "Sat" ? 1 : 0,
-                       // record.WeekDay == "Sun" ? 1 : 0,
-                        //record.WeekDay == "Thu" ? 1 : 0,
-                        //record.WeekDay == "Tue" ? 1 : 0,
-                        //record.WeekDay == "Wed" ? 1 : 0,
-                        //record.WeekDay == "Fri" ? 1 : 0,
-                     // record.EntryMode == "Pin" ? 1 : 0,
-                     // record.EntryMode == "Tap" ? 1 : 0,
-                     // record.TransactionType == "Online" ? 1 : 0,
-                     // record.TransactionType == "POS" ? 1 : 0,
-                     // record.TransCountry == "India" ? 1 : 0,
-                     // record.TransCountry == "Russia" ? 1 : 0,
-                     // record.TransCountry == "USA" ? 1 : 0,
-                     // record.TransCountry == "UnitedKingdon" ? 1 : 0,
-                    //  (record.ShippingAddress ?? record.TransCountry) == "India" ? 1 : 0,
-                    //  (record.ShippingAddress ?? record.TransCountry) == "Russia" ? 1 : 0,
-                    //  (record.ShippingAddress ?? record.TransCountry) == "USA" ? 1 : 0,
-                     // (record.ShippingAddress ?? record.TransCountry) == "UnitedKingdom" ? 1 : 0,
-                     // record.Bank == "HSBC" ? 1 : 0,
-                     // record.Bank == "Halifax" ? 1 : 0,
-                     // record.Bank == "Lloyds" ? 1 : 0,
-                     // record.Bank == "Metro" ? 1 : 0,
-                     // record.Bank == "Monzo" ? 1 : 0,
-                     // record.Bank == "RBS" ? 1 : 0,
-                     // record.CardType == "Visa" ? 1 : 0,
-                    };
+            foreach (var record in records)
+            {
+                var input = new List<float>
+        {
+            (float)record.CustomerId,
+            (float)(record.Subtotal ?? 0),
+        };
 
                 // Update the inputTensor creation to reflect the new input list
-                // Update the inputTensor creation to reflect the new input list
-                var inputTensor = new DenseTensor<int>(input.ToArray(), new[] { 1, 2 }); // Adjust the second dimension to match the number of features
+                var inputTensor = new DenseTensor<float>(input.ToArray(), new[] { 1, 2 }); // Adjust the second dimension to match the number of features
 
                 var inputs = new List<NamedOnnxValue>
-                {
-                    NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
-                };
+        {
+            NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
+        };
 
                 string predictionResult;
                 using (var results = _session.Run(inputs))
                 {
-                    var prediction = results.FirstOrDefault(item => item.Name == "output_label")?.AsTensor<long>().ToArray();
-                    predictionResult = prediction != null && prediction.Length > 0 ? class_type_dict.GetValueOrDefault((int)prediction[0], "Unknown") : "Error in prediction";
+                    // Replace "output_label" with the actual output label name from your ONNX model
+                    var outputLabelName = "output_label"; // Replace with the actual name
+                    var prediction = results.FirstOrDefault(item => item.Name == outputLabelName)?.AsTensor<long>().ToArray();
+
+                    if (prediction != null && prediction.Length > 0)
+                    {
+                        if (prediction[0] == 0) // Check if the prediction is 0
+                        {
+                            predictionResult = "Legitimate"; // Set the prediction result to "Legitimate"
+                        }
+                        else
+                        {
+                            predictionResult = class_type_dict.GetValueOrDefault((int)prediction[0], "Unknown");
+                        }
+                    }
+                    else
+                    {
+                        predictionResult = "Check for Fraud!";
+                    }
                 }
-
-
 
                 predictions.Add(new OrderPredictions { Orders = record, Predictions = predictionResult }); // Adds the animal information and prediction for that animal to AnimalPrediction viewmodel
             }
 
             return View(predictions);
         }
+
 
     }
 }
