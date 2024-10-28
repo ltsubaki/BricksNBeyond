@@ -9,6 +9,8 @@ We also implemented basic security features, including role-based authentication
 Aurora also wanted our website to display recommendations based on previous purchases a customer made, or general recommendations if it was a new user.
 We processed purchasing data through an MLR pipeline to create recommendations for individual users to hopefully increase sales.
 
+See our proposal here: https://docs.google.com/presentation/d/1JVvTI80vP2HBaCusF77IDKO0CLfjudHNj43I1LfK7c0/edit?usp=sharing
+
 ## Features
 - Basic security features: role-based authentication, dual-factor authentication, third-party authentication, and cookies
 - Potential order fraud detection and admin ability to sort through these
